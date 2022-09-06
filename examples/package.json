@@ -1,5 +1,6 @@
 {
   "name": "react-three-texture-examples",
+  "author": "Jorg Nieberg",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
