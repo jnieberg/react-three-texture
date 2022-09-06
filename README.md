@@ -11,13 +11,13 @@ The Texture Tinker Tool is a fast, powerful, elegant and dynamic texture editor,
 ## Installation
 
 ```
-npm install react-three-texture
+npm install @react-three/texture
 ```
 
 ...or...
 
 ```
-yarn add react-three-texture
+yarn add @react-three/texture
 ```
 
 ## Prerequisites
@@ -33,7 +33,7 @@ Before you start you need to know a bit about React, ThreeJS and React Three Fib
 ![Quick Example](./public/readme-example.png)
 
 ```jsx
-import { TextureSet, Layer } from "react-three-texture";
+import { TextureSet, Layer } from "@react-three/texture";
 
 <mesh castShadow>
   <boxBufferGeometry attach="geometry" />

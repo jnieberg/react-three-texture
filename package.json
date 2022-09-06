@@ -1,5 +1,5 @@
 {
-  "name": "react-three-texture",
+  "name": "@react-three/texture",
   "author": "Jorg Nieberg",
   "description": "Live texture editing tool for ThreeJS and React Three Fiber",
   "license": "MIT",
