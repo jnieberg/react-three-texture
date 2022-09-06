@@ -49,10 +49,7 @@
     "three": ">=0.137"
   },
   "scripts": {
-    "build": "npm-run-all rollup copy pack-it",
-    "rollup": "rollup -c",
-    "pack-it": "npm pack --pack-destination ./examples/build",
-    "copy": "cp ./package.json README.md dist && json -I -f dist/package.json -e \"this.private=false; this.devDependencies=undefined; this.optionalDependencies=undefined; this.scripts=undefined; this.husky=undefined; this.prettier=undefined; this.jest=undefined; this['lint-staged']=undefined;\""
+    "build": "rollup -c"
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

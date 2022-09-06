@@ -1,4 +1,4 @@
-import { FC, ReactElement, useEffect, useState } from "react";
+import * as React from "react";
 import { CanvasTexture } from "three";
 import { LayerProps } from "../types/Layer";
 import toUUID from "../helpers/toUUID";
@@ -6,7 +6,7 @@ import { IMG, textureStorage, layerStorage } from "../storage/textureStorage";
 import Tex from "./Tex";
 import { TextureSetProps } from "../types/TextureSet";
 
-const TextureSet: FC<TextureSetProps> = ({ name, map, children, ...setProps }) => {
+const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProps }) => {
   const ctx = document.createElement("canvas").getContext("2d");
   if (!ctx) return null;
 
@@ -26,7 +26,7 @@ const TextureSet: FC<TextureSetProps> = ({ name, map, children, ...setProps }) =
   ctx.canvas.height = quality;
   const cw = ctx.canvas.width;
   const ch = ctx.canvas.height;
-  const [texture, setTexture] = useState<CanvasTexture | null>(null);
+  const [texture, setTexture] = React.useState<CanvasTexture | null>(null);
 
   const getTransformations = (props: LayerProps) => {
     const src = props.src;
@@ -284,7 +284,7 @@ const TextureSet: FC<TextureSetProps> = ({ name, map, children, ...setProps }) =
     });
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     const drawAll = () => {
       return new Promise<CanvasTexture>((resolve, reject) => {
         const textureStored = textureStorage(uuid);

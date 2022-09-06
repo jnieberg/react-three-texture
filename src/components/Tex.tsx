@@ -1,10 +1,10 @@
+import * as React from "react";
 import { TEX } from "../storage/textureStorage";
-import { ClampToEdgeWrapping, sRGBEncoding, RepeatWrapping, LinearFilter, NearestFilter, Texture, CanvasTexture, Vector2 } from "three";
-import { FC } from "react";
+import { ClampToEdgeWrapping, sRGBEncoding, RepeatWrapping, LinearFilter, NearestFilter } from "three";
 import { Instance } from "@react-three/fiber/dist/declarations/src/core/renderer";
 import { TexProps } from "../types/Texture";
 
-const Tex: FC<TexProps> = ({
+const Tex: React.FC<TexProps> = ({
   name = "",
   object = null,
   map = "map",
@@ -19,7 +19,7 @@ const Tex: FC<TexProps> = ({
   const mapType = map === "map" ? map : `${map}Map`;
   const baseTexture = TEX[name];
 
-  let primitive = object || (baseTexture?.matrix ? baseTexture : TEX[name] || null);
+  let prim = object || (baseTexture?.matrix ? baseTexture : TEX[name] || null);
 
   if (baseTexture) {
     if (!TEX[name]) {
@@ -27,9 +27,9 @@ const Tex: FC<TexProps> = ({
       TEX[name].name = name.toString();
       TEX[name].needsUpdate = true;
     }
-    primitive = TEX[name];
+    prim = TEX[name];
   }
-  if (!primitive) return null;
+  if (!prim) return null;
 
   return (
     <primitive
@@ -49,7 +49,7 @@ const Tex: FC<TexProps> = ({
         self.needsUpdate = true;
       }}
       {...textureProps}
-      object={primitive}
+      object={prim}
     />
   );
 };
