@@ -3,7 +3,7 @@
   "author": "Jorg Nieberg",
   "description": "Live texture editing tool for ThreeJS and React Three Fiber",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "publishConfig": {
     "registry": "https://github.com/jnieberg"
