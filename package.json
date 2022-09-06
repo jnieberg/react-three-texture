@@ -1,0 +1,66 @@
+{
+  "name": "@react-three/texture",
+  "author": "Jorg Nieberg",
+  "description": "Live texture editing tool for ThreeJS and React Three Fiber",
+  "license": "ISC",
+  "version": "1.0.0",
+  "private": true,
+  "publishConfig": {
+    "registry": "https://github.com/jnieberg"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jnieberg/react-three-texture.git"
+  },
+  "keywords": [
+    "texture",
+    "layers",
+    "material",
+    "image",
+    "canvas",
+    "threejs",
+    "react",
+    "three",
+    "fiber",
+    "r3f",
+    "tool"
+  ],
+  "devDependencies": {
+    "@react-three/fiber": "^8.6.2",
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.4.0",
+    "@types/react": "^18.0.18",
+    "@types/three": "^0.144.0",
+    "json": "^11.0.0",
+    "npm-run-all": "^4.1.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^2.79.0",
+    "rollup-plugin-dts": "^4.2.2",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "three": "^0.144.0",
+    "tslib": "^2.4.0",
+    "typescript": "^4.8.2"
+  },
+  "peerDependencies": {
+    "@react-three/fiber": ">=8.0",
+    "react": ">=18.0",
+    "react-dom": ">=18.0",
+    "three": ">=0.137"
+  },
+  "scripts": {
+    "build": "npm-run-all rollup copy pack-it",
+    "rollup": "rollup -c",
+    "pack-it": "npm pack --pack-destination ./examples/build",
+    "copy": "cp ./package.json README.md dist && json -I -f dist/package.json -e \"this.private=false; this.devDependencies=undefined; this.optionalDependencies=undefined; this.scripts=undefined; this.husky=undefined; this.prettier=undefined; this.jest=undefined; this['lint-staged']=undefined;\""
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts"
+}
