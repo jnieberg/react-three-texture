@@ -1,9 +1,9 @@
 {
-  "name": "@react-three/texture",
+  "name": "react-three-texture",
   "author": "Jorg Nieberg",
   "description": "Live texture editing tool for ThreeJS and React Three Fiber",
   "license": "MIT",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": false,
   "publishConfig": {
     "registry": "https://github.com/jnieberg"
