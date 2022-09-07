@@ -5,6 +5,7 @@ import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
 
 const packageJson = require("./package.json");
+const external = ["react", "react-dom"];
 
 export default [
   {
@@ -21,11 +22,13 @@ export default [
         sourcemap: true,
       },
     ],
+    external,
     plugins: [resolve(), commonjs(), typescript({ tsconfig: "./tsconfig.json" })],
   },
   {
     input: "dist/esm/types/index.d.ts",
     output: [{ file: "dist/index.d.ts", format: "esm" }],
+    external,
     plugins: [dts()],
   },
 ];

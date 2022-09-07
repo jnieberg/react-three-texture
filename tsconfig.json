@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     // Default
-    "target": "es6",
+    "target": "es5",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -13,11 +13,9 @@
     "declaration": true,
     "declarationDir": "types",
     "sourceMap": true,
+    "outDir": "dist",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "emitDeclarationOnly": true,
-    "outDir": "./dist",
-    "baseUrl": "./src"
-  },
-  "include": ["./src"]
+    "emitDeclarationOnly": true
+  }
 }
