@@ -7,9 +7,8 @@ import Tex from "./Tex";
 import { TextureSetProps } from "../types/TextureSet";
 
 const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProps }) => {
+  const [texture, setTexture] = React.useState<CanvasTexture | null>(null);
   const ctx = document.createElement("canvas").getContext("2d");
-  if (!ctx) return null;
-
   const layers = Array.isArray(children) ? children : [children];
   const uuid = toUUID({
     name: name || "texture",
@@ -17,6 +16,73 @@ const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProp
     props: setProps,
     layers: layers.map((layer) => layer?.props),
   });
+
+  React.useEffect(() => {
+    const drawAll = () => {
+      return new Promise<CanvasTexture>((resolve, reject) => {
+        const textureStored = textureStorage(uuid);
+        if (typeof textureStored !== "undefined") {
+          resolve(textureStored);
+        } else {
+          if (ctx) {
+            const tex = new CanvasTexture(ctx.canvas);
+            tex.name = uuid;
+            textureStorage(uuid, tex);
+            Promise.all(
+              layers.map(async (layer) => {
+                const layerProps: LayerProps = { ...layer?.props };
+                const { position: _, rotation: __, scale: ___, blend: _____, image: ______, ...layerRestProps } = layerProps;
+                const layerUuid = toUUID(layerRestProps);
+                const layerStored = layerStorage(layerUuid);
+                if (typeof layerStored !== "undefined") {
+                  return { canvas: layerStored, props: layerProps };
+                } else {
+                  const ctxLayer = document.createElement("canvas").getContext("2d");
+                  if (ctxLayer) {
+                    await drawLayer(ctxLayer, layerProps);
+                    layerStorage(layerUuid, ctxLayer.canvas); // new CanvasTexture(ctxLayer.canvas).source.data
+                    return { canvas: ctxLayer.canvas, props: layerProps };
+                  }
+                }
+                return null;
+              })
+            ).then((all: ({ canvas: HTMLCanvasElement; props: LayerProps } | null)[]) => {
+              // Draw each layer
+              all.forEach((layer) => {
+                if (layer) {
+                  const { canvas: canvasLayer, props: layerProps } = layer;
+                  const src = layerProps.src;
+                  const target = (src && IMG[src]) || canvasLayer;
+                  const transformations = getTransformations(layerProps);
+                  if (transformations) {
+                    const { position, scale, rotation } = transformations;
+                    ctx.globalCompositeOperation = layerProps.blend || "source-over";
+                    ctx.save();
+                    ctx.translate(target.width * 0.5, target.height * 0.5);
+                    ctx.rotate(rotation);
+                    ctx.drawImage(canvasLayer, position[0], position[1], scale[0], scale[1]);
+                    ctx.restore();
+                    ctx.globalCompositeOperation = "source-over";
+                    if (canvasLayer) {
+                      if (document.querySelector(domLayerPreview)) document.querySelector(domLayerPreview)?.prepend(canvasLayer);
+                      else canvasLayer.remove();
+                    }
+                  }
+                }
+              });
+              if (document.querySelector(domTexturePreview)) document.querySelector(domTexturePreview)?.prepend(tex.source.data);
+              resolve(tex);
+            });
+          }
+        }
+      });
+    };
+
+    drawAll().then((tex) => setTexture(tex));
+  }, [uuid]);
+
+  if (!ctx) return null;
+
   const domPreview = "#textureset__preview";
   const domTexturePreview = `${domPreview} .texture`;
   const domLayerPreview = `${domPreview} .layer`;
@@ -26,45 +92,40 @@ const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProp
   ctx.canvas.height = quality;
   const cw = ctx.canvas.width;
   const ch = ctx.canvas.height;
-  const [texture, setTexture] = React.useState<CanvasTexture | null>(null);
 
   const getTransformations = (props: LayerProps) => {
-    const src = props.src;
-    if (src) {
-      const target = IMG[src] || ctx.canvas;
-      let scale = [props.scale?.[0] || 1, props.scale?.[1] || 1];
-      let position = props.position || [0, 0];
+    const imgSrc = props.src && IMG[props.src];
+    const target = imgSrc || ctx.canvas;
+    let scale = [props.scale?.[0] || 1, props.scale?.[1] || 1];
+    let position = props.position || [0, 0];
+    const rotation = props.rotation || 0;
 
-      if (IMG[src] && props.image) {
-        console.log(props.image);
-        if (typeof props.image === "boolean") props.image = "fit-max center middle";
-        const imageAlign = props.image.split(" ");
-        imageAlign.forEach((align) => {
-          if (align === "fit-max") {
-            align = IMG[src].naturalHeight > IMG[src].naturalWidth ? "fit-x" : "fit-y";
-          } else if (align === "fit-min") {
-            align = IMG[src].naturalHeight < IMG[src].naturalWidth ? "fit-x" : "fit-y";
-          }
-          if (align === "fit-x") {
-            scale = [scale[0], scale[1] * (IMG[src].naturalHeight / IMG[src].naturalWidth)];
-          } else if (align === "fit-y") {
-            scale = [scale[0] * (IMG[src].naturalWidth / IMG[src].naturalHeight), scale[1]];
-          } else if (align === "fit-none") {
-            scale = [scale[0] * (IMG[src].naturalWidth / quality), scale[1] * (IMG[src].naturalHeight / quality)];
-          }
-          if (align === "center") position[0] += 0.5 - scale[0] * 0.5;
-          if (align === "middle") position[1] += 0.5 - scale[1] * 0.5;
-          if (align === "bottom") position[1] += 1 - scale[1];
-          if (align === "right") position[0] += 1 - scale[0];
-        });
-      }
-
-      position = [cw * position[0] - target.width * 0.5, ch * position[1] - target.height * 0.5];
-      scale = [target.width * scale[0], target.height * scale[1]];
-      const rotation = props.rotation || 0;
-      return { position, scale, rotation };
+    if (imgSrc && props.image) {
+      if (typeof props.image === "boolean") props.image = "fit-max center middle";
+      const imageAlign = props.image.split(" ");
+      imageAlign.forEach((align) => {
+        if (align === "fit-max") {
+          align = imgSrc.naturalHeight > imgSrc.naturalWidth ? "fit-x" : "fit-y";
+        } else if (align === "fit-min") {
+          align = imgSrc.naturalHeight < imgSrc.naturalWidth ? "fit-x" : "fit-y";
+        }
+        if (align === "fit-x") {
+          scale = [scale[0], scale[1] * (imgSrc.naturalHeight / imgSrc.naturalWidth)];
+        } else if (align === "fit-y") {
+          scale = [scale[0] * (imgSrc.naturalWidth / imgSrc.naturalHeight), scale[1]];
+        } else if (align === "fit-none") {
+          scale = [scale[0] * (imgSrc.naturalWidth / quality), scale[1] * (imgSrc.naturalHeight / quality)];
+        }
+        if (align === "center") position[0] += 0.5 - scale[0] * 0.5;
+        if (align === "middle") position[1] += 0.5 - scale[1] * 0.5;
+        if (align === "bottom") position[1] += 1 - scale[1];
+        if (align === "right") position[0] += 1 - scale[0];
+      });
     }
-    return null;
+
+    position = [cw * position[0] - target.width * 0.5, ch * position[1] - target.height * 0.5];
+    scale = [target.width * scale[0], target.height * scale[1]];
+    return { position, scale, rotation };
   };
 
   const setEffects = (ctxLayer: CanvasRenderingContext2D, props: LayerProps) => {
@@ -94,10 +155,11 @@ const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProp
     // Gradient
     if (props.gradient) {
       const isRadial = props.gradient.type === "radial" || props.gradient.type === "circular";
-      const args: number[] = [
-        ...(props.gradient?.from || isRadial ? [0.5, 0.5, 0] : [0, 0]),
-        ...(props.gradient?.to || isRadial ? [0.5, 0.5, 1] : [0, 1]),
-      ].map((a, i) => args[i] * quality);
+      let args: number[] = [
+        ...(props.gradient?.from || (isRadial ? [0.5, 0.5, 0] : [0, 0])),
+        ...(props.gradient?.to || (isRadial ? [0.5, 0.5, 1] : [0, 1])),
+      ];
+      args = args.map((a, i) => args[i] * quality);
 
       const gradient = isRadial
         ? ctxLayer.createRadialGradient(args[0], args[1], args[2], args[3], args[4], args[5]) // weird TS thing
@@ -283,68 +345,6 @@ const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProp
       }
     });
   };
-
-  React.useEffect(() => {
-    const drawAll = () => {
-      return new Promise<CanvasTexture>((resolve, reject) => {
-        const textureStored = textureStorage(uuid);
-        if (typeof textureStored !== "undefined") {
-          resolve(textureStored);
-        } else {
-          const tex = new CanvasTexture(ctx.canvas);
-          tex.name = uuid;
-          textureStorage(uuid, tex);
-          Promise.all(
-            layers.map(async (layer) => {
-              const layerProps: LayerProps = { ...layer?.props };
-              const { position: _, rotation: __, scale: ___, blend: _____, image: ______, ...layerRestProps } = layerProps;
-              const layerUuid = toUUID(layerRestProps);
-              const layerStored = layerStorage(layerUuid);
-              if (typeof layerStored !== "undefined") {
-                return { canvas: layerStored, props: layerProps };
-              } else {
-                const ctxLayer = document.createElement("canvas").getContext("2d");
-                if (ctxLayer) {
-                  await drawLayer(ctxLayer, layerProps);
-                  layerStorage(layerUuid, ctxLayer.canvas); // new CanvasTexture(ctxLayer.canvas).source.data
-                  return { canvas: ctxLayer.canvas, props: layerProps };
-                }
-              }
-              return null;
-            })
-          ).then((all: ({ canvas: HTMLCanvasElement; props: LayerProps } | null)[]) => {
-            // Draw each layer
-            all.forEach((layer) => {
-              if (layer) {
-                const { canvas: canvasLayer, props: layerProps } = layer;
-                const src = layerProps.src;
-                const target = (src && IMG[src]) || canvasLayer;
-                const transformations = getTransformations(layerProps);
-                if (transformations) {
-                  const { position, scale, rotation } = transformations;
-                  ctx.globalCompositeOperation = layerProps.blend || "source-over";
-                  ctx.save();
-                  ctx.translate(target.width * 0.5, target.height * 0.5);
-                  ctx.rotate(rotation);
-                  ctx.drawImage(canvasLayer, position[0], position[1], scale[0], scale[1]);
-                  ctx.restore();
-                  ctx.globalCompositeOperation = "source-over";
-                  if (canvasLayer) {
-                    if (document.querySelector(domLayerPreview)) document.querySelector(domLayerPreview)?.prepend(canvasLayer);
-                    if (!document.querySelector(domLayerPreview)) canvasLayer.remove();
-                  }
-                }
-              }
-            });
-            if (document.querySelector(domTexturePreview)) document.querySelector(domTexturePreview)?.prepend(tex.source.data);
-            resolve(tex);
-          });
-        }
-      });
-    };
-
-    drawAll().then((tex) => setTexture(tex));
-  }, [uuid]);
 
   if (!texture) return null;
 
