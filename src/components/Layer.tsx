@@ -3,4 +3,4 @@ import { LayerProps } from "../types";
 
 const Layer: FC<LayerProps> = () => null;
 
-export default Layer;
+export { Layer };

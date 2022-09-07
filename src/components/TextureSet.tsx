@@ -3,7 +3,7 @@ import { CanvasTexture } from "three";
 import { LayerProps } from "../types/Layer";
 import toUUID from "../helpers/toUUID";
 import { IMG, textureStorage, layerStorage } from "../storage/textureStorage";
-import Tex from "./Tex";
+import { Tex } from "./Tex";
 import { TextureSetProps } from "../types/TextureSet";
 
 const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProps }) => {
@@ -353,4 +353,4 @@ const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProp
   return <Tex {...setProps} name={uuid} object={texture} map={map} />;
 };
 
-export default TextureSet;
+export { TextureSet };

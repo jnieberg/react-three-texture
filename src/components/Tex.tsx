@@ -54,4 +54,4 @@ const Tex: React.FC<TexProps> = ({
   );
 };
 
-export default Tex;
+export { Tex };
