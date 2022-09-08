@@ -1,0 +1,23 @@
+nav {
+  position: absolute;
+  z-index: 1;
+}
+
+nav a {
+  color: #e0e0e0;
+  font-size: 18px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  text-shadow: 1px 1px #000000;
+  display: inline-block;
+  height: 16px;
+  padding: 8px;
+  text-decoration: none;
+}
+
+nav a.selected {
+  color: #ffffff;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}

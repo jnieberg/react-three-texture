@@ -1,8 +1,9 @@
 ## New ideas / fixes
 
-- TypeScript and JSDoc
+- JSDoc
 - grouping
 - repeat layer texture (x/y/both)
+- texture without textureset
 - make separate functions/files for each layer property
 - Reuse textures inside layers
 - Read https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas for optimization
