@@ -1,11 +1,13 @@
-import { Layer, TextureSet } from "react-three-texture";
 import { useControls } from "leva";
+import { FC } from "react";
+import { Layer, TextureSet } from "react-three-texture";
+import DemoProps from "../types/Demo";
 
-const Filters = ({ globalProps, ...props }) => {
+const Filters: FC<DemoProps> = ({ globalProps, ...props }) => {
   const { mesh: Mesh } = globalProps;
   const { brightness, contrast, blur, hue, saturate } = useControls(props);
   const filters = `brightness(${brightness}%) contrast(${contrast}%) blur(${blur}px) hue-rotate(${hue}deg) saturate(${saturate}%)`;
-  return (
+  return Mesh ? (
     <>
       <Mesh position={[-1.5, 0, 0]}>
         <TextureSet name="texture/cube-filters">
@@ -23,7 +25,7 @@ const Filters = ({ globalProps, ...props }) => {
         </TextureSet>
       </Mesh>
     </>
-  );
+  ) : null;
 };
 
 export default Filters;

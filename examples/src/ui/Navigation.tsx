@@ -1,6 +1,5 @@
 import "./Navigation.css";
 import { Link, Redirect, Route, useLocation } from "wouter";
-import Images from "../demos/Images";
 import Effects from "../demos/Effects";
 import Gradient from "../demos/Gradient";
 import Blending from "../demos/Blending";
@@ -11,6 +10,8 @@ import { folder, useControls } from "leva";
 import PrettyBox from "../meshes/PrettyBox";
 import PrettySphere from "../meshes/PrettySphere";
 import PrettyCylinder from "../meshes/PrettyCylinder";
+import Images from "../demos/Images";
+import { Schema } from "leva/dist/declarations/src/types";
 
 const menuItems = [Images, Transformation, Gradient, Blending, Filters, Effects];
 
@@ -34,7 +35,7 @@ export const Navigation = () => {
 };
 
 export const Routes = () => {
-  const globalControl = {
+  const globalControl: Schema = {
     "Global Settings": folder({
       mesh: { options: { Box: PrettyBox, Sphere: PrettySphere, Cylinder: PrettyCylinder } },
       canvas: { value: false, onChange: (v) => document.querySelector("#textureset__preview")?.classList.toggle("show", v) },
@@ -47,7 +48,7 @@ export const Routes = () => {
   return (
     <>
       <Route path="">
-        <Redirect to={`/${menuItems[0].name.toLowerCase()}`}></Redirect>
+        <Redirect to={`/${menuItems[0].name.toLowerCase()}`} />
       </Route>
       <group position={[0, 0.5, 0]}>
         {menuItems.map((MenuItem) => (

@@ -1,6 +1,6 @@
 import "./App.css";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { ACESFilmicToneMapping, sRGBEncoding, Vector3, VSMShadowMap } from "three";
+import { ACESFilmicToneMapping, SpotLight, sRGBEncoding, Vector3, VSMShadowMap } from "three";
 import { Suspense, useRef } from "react";
 import { Environment, OrbitControls, Plane } from "@react-three/drei";
 import { Navigation, Routes } from "./ui/Navigation";
@@ -48,7 +48,7 @@ const SceneSetup = () => {
 };
 
 const Controls = () => {
-  const light = useRef(null);
+  const light = useRef<SpotLight>(null);
   const { camera } = useThree();
 
   useFrame(() => {

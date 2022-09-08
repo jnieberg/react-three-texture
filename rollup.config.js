@@ -5,7 +5,7 @@ import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
 
 const packageJson = require("./package.json");
-const external = ["react", "react-dom"];
+const external = ["react", "react-dom", "@react-three/fiber", "three"];
 
 export default [
   {

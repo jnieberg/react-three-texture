@@ -1,6 +1,6 @@
 import { folder } from "leva";
 
-const getControls = (location) => {
+const getControls = (location: string) => {
   let controls = null;
 
   switch (location) {

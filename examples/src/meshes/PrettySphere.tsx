@@ -1,10 +1,11 @@
 import { extend } from "@react-three/fiber";
 import { DoubleSide } from "three";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
+import PrettyMeshProps from "../types/PrettyMesh";
 
 extend({ RoundedBoxGeometry });
 
-const PrettySphere = ({ children, ...props }) => {
+const PrettySphere = ({ children, ...props }: PrettyMeshProps) => {
   return (
     <mesh castShadow {...props}>
       <roundedBoxGeometry attach="geometry" args={[1, 1, 1, 4, 0.5]} />

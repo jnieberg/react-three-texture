@@ -1,11 +1,13 @@
-import { Layer, TextureSet } from "react-three-texture";
 import { useControls } from "leva";
+import DemoProps from "../types/Demo";
+import { FC } from "react";
+import { Layer, TextureSet } from "react-three-texture";
 
-const Blending = ({ globalProps, ...props }) => {
+const Blending: FC<DemoProps> = ({ globalProps, ...props }) => {
   const { mesh: Mesh } = globalProps;
   const { "compositing operation": blending } = useControls(props);
 
-  return (
+  return Mesh ? (
     <>
       <Mesh position={[-1.5, 0, 0]}>
         <TextureSet name="texture/cube-blend-1">
@@ -62,7 +64,7 @@ const Blending = ({ globalProps, ...props }) => {
         </TextureSet>
       </Mesh>
     </>
-  );
+  ) : null;
 };
 
 export default Blending;

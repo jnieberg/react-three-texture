@@ -1,11 +1,13 @@
-import { Layer, TextureSet } from "react-three-texture";
 import { useControls } from "leva";
+import { FC } from "react";
+import { Layer, TextureSet } from "react-three-texture";
+import DemoProps from "../types/Demo";
 
-const Gradient = ({ globalProps, ...props }) => {
+const Gradient: FC<DemoProps> = ({ globalProps, ...props }) => {
   const { mesh: Mesh } = globalProps;
   const { color1, color2, color3, from, to, fromRad, toRad } = useControls(props);
 
-  return (
+  return Mesh ? (
     <>
       <Mesh position={[-1.5, 0, 0]}>
         <TextureSet name="texture/cube-gradient-1" once>
@@ -49,7 +51,7 @@ const Gradient = ({ globalProps, ...props }) => {
         </TextureSet>
       </Mesh>
     </>
-  );
+  ) : null;
 };
 
 export default Gradient;

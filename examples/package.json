@@ -8,20 +8,24 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/react": "^18.0.18",
     "leva": "^0.9.31",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "react-three-texture": "*",
     "three": "^0.144.0",
+    "typescript": "^4.8.2",
     "web-vitals": "^2.1.4",
     "wouter": "^2.8.0-alpha.2"
   },
   "scripts": {
+    "imp": "npm-run-all clean i start",
+    "imp-local": "npm-run-all clean-local i start",
     "start": "react-scripts start",
-    "clean": "rm -rf node_modules",
-    "rebuild": "yarn",
-    "imp": "npm-run-all clean rebuild start"
+    "clean": "rm -r yarn.lock && json -I -f ./package.json -e \"this.dependencies['react-three-texture']='react-three-texture@latest';\"",
+    "clean-local": "rm -r yarn.lock && json -I -f ./package.json -e \"this.dependencies['react-three-texture']='./react-three-texture.tgz';\"",
+    "i": "yarn install --immutable --immutable-cache --check-cache"
   },
   "eslintConfig": {
     "extends": [

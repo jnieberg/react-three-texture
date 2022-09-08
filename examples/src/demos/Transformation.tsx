@@ -1,13 +1,15 @@
-import { Layer, TextureSet } from "react-three-texture";
 import { useControls } from "leva";
+import { FC } from "react";
+import { Layer, TextureSet } from "react-three-texture";
+import DemoProps from "../types/Demo";
 
-const Transformation = ({ globalProps, ...props }) => {
+const Transformation: FC<DemoProps> = ({ globalProps, ...props }) => {
   const { mesh: Mesh } = globalProps;
   const { position, scale, rotation } = useControls(props);
   const centerX = 0.15 - scale.x * 0.15;
   const centerY = 0.15 - scale.y * 0.15;
 
-  return (
+  return Mesh ? (
     <>
       <Mesh position={[-1.5, 0, 0]}>
         <TextureSet name="texture/cube-transform-1">
@@ -80,7 +82,7 @@ const Transformation = ({ globalProps, ...props }) => {
         </TextureSet>
       </Mesh>
     </>
-  );
+  ) : null;
 };
 
 export default Transformation;

@@ -1,11 +1,13 @@
-import { Layer, TextureSet } from "react-three-texture";
 import { useControls } from "leva";
+import { FC } from "react";
+import { Layer, TextureSet } from "react-three-texture";
+import DemoProps from "../types/Demo";
 
-const Effects = ({ globalProps, ...props }) => {
+const Effects: FC<DemoProps> = ({ globalProps, ...props }) => {
   const { mesh: Mesh } = globalProps;
   const { size, strength, softness, detail, blur, color, offset, colorO, sizeO, detailO } = useControls(props);
 
-  return (
+  return Mesh ? (
     <>
       <Mesh position={[-1.5, 0, 0]}>
         <TextureSet name="texture/cube-effects-1">
@@ -37,7 +39,7 @@ const Effects = ({ globalProps, ...props }) => {
         </TextureSet>
       </Mesh>
     </>
-  );
+  ) : null;
 };
 
 export default Effects;

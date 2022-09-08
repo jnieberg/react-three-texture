@@ -1,11 +1,13 @@
 import { useControls } from "leva";
+import { FC } from "react";
 import { Layer, TextureSet } from "react-three-texture";
+import DemoProps from "../types/Demo";
 
-const Images = ({ globalProps, ...props }) => {
+const Images: FC<DemoProps> = ({ globalProps, ...props }) => {
   const { mesh: Mesh } = globalProps;
   const { url, upload, "image fit": fit, "image horizontal alignment": alignX, "image vertical alignment": alignY } = useControls(props);
 
-  return (
+  return Mesh ? (
     <>
       <Mesh position={[-1.5, 0, 0]}>
         <TextureSet name="texture/cube-image-1">
@@ -28,7 +30,7 @@ const Images = ({ globalProps, ...props }) => {
         </TextureSet>
       </Mesh>
     </>
-  );
+  ) : null;
 };
 
 export default Images;
