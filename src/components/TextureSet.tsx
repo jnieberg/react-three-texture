@@ -6,6 +6,15 @@ import { IMG, textureStorage, layerStorage } from "../storage/textureStorage";
 import { TextureSetProps } from "../types/TextureSet";
 import { color, alpha, shadow, outline, bloom, gradient, fill, transformation } from "../effects";
 import { textureGlobals } from "../setup";
+import { PrimitiveProps } from "@react-three/fiber";
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      primitive: PrimitiveProps;
+    }
+  }
+}
 
 const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProps }) => {
   const [texture, setTexture] = React.useState<CanvasTexture | null>(null);
@@ -165,7 +174,7 @@ const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProp
   if (!texture) return null;
   if (!document.querySelector("#texture")) ctx.canvas.remove();
 
-  return <primitive attach={map ? `${map}Map` : "map"} encoding={sRGBEncoding} object={texture} {...setProps} />;
+  return <primitive attach={map ? `${map}Map` : "map"} encoding={sRGBEncoding} {...setProps} object={texture} />;
 };
 
 export { TextureSet };
