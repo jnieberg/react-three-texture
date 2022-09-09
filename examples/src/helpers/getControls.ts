@@ -258,7 +258,7 @@ const getControls = (location: string) => {
           },
           offset: {
             value: 0.5,
-            min: 0,
+            min: -1,
             max: 1,
             step: 0.02,
           },
