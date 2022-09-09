@@ -61,7 +61,7 @@
     "open:replace": "find ./examples/src/demos -type f -name '*.tsx' -exec sed -i '' 's/\"react-three-texture\"/\"\\.\\.\\/temp\"/g' {} \\;",
     "save": "cp -R ./examples/src/temp/* ./src",
     "close": "npm-run-all save close:replace close:marker",
-    "close:marker": "rm !!EDIT_MODE",
+    "close:marker": "rm -rf !!EDIT_MODE",
     "close:replace": "find ./examples/src/demos -type f -name '*.tsx' -exec sed -i '' 's/\"\\.\\.\\/temp\"/\"react-three-texture\"/g' {} \\;"
   },
   "main": "./dist/cjs/index.js",

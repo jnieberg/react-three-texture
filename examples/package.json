@@ -20,12 +20,8 @@
     "wouter": "^2.8.0-alpha.2"
   },
   "scripts": {
-    "imp": "npm-run-all clean i start",
-    "imp-local": "npm-run-all clean-local i start",
     "start": "react-scripts start",
-    "clean": "rm -r yarn.lock && json -I -f ./package.json -e \"this.dependencies['react-three-texture']='react-three-texture@latest';\"",
-    "clean-local": "rm -r yarn.lock && json -I -f ./package.json -e \"this.dependencies['react-three-texture']='./react-three-texture.tgz';\"",
-    "i": "yarn install --immutable --immutable-cache --check-cache"
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [

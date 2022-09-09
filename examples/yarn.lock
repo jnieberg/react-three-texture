@@ -8040,7 +8040,7 @@ react-scripts@5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
-react-three-texture@*:
+react-three-texture@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-three-texture/-/react-three-texture-1.1.0.tgz#d6462c2da34b1df3568280ecfcc3d8c47df09d23"
   integrity sha512-C22LmEspT91tETZhrX4tQVLjOP+B62biJy8cxC2c/T3qMdbLTs/PNgSe9nVBgC9oJSBsDYjq60nB+mB8sU58rg==
