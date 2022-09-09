@@ -50,7 +50,7 @@
     "three": ">=0.137"
   },
   "scripts": {
-    "build": "npm-run-all done build:clean build:copy build:rollup",
+    "build": "npm-run-all close build:clean build:copy build:rollup",
     "build:clean": "rm -rf dist",
     "build:rollup": "rollup -c",
     "build:copy": "copyfiles package.json README.md LICENSE dist && json -I -f dist/package.json -e \"this.private=false; this.devDependencies=undefined; this.optionalDependencies=undefined; this.scripts=undefined; this.prettier=undefined; this['lint-staged']=undefined;\"",
@@ -60,9 +60,9 @@
     "open:copy": "cp -R ./src ./examples/src/temp",
     "open:replace": "find ./examples/src/demos -type f -name '*.tsx' -exec sed -i '' 's/\"react-three-texture\"/\"\\.\\.\\/temp\"/g' {} \\;",
     "save": "cp -R ./examples/src/temp/* ./src",
-    "done": "npm-run-all save done:replace done:marker",
-    "done:marker": "rm !!EDIT_MODE",
-    "done:replace": "find ./examples/src/demos -type f -name '*.tsx' -exec sed -i '' 's/\"\\.\\.\\/temp\"/\"react-three-texture\"/g' {} \\;"
+    "close": "npm-run-all save close:replace close:marker",
+    "close:marker": "rm !!EDIT_MODE",
+    "close:replace": "find ./examples/src/demos -type f -name '*.tsx' -exec sed -i '' 's/\"\\.\\.\\/temp\"/\"react-three-texture\"/g' {} \\;"
   },
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",

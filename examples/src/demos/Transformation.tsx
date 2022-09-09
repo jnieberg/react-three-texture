@@ -12,23 +12,23 @@ const Transformation: FC<DemoProps> = ({ globalProps, ...props }) => {
   return Mesh ? (
     <>
       <Mesh position={[-1.5, 0, 0]}>
-        <TextureSet name="texture/cube-transform-1">
+        <TextureSet name="texture/transform-1">
           <Layer src="girl.png" scale={[scale.x * 2, scale.y * 3]} position={[position.x - 0.5, position.y * 1.5 - 0.5]} rotation={rotation} />
         </TextureSet>
       </Mesh>
       <Mesh>
-        <TextureSet name="texture/cube-transform-2">
+        <TextureSet name="texture/transform-2">
           <Layer fill="#446644" position={[position.x + 0.125, position.y + 0.125]} scale={[scale.x * 0.75, scale.y * 0.75]} rotation={rotation} />
           <Layer fill="#004400" position={[position.x + 0.25, position.y + 0.25]} scale={[scale.x * 0.5, scale.y * 0.5]} rotation={rotation} />
         </TextureSet>
-        <TextureSet name="texture/cube-transform-2" map="bump">
+        <TextureSet name="texture/transform-2" map="bump">
           <Layer fill="#000000" />
           <Layer fill="#ffffff" position={[position.x + 0.125, position.y + 0.125]} scale={[scale.x * 0.75, scale.y * 0.75]} rotation={rotation} />
           <Layer fill="#000000" position={[position.x + 0.25, position.y + 0.25]} scale={[scale.x * 0.5, scale.y * 0.5]} rotation={rotation} />
         </TextureSet>
       </Mesh>
       <Mesh position={[1.5, 0, 0]}>
-        <TextureSet name="texture/cube-transform-3">
+        <TextureSet name="texture/transform-3">
           <Layer fill="black" />
           <Layer
             fill="red"

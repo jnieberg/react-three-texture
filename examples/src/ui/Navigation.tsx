@@ -12,8 +12,9 @@ import PrettySphere from "../meshes/PrettySphere";
 import PrettyCylinder from "../meshes/PrettyCylinder";
 import Images from "../demos/Images";
 import { Schema } from "leva/dist/declarations/src/types";
+import Alpha from "../demos/Alpha";
 
-const menuItems = [Images, Transformation, Gradient, Blending, Filters, Effects];
+const menuItems = [Images, Transformation, Gradient, Blending, Filters, Effects, Alpha];
 
 export const Navigation = () => {
   const [location] = useLocation();

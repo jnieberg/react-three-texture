@@ -1,66 +1,66 @@
-type GradientLinear = {
+export type GradientLinearProps = {
   type?: "linear";
   from?: [number, number];
   to?: [number, number];
   stops?: [number, string][];
 };
 
-type GradientRadial = {
+export type GradientRadialProps = {
   type?: "radial" | "circular";
   from?: [number, number, number];
   to?: [number, number, number];
   stops?: [number, string][];
 };
 
-type Image = {
+export type ImageProps = {
   src?: string;
   image?: string; //"fit-max" | "fit-min" | "fit-x" | "fit-y" | "fit-fill" | "fit-none" | "center" | "left" | "right" | "middle" | "top" | "bottom";
 };
 
-type Transformation = {
+export type TransformationProps = {
   position?: [number, number];
   scale?: [number, number];
   rotation?: number;
 };
 
-type Color = {
+export type ColorProps = {
   color?: string;
   fill?: string;
 };
 
-type Shadow = {
+export type ShadowProps = {
   color?: string;
   blur?: number;
   offset?: [number, number];
 };
 
-type Outline = {
+export type OutlineProps = {
   color?: string;
   size?: number;
   detail?: number;
 };
 
-type Alpha = {
+export type AlphaProps = {
   level?: number;
   power?: number;
   offset?: number;
   reverse?: boolean;
 };
 
-type Bloom = {
+export type BloomProps = {
   size?: number;
   strength?: number;
   softness?: number;
   detail?: number;
 };
 
-export interface LayerProps extends Image, Transformation, Color {
-  gradient?: GradientLinear | GradientRadial;
+export interface LayerProps extends ImageProps, TransformationProps, ColorProps {
+  gradient?: GradientLinearProps | GradientRadialProps | boolean;
   nearest?: boolean;
-  shadow?: Shadow;
-  outline?: Outline;
+  shadow?: ShadowProps | boolean;
+  outline?: OutlineProps | boolean;
   filter?: string;
   blend?: GlobalCompositeOperation;
-  alpha?: Alpha;
-  bloom?: Bloom;
+  alpha?: AlphaProps | boolean;
+  bloom?: BloomProps | boolean;
 }

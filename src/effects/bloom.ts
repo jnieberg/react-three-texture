@@ -1,9 +1,10 @@
 import { quality } from "../constants";
-import { LayerProps } from "../types";
+import { BloomProps, LayerProps } from "../types";
 
 export const bloom = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
   if (props.bloom) {
-    const { size = 30, strength = 0.9, softness = 0.7, detail = 10 } = props.bloom;
+    const bloom = props.bloom as BloomProps;
+    const { size = 30, strength = 0.9, softness = 0.7, detail = 10 } = bloom;
     const ctxBloom = document.createElement("canvas").getContext("2d");
     if (!ctxBloom) return null;
 

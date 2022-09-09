@@ -1,8 +1,9 @@
 import { quality } from "../constants";
-import { LayerProps } from "../types";
+import { LayerProps, OutlineProps } from "../types";
 
 export const outline = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
   if (props.outline) {
+    const outline = props.outline as OutlineProps;
     const ctxOutline = document.createElement("canvas").getContext("2d");
     if (!ctxOutline) return null;
 
@@ -10,7 +11,7 @@ export const outline = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
     ctxOutline.canvas.height = ctx.canvas.height;
 
     ctxOutline.globalCompositeOperation = "source-over";
-    ctxOutline.fillStyle = props.outline.color || "black";
+    ctxOutline.fillStyle = outline.color || "black";
     ctxOutline.fillRect(0, 0, ctxOutline.canvas.width, ctxOutline.canvas.height);
 
     // The actual outlining
@@ -20,8 +21,8 @@ export const outline = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
     ctxOutlineIn.canvas.width = ctx.canvas.width;
     ctxOutlineIn.canvas.height = ctx.canvas.height;
     ctxOutlineIn.globalCompositeOperation = "source-over";
-    const size = (typeof props.outline.size !== "undefined" ? props.outline.size : 1) * (quality / 512);
-    const detail = (typeof props.outline.detail !== "undefined" ? props.outline.detail : 8) * size;
+    const size = (typeof outline.size !== "undefined" ? outline.size : 1) * (quality / 512);
+    const detail = (typeof outline.detail !== "undefined" ? outline.detail : 8) * size;
     let i = 0;
     for (; i < detail; i++) {
       const angle = Math.PI * 2 * (i / detail);

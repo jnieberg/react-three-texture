@@ -241,6 +241,31 @@ const getControls = (location: string) => {
         }),
       };
       break;
+    case "/alpha":
+      controls = {
+        Alpha: folder({
+          level: {
+            value: 1,
+            min: 0,
+            max: 1,
+            step: 0.02,
+          },
+          power: {
+            value: 15,
+            min: 0,
+            max: 30,
+            step: 0.1,
+          },
+          offset: {
+            value: 0.5,
+            min: 0,
+            max: 1,
+            step: 0.02,
+          },
+          reverse: false,
+        }),
+      };
+      break;
     default:
       break;
   }
