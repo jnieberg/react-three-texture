@@ -4,15 +4,12 @@ import { ACESFilmicToneMapping, SpotLight, sRGBEncoding, Vector3, VSMShadowMap }
 import { Suspense, useRef } from "react";
 import { Environment, OrbitControls, Plane } from "@react-three/drei";
 import { Navigation, Routes } from "./ui/Navigation";
-import { useEffect } from "react";
 
 const SceneSetup = () => {
   const { gl } = useThree();
 
   const floorColor = "#888888";
   const backColor = "#bbccdd";
-
-  useEffect(() => {});
 
   gl.shadowMap.enabled = true;
   gl.shadowMap.type = VSMShadowMap;
@@ -26,7 +23,7 @@ const SceneSetup = () => {
       </Plane>
       <spotLight
         castShadow
-        intensity={100}
+        intensity={60}
         distance={40}
         position={[0, 2, 3]}
         lookAt={() => new Vector3(0, 0, 0)}
@@ -59,7 +56,7 @@ const Controls = () => {
     <>
       <spotLight
         ref={light}
-        intensity={50}
+        intensity={30}
         distance={40}
         color="white"
         lookAt={() => new Vector3(0, 0, 0)}
@@ -88,7 +85,7 @@ const App = () => {
           physicallyCorrectLights: true,
         }}
         shadows
-        camera={{ position: [-4, 2, 4], fov: 30 }}
+        camera={{ position: [-2.5, 2, 5], fov: 30 }}
         frameloop="demand"
       >
         <Controls />

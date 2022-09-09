@@ -1,10 +1,9 @@
-import { quality } from "../constants";
+import { DEFAULT } from "../setup";
 import { BloomProps, LayerProps } from "../types";
 
 export const bloom = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
   if (props.bloom) {
-    const bloom = props.bloom as BloomProps;
-    const { size = 30, strength = 0.9, softness = 0.7, detail = 10 } = bloom;
+    const { size, strength, softness, detail } = { ...DEFAULT.bloom, ...(props.bloom as BloomProps) };
     const ctxBloom = document.createElement("canvas").getContext("2d");
     if (!ctxBloom) return null;
 
@@ -15,6 +14,7 @@ export const bloom = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
     ctxBloom.globalCompositeOperation = "lighten";
 
     // Sizes
+    const dims = props.dimensions || DEFAULT.dimensions;
     const sizeDefault = 32;
     const sizeFactor = size / sizeDefault;
     let s = sizeDefault;
@@ -22,7 +22,7 @@ export const bloom = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
       ctxBloom.globalAlpha = ((1.0 - (s / sizeDefault) ** (1.0 - softness)) * strength) / (sizeDefault * Math.sqrt(detail) * 0.1);
 
       // Rotations
-      const sizeNormalized = s * sizeFactor * (quality / 512);
+      const sizeNormalized = s * sizeFactor * (dims / DEFAULT.dimensions);
       let i = 0;
       for (; i < detail; i++) {
         const angle = Math.PI * 2 * (i / detail);

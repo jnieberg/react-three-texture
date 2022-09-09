@@ -195,7 +195,7 @@ Gradients is an operation to smoothly blend two or more colors into each other. 
 
 | key   | default value                  | arguments        | description                                                                                           |
 | ----- | ------------------------------ | ---------------- | ----------------------------------------------------------------------------------------------------- |
-| type  | `"linear"`                     | linear or radial | the type of gradient. Can be linear or circular.                                                      |
+| type  | `"linear"`                     | linear or radial | the type of gradient. Can be linear or radial.                                                        |
 | from  | `[0, 0]` or `[0.5, 0.5, 0]`    | x, y, r?         | The starting point of the gradient. The radius (r) only applies for radial gradients.                 |
 | to    | `[0, 1]` or `[0.5, 0.5, 1]`    | x, y, r?         | The end point of the gradient. The radius (r) only applies for radial gradients.                      |
 | stops | `[[0, "white"], [1, "black"]]` | index, color     | The stop index and color between the start and the end point. Multiply stops and indexes can be used. |

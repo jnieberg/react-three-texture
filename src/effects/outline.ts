@@ -1,9 +1,9 @@
-import { quality } from "../constants";
+import { DEFAULT } from "../setup";
 import { LayerProps, OutlineProps } from "../types";
 
 export const outline = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
   if (props.outline) {
-    const outline = props.outline as OutlineProps;
+    const { color, size, detail } = { ...DEFAULT.outline, ...(props.outline as OutlineProps) };
     const ctxOutline = document.createElement("canvas").getContext("2d");
     if (!ctxOutline) return null;
 
@@ -11,23 +11,24 @@ export const outline = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
     ctxOutline.canvas.height = ctx.canvas.height;
 
     ctxOutline.globalCompositeOperation = "source-over";
-    ctxOutline.fillStyle = outline.color || "black";
+    ctxOutline.fillStyle = color;
     ctxOutline.fillRect(0, 0, ctxOutline.canvas.width, ctxOutline.canvas.height);
 
     // The actual outlining
     const ctxOutlineIn = document.createElement("canvas").getContext("2d");
     if (!ctxOutlineIn) return null;
 
+    const dims = props.dimensions || DEFAULT.dimensions;
     ctxOutlineIn.canvas.width = ctx.canvas.width;
     ctxOutlineIn.canvas.height = ctx.canvas.height;
     ctxOutlineIn.globalCompositeOperation = "source-over";
-    const size = (typeof outline.size !== "undefined" ? outline.size : 1) * (quality / 512);
-    const detail = (typeof outline.detail !== "undefined" ? outline.detail : 8) * size;
+    const sizeNorm = size * (dims / DEFAULT.dimensions);
+    const detailNorm = detail * sizeNorm;
     let i = 0;
-    for (; i < detail; i++) {
-      const angle = Math.PI * 2 * (i / detail);
+    for (; i < detailNorm; i++) {
+      const angle = Math.PI * 2 * (i / detailNorm);
       const direction = [Math.sin(angle), Math.cos(angle)];
-      ctxOutlineIn.drawImage(ctx.canvas, direction[0] * size, direction[1] * size, ctxOutlineIn.canvas.width, ctxOutlineIn.canvas.height);
+      ctxOutlineIn.drawImage(ctx.canvas, direction[0] * sizeNorm, direction[1] * sizeNorm, ctxOutlineIn.canvas.width, ctxOutlineIn.canvas.height);
     }
     ctxOutline.globalCompositeOperation = "destination-in";
     ctxOutline.drawImage(ctxOutlineIn.canvas, 0, 0, ctx.canvas.width, ctx.canvas.height);

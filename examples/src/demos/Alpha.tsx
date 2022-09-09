@@ -17,11 +17,13 @@ const Alpha: FC<DemoProps> = ({ globalProps, ...props }) => {
       <Mesh>
         <TextureSet name="texture/alpha-2">
           <Layer gradient alpha={{ level, power, offset, reverse }} />
+          <Layer gradient={{ to: [1, 0] }} alpha={{ level, power, offset, reverse }} blend="overlay" />
         </TextureSet>
       </Mesh>
       <Mesh position={[1.5, 0, 0]}>
         <TextureSet name="texture/alpha-3">
-          <Layer src="girl.png" image="fit-max" alpha={{ level, power, offset, reverse }} />
+          <Layer src="girl.png" color="magenta" image="fit-max" />
+          <Layer src="girl.png" color="cyan" image="fit-max" alpha={{ level, power, offset, reverse }} />
         </TextureSet>
       </Mesh>
     </>

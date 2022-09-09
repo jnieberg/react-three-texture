@@ -1,12 +1,11 @@
 import * as React from "react";
-import { CanvasTexture } from "three";
+import { CanvasTexture, sRGBEncoding } from "three";
 import { LayerProps } from "../types/Layer";
 import toUUID from "../helpers/toUUID";
 import { IMG, textureStorage, layerStorage } from "../storage/textureStorage";
-import { Tex } from "./Tex";
 import { TextureSetProps } from "../types/TextureSet";
 import { color, alpha, shadow, outline, bloom, gradient, fill, transformation } from "../effects";
-import { quality } from "../constants";
+import { textureGlobals } from "../setup";
 
 const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProps }) => {
   const [texture, setTexture] = React.useState<CanvasTexture | null>(null);
@@ -32,7 +31,7 @@ const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProp
             textureStorage(uuid, tex);
             Promise.all(
               layers.map(async (layer) => {
-                const layerProps: LayerProps = { ...layer?.props };
+                const layerProps: LayerProps = { ...textureGlobals, ...layer?.props };
                 const { position: _, rotation: __, scale: ___, blend: _____, image: ______, ...layerRestProps } = layerProps;
                 const layerUuid = toUUID(layerRestProps);
                 const layerStored = layerStorage(layerUuid);
@@ -75,8 +74,8 @@ const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProp
   const domPreview = "#textureset__preview";
   const domTexturePreview = `${domPreview} .texture`;
   const domLayerPreview = `${domPreview} .layer`;
-  ctx.canvas.width = quality;
-  ctx.canvas.height = quality;
+  ctx.canvas.width = textureGlobals.dimensions;
+  ctx.canvas.height = textureGlobals.dimensions;
   const cw = ctx.canvas.width;
   const ch = ctx.canvas.height;
 
@@ -88,8 +87,7 @@ const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProp
     ctxLayer.canvas.height = ch;
 
     // Nearest neighbour rendering
-    ctxLayer.imageSmoothingEnabled = true;
-    if (props.nearest) ctxLayer.imageSmoothingEnabled = false;
+    ctxLayer.imageSmoothingEnabled = !props.nearest;
 
     // Clear canvas
     ctxLayer.globalCompositeOperation = "source-over";
@@ -165,10 +163,9 @@ const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProp
   };
 
   if (!texture) return null;
-
   if (!document.querySelector("#texture")) ctx.canvas.remove();
 
-  return <Tex {...setProps} name={uuid} object={texture} map={map} />;
+  return <primitive attach={map ? `${map}Map` : "map"} encoding={sRGBEncoding} object={texture} {...setProps} />;
 };
 
 export { TextureSet };

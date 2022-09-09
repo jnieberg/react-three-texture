@@ -6,7 +6,7 @@ export type GradientLinearProps = {
 };
 
 export type GradientRadialProps = {
-  type?: "radial" | "circular";
+  type?: "radial";
   from?: [number, number, number];
   to?: [number, number, number];
   stops?: [number, string][];
@@ -55,6 +55,7 @@ export type BloomProps = {
 };
 
 export interface LayerProps extends ImageProps, TransformationProps, ColorProps {
+  dimensions?: number;
   gradient?: GradientLinearProps | GradientRadialProps | boolean;
   nearest?: boolean;
   shadow?: ShadowProps | boolean;

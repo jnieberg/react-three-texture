@@ -1,0 +1,15 @@
+{
+  "files.exclude": {
+    "examples/src/temp": false,
+    "src": false
+  },
+  "search.exclude": {
+    "examples/src/temp": false,
+    "src": true,
+    "dist": true,
+    "**/node_modules": true,
+    "**/yarn-error.log": true,
+    "**/.gitignore": true
+  },
+  "search.useIgnoreFiles": false
+}
