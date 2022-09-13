@@ -1,7 +1,11 @@
 import { folder } from "leva";
 
+type LevaControls = {
+  [key: string]: any;
+};
+
 const getControls = (location: string) => {
-  let controls = null;
+  let controls: LevaControls = {};
 
   switch (location) {
     case "/images":
@@ -36,6 +40,11 @@ const getControls = (location: string) => {
               top: "top",
               bottom: "bottom",
             },
+          },
+        }),
+        "Image dimensions": folder({
+          pixels: {
+            options: [512, 256, 128, 64, 32],
           },
         }),
       };
@@ -210,6 +219,7 @@ const getControls = (location: string) => {
             max: 20,
             step: 1,
           },
+          darken: false,
         }),
         Shadow: folder({
           color: "#440000",

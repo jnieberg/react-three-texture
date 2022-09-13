@@ -5,13 +5,13 @@ import DemoProps from "../types/Demo";
 
 const Effects: FC<DemoProps> = ({ globalProps, ...props }) => {
   const { mesh: Mesh } = globalProps;
-  const { size, strength, softness, detail, blur, color, offset, colorO, sizeO, detailO } = useControls(props);
+  const { size, strength, softness, detail, darken, blur, color, offset, colorO, sizeO, detailO } = useControls(props);
 
   return Mesh ? (
     <>
       <Mesh position={[-1.5, 0, 0]}>
         <TextureSet name="texture/effects-1">
-          <Layer src="girl.png" scale={[1, 1.5]} bloom={{ size, strength, softness, detail }} />
+          <Layer src="girl.png" scale={[1, 1.5]} bloom={{ size, strength, softness, detail, darken }} />
         </TextureSet>
       </Mesh>
       <Mesh>

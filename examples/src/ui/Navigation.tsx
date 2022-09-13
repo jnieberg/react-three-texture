@@ -1,5 +1,4 @@
 import "./Navigation.css";
-import { Link, Redirect, Route, useLocation } from "wouter";
 import Effects from "../demos/Effects";
 import Gradient from "../demos/Gradient";
 import Blending from "../demos/Blending";
@@ -13,6 +12,7 @@ import PrettyCylinder from "../meshes/PrettyCylinder";
 import Images from "../demos/Images";
 import { Schema } from "leva/dist/declarations/src/types";
 import Alpha from "../demos/Alpha";
+import { Link, Redirect, Route, useLocation } from "wouter";
 
 const menuItems = [Images, Transformation, Gradient, Blending, Filters, Effects, Alpha];
 
@@ -35,7 +35,7 @@ export const Navigation = () => {
   );
 };
 
-export const Routes = () => {
+export const Pages = () => {
   const globalControl: Schema = {
     "Global Settings": folder({
       mesh: { options: { Box: PrettyBox, Sphere: PrettySphere, Cylinder: PrettyCylinder } },

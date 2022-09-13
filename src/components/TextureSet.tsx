@@ -5,7 +5,7 @@ import toUUID from "../helpers/toUUID";
 import { IMG, textureStorage, layerStorage } from "../storage/textureStorage";
 import { TextureSetProps } from "../types/TextureSet";
 import { color, alpha, shadow, outline, bloom, gradient, fill, transformation } from "../effects";
-import { textureGlobals } from "../setup";
+import { DEFAULT, textureGlobals } from "../setup";
 import { PrimitiveProps } from "@react-three/fiber";
 
 declare global {
@@ -29,7 +29,7 @@ const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProp
 
   React.useEffect(() => {
     const drawAll = () => {
-      return new Promise<CanvasTexture>((resolve, reject) => {
+      return new Promise<CanvasTexture>((resolve) => {
         const textureStored = textureStorage(uuid);
         if (typeof textureStored !== "undefined") {
           resolve(textureStored);
@@ -41,27 +41,33 @@ const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProp
             Promise.all(
               layers.map(async (layer) => {
                 const layerProps: LayerProps = { ...textureGlobals, ...layer?.props };
-                const { position: _, rotation: __, scale: ___, blend: _____, image: ______, ...layerRestProps } = layerProps;
+                const { ...layerRestProps } = layerProps;
                 const layerUuid = toUUID(layerRestProps);
                 const layerStored = layerStorage(layerUuid);
                 if (typeof layerStored !== "undefined") {
-                  return { canvas: layerStored, props: layerProps };
+                  return { ctxLayer: ctx, canvas: layerStored, props: layerProps };
                 } else {
                   const ctxLayer = document.createElement("canvas").getContext("2d");
                   if (ctxLayer) {
+                    ctxLayer.canvas.width = ctx.canvas.width; //layerProps.dimensions ||
+                    ctxLayer.canvas.height = ctx.canvas.height; //layerProps.dimensions ||
                     await drawLayer(ctxLayer, layerProps);
                     layerStorage(layerUuid, ctxLayer.canvas); // new CanvasTexture(ctxLayer.canvas).source.data
-                    return { canvas: ctxLayer.canvas, props: layerProps };
+                    return { ctxLayer, canvas: ctxLayer.canvas, props: layerProps };
                   }
                 }
                 return null;
               })
-            ).then((all: ({ canvas: HTMLCanvasElement; props: LayerProps } | null)[]) => {
+            ).then((all: ({ ctxLayer: CanvasRenderingContext2D; canvas: HTMLCanvasElement; props: LayerProps } | null)[]) => {
               // Draw each layer
               all.forEach((layer) => {
                 if (layer) {
-                  transformation(ctx, layer);
+                  const cw = layer.props.dimensions || layer.canvas.width;
+                  const ch = layer.props.dimensions || layer.canvas.height;
+
                   if (layer.canvas) {
+                    ctx.globalCompositeOperation = layer.props.blend || DEFAULT.blend;
+                    ctx.drawImage(layer.canvas, 0, 0, cw, ch, 0, 0, layer.canvas.width, layer.canvas.height);
                     if (document.querySelector(domLayerPreview)) document.querySelector(domLayerPreview)?.prepend(layer.canvas);
                     else layer.canvas.remove();
                   }
@@ -85,15 +91,10 @@ const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProp
   const domLayerPreview = `${domPreview} .layer`;
   ctx.canvas.width = textureGlobals.dimensions;
   ctx.canvas.height = textureGlobals.dimensions;
-  const cw = ctx.canvas.width;
-  const ch = ctx.canvas.height;
 
   const setEffects = (ctxLayer: CanvasRenderingContext2D, props: LayerProps) => {
     const src = props.src;
     const target = (src && IMG[src]) || ctx.canvas;
-
-    ctxLayer.canvas.width = cw;
-    ctxLayer.canvas.height = ch;
 
     // Nearest neighbour rendering
     ctxLayer.imageSmoothingEnabled = !props.nearest;
@@ -105,6 +106,9 @@ const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProp
     // Apply filters
     ctxLayer.filter = props.filter || "none";
 
+    // Transformation (position / scale / rotation)
+    transformation(ctxLayer, props);
+
     // Fill
     fill(ctxLayer, props);
 
@@ -112,8 +116,10 @@ const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProp
     gradient(ctxLayer, props);
 
     // Draw image
-    ctxLayer.globalCompositeOperation = "source-over";
     ctxLayer.drawImage(target, 0, 0, ctxLayer.canvas.width, ctxLayer.canvas.height);
+
+    // Reset transformation
+    ctxLayer.resetTransform();
 
     // Color override
     color(ctxLayer, props);
@@ -141,10 +147,8 @@ const TextureSet: React.FC<TextureSetProps> = ({ name, map, children, ...setProp
           srcString = IMG[src].src;
         } else {
           IMG[src] = image;
-          image.width = cw;
-          image.height = ch;
           if (src.search(/^(blob:)?https?:\/\//) === 0) {
-            image.crossOrigin = "anonymous";
+            image.crossOrigin = "Anonymous";
             srcString = src;
           } else {
             srcString = require(`/src/assets/${src}`);

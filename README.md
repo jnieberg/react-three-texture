@@ -50,6 +50,17 @@ const ExampleBox = () => (
 
 ## Documentation
 
+### Default Texture Settings
+
+To apply texture settings globally and for all textures defined in the texture sets, call the texture default function at the top level of your application. All the available layer settings can be defined here.
+
+```js
+textureGlobals({
+  dimensions: 512,
+  filter: "contrast(85%) brightness(110%)",
+});
+```
+
 ### TextureSet
 
 A texture containing a set of layers. All features like _map_, _offset_, _repeat_ and _rotation_ that are normally available for the basic `Texture` object, can also be used here. Its children can only be layers. [Read more about ThreeJS Textures](https://threejs.org/docs/#api/en/textures/Texture).
@@ -85,6 +96,18 @@ Will directly load an image source onto the texture. All loaded images will be c
 <Layer src="https://images.unsplash.com/photo-1581373449483-37449f962b6c" />
 ```
 
+#### Dimensions
+
+![Dimension Example](./public/readme-dimensions.png)
+
+You can set the width and the height (in pixels) for the layer. By default the texture dimensions are 512x512 pixels. Note, that if you wish to set the dimensions higher than the [Default Texture Settings](#default-texture-settings), you also need to increase it there.
+
+```jsx
+<Layer src="image.png" dimensions={64} />
+
+<Layer src="image.png" dimensions={256} />
+```
+
 #### Basic transformations
 
 ![Transformation Example](./public/readme-transform.png)
@@ -112,11 +135,11 @@ All layers can separately be moved, scaled and rotated, relative to the texture.
 Images that are not exactly square sized can be fit in the texture as we like without getting deformed. We can choose to fit a rectangular sized image on a square sized texture, while keeping the aspect ratio of the image. Also, when the image is too big to fit on the texture we can choose to position the image to a side.
 
 ```jsx
-<Layer src="image.png" image />
+<Layer src="image.png" image /> // "fit-max center middle"
 
 <Layer src="image.png" image="fit-max" />
 
-<Layer src="image.png" image="fit-x middle center" />
+<Layer src="image.png" image="fit-x center middle" />
 ```
 
 | string        | description                                                                                                                       |
@@ -142,9 +165,11 @@ Images that are not exactly square sized can be fit in the texture as we like wi
 
 ![Outline Example](./public/readme-color.png)
 
-Overwrite the colors in your layers with a single color. Useful to colorize your monochrome SVG images. When setting the alpha channel lower than 100% it will blend the original colors with the overwritten color
+Overwrite the colors in your layers with a single color. Useful to colorize your monochrome SVG images. When setting the alpha channel lower than 100% it will blend the original colors with the overwritten color.
 
 ```jsx
+<Layer src="image.png" color /> // "white"
+
 <Layer src="image.png" color="red" />
 
 <Layer src="image.png" color="#ff000080" />
@@ -159,11 +184,11 @@ Overwrite the colors in your layers with a single color. Useful to colorize your
 Will fill the layer with a single color. The alpha channel can also be used to make the fill color (semi-)transparent.
 
 ```jsx
+<Layer fill /> // "black"
+
 <Layer fill="darkBlue" />
 
-<Layer fill="#ff8800" />
-
-<Layer fill="#00ff0080" />
+<Layer fill="#00ff00" />
 
 <Layer fill="rgb(128, 0, 128)" />
 ```
@@ -175,7 +200,7 @@ Will fill the layer with a single color. The alpha channel can also be used to m
 Gradients is an operation to smoothly blend two or more colors into each other. See the [linear gradient page](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createLinearGradient) and the [radial gradient page](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createRadialGradient) of the MDN web docs for more information.
 
 ```jsx
-<Layer gradient />
+<Layer gradient /> // { type: "linear", from: [0, 0], to: [0, 1], stops: [[0, "white"], [1, "black"]] }
 
 <Layer gradient={{ stops: [[0, "#008800"], [1, "#88ff88"]] }} />
 
@@ -207,7 +232,7 @@ Gradients is an operation to smoothly blend two or more colors into each other. 
 Turn off image smoothing for the layer (the "nearest neighbour" algorithm), when scaling/fitting the image. See the [image smoothing page](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/imageSmoothingEnabled) of the MDN web docs for more information.
 
 ```jsx
-<Layer img="image.png" nearest />
+<Layer img="image.png" nearest /> // true
 ```
 
 #### Shadow and glow
@@ -217,7 +242,9 @@ Turn off image smoothing for the layer (the "nearest neighbour" algorithm), when
 Apply a shadow (or glow) effect to the layer. See the [shadow page](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/shadowBlur) of the MDN web docs for more information.
 
 ```jsx
-<Layer src="image.svg" shadow={{ color: "black", blur: 30, offset: [-5, 5] }} />
+<Layer src="image.svg" shadow /> // { color: "black", blur: 20, offset: [0, 0] }
+
+<Layer src="image.svg" shadow={{ color: "white", blur: 30, offset: [-5, 5] }} />
 ```
 
 | key    | default value | arguments | description                                        |
@@ -233,9 +260,9 @@ Apply a shadow (or glow) effect to the layer. See the [shadow page](https://deve
 You can give your image an outline effect. Other than shadow or glow, outline will not be smooth and does not have an offset.
 
 ```jsx
-<Layer src="image.svg" outline />
+<Layer src="image.svg" outline /> // { color: "black", size: 1, detail: 8 }
 
-<Layer src="image.svg" outline={{ color: "black", size: 10, detail: 10 }} />
+<Layer src="image.svg" outline={{ color: "#ff00ff", size: 10, detail: 10 }} />
 ```
 
 | key     | default value | arguments | description                                                                                  |
@@ -248,12 +275,15 @@ You can give your image an outline effect. Other than shadow or glow, outline wi
 
 ![Outline Example](./public/readme-bloom.png)
 
-Bloom is an effect, well known to photographers and videogame developers, to intensify the bright parts of an image with a bleeding effect of brightness.
+Bloom is an effect, well known to photographers and videogame developers, to intensify the light parts of an image with a bleeding effect of brightness.
 
 ```jsx
-<Layer src="image.png" bloom />
+<Layer src="image.png" bloom /> // { size: 30, strength: 0.9, softness: 0.7, detail: 10, darken: false }
 
-<Layer src="image.png" bloom={{size: 10, strength: 0.5, softness: 0.3 }} />
+<Layer src="image.png" bloom={{ size: 10, strength: 0.5, softness: 0.3 }} />
+
+<Layer src="image.png" bloom={{ size: 10, strength: 0.5, detail: 4, darken: true }} />
+
 ```
 
 | key      | default value | arguments  | description                                                                                                             |
@@ -262,6 +292,7 @@ Bloom is an effect, well known to photographers and videogame developers, to int
 | strength | `0.9`         | 0.0 to 1.0 | The power of the effect. The higher the value the brighter the effect will remain, moving further away from the center. |
 | softness | `0.7`         | 0.0 to 1.0 | The fallout of the effect. The higher the value the faster the effect will fade, moving further away from the center.   |
 | detail   | `10`          | 1 to x     | The detail of the bloom effect. The higher the more instances of the effect will be drawn.                              |
+| darken   | `false`       | boolean    | Optionally darken the effect.                                                                                           |
 
 #### Filters
 
@@ -276,9 +307,7 @@ You can change brightness, contrast, saturation, blur, and many other filters. S
 
 <Layer src="image.png" filter="saturate(0)" />
 
-<Layer src="image.png" filter="hue-rotate(180deg)" />
-
-<Layer src="image.png" filter="sepia(1)" />
+<Layer src="image.png" filter="hue-rotate(180deg) sepia(0.5)" />
 ```
 
 #### Blending
@@ -305,7 +334,7 @@ Blending is a method to mix the colors of two or more layers together by a mathe
 The alpha (transparency) channel can be altered in many ways. It is possible to alter the alpha channel in such a way that darker colors become more transparent. Or vice versa.
 
 ```jsx
-<Layer src="image.png" alpha />
+<Layer src="image.png" alpha /> // { level: 1, power: 1, offset: 0, reverse: false }
 
 <Layer src="image.png" alpha={{ level: 0.5}} />
 
@@ -315,7 +344,7 @@ The alpha (transparency) channel can be altered in many ways. It is possible to 
 | key     | default value | arguments     | description                                                                                     |
 | ------- | ------------- | ------------- | ----------------------------------------------------------------------------------------------- |
 | level   | `1`           | 0 to 1        | The opacity of the layer. 0 means transparent, 1 means opaque.                                  |
-| power   | `0`           | 0 to x        | The power of the alpha map levels. Higher power means more difference between the alpha levels. |
+| power   | `1`           | 0 to x        | The power of the alpha map levels. Higher power means more difference between the alpha levels. |
 | offset  | `0`           | 0 to 1        | Shift the alpha levels down or up, making respectively less or more colors transparent.         |
 | reverse | `false`       | true or false | Reverse the alpha channels to make lighter colors more transparent.                             |
 
@@ -323,22 +352,31 @@ The alpha (transparency) channel can be altered in many ways. It is possible to 
 
 ### New layer effects
 
-- Flip layer (x, y, both)
-- Repeat layer and pattern drawing
-- Drawing shapes and text
-- Bevel and emboss effect
-- Image scaling while maintaining aspect ratio
-- Procedural rendering: clouds, perlin noise, distortion, etcetera
-- Sharpen effect
-- Initial setup to add more sizes than 512x512
+- [ ] Flip layer (x, y, both)
+- [ ] Repeat layer and pattern drawing
+- [ ] Drawing shapes and text
+- [ ] Bevel and emboss effect
+- [ ] Image scaling while maintaining aspect ratio
+- [ ] Procedural rendering
+  - [ ] clouds
+  - [ ] perlin noise
+  - [ ] distortion
+  - [ ] walls
+- [ ] Sharpen effect
+- [x] Initial setup to add more sizes than 512x512
 
 ### Technical upgrades
 
-- Migration to Typescript
-- Adding JSDoc
-- Use "offscreenCanvas" for better performance
-- Layer groups
+- [x] Migration to Typescript
+- [ ] Adding JSDoc
+- [ ] Use "offscreenCanvas" for better performance
+- [ ] Layer groups
 
 ## Known bugs
 
-- Cached large images should keep their original size, instead of scaling them down to 512x512.
+- [x] Cached large images should keep their original size, instead of scaling them down to 512x512.
+
+---
+
+- [ ] _to do_
+- [x] _completed_

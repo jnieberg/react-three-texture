@@ -1,9 +1,9 @@
 import "./App.css";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { ACESFilmicToneMapping, SpotLight, sRGBEncoding, Vector3, VSMShadowMap } from "three";
-import { Suspense, useRef } from "react";
+import { useRef } from "react";
 import { Environment, OrbitControls, Plane } from "@react-three/drei";
-import { Navigation, Routes } from "./ui/Navigation";
+import { Navigation, Pages } from "./ui/Navigation";
 
 const SceneSetup = () => {
   const { gl } = useThree();
@@ -69,33 +69,29 @@ const Controls = () => {
   );
 };
 
-const App = () => {
-  return (
-    <>
-      <Navigation />
-      <Canvas
-        gl={{
-          antialias: true,
-          alpha: false,
-          stencil: false,
-          pixelRatio: window.devicePixelRatio,
-          outputEncoding: sRGBEncoding,
-          powerPreference: "high-performance",
-          toneMapping: ACESFilmicToneMapping,
-          physicallyCorrectLights: true,
-        }}
-        shadows
-        camera={{ position: [-2.5, 2, 5], fov: 30 }}
-        frameloop="demand"
-      >
-        <Controls />
-        <Suspense fallback={null}>
-          <SceneSetup />
-          <Routes />
-        </Suspense>
-      </Canvas>
-    </>
-  );
-};
+const App = () => (
+  <>
+    <Navigation />
+    <Canvas
+      gl={{
+        antialias: true,
+        alpha: false,
+        stencil: false,
+        pixelRatio: window.devicePixelRatio,
+        outputEncoding: sRGBEncoding,
+        powerPreference: "high-performance",
+        toneMapping: ACESFilmicToneMapping,
+        physicallyCorrectLights: true,
+      }}
+      shadows
+      camera={{ position: [-2.5, 2, 5], fov: 30 }}
+      frameloop="demand"
+    >
+      <Controls />
+      <SceneSetup />
+      <Pages />
+    </Canvas>
+  </>
+);
 
 export default App;

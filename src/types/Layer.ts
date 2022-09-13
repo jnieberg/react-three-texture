@@ -52,6 +52,7 @@ export type BloomProps = {
   strength?: number;
   softness?: number;
   detail?: number;
+  darken?: boolean;
 };
 
 export interface LayerProps extends ImageProps, TransformationProps, ColorProps {

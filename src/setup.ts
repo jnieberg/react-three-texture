@@ -34,7 +34,7 @@ export const DEFAULT = {
   filter: "",
   blend: "source-over",
   alpha: { level: 1, power: 1, offset: 0, reverse: false },
-  bloom: { size: 30, strength: 0.9, softness: 0.7, detail: 10 },
+  bloom: { size: 30, strength: 0.9, softness: 0.7, detail: 10, darken: false },
 } as const;
 
 export let textureGlobals = {
