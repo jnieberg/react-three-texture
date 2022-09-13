@@ -1,4 +1,4 @@
-import { DEFAULT } from "react-three-texture";
+import { DEFAULT } from "../setup";
 import { LayerProps } from "../types";
 
 export const color = (ctx: CanvasRenderingContext2D, props: LayerProps) => {

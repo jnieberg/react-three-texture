@@ -46,6 +46,4 @@ export const transformation = (ctx: CanvasRenderingContext2D, props: LayerProps)
   ctx.rotate(rotation);
   ctx.translate(position[0], position[1]);
   ctx.scale(scale[0], scale[1]);
-
-  if (document.querySelector(".testlayer")) document.querySelector(".testlayer")?.prepend(ctx.canvas);
 };
