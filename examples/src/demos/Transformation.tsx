@@ -1,7 +1,6 @@
 import { useControls } from "leva";
 import { FC } from "react";
-import { Layer, TextureSet } from "react-three-texture";
-import { LayerProps } from "../temp/types";
+import { Layer, LayerProps, TextureSet } from "react-three-texture";
 import DemoProps from "../types/Demo";
 
 const Transformation: FC<DemoProps> = ({ globalProps, ...props }) => {
