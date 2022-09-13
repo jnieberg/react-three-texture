@@ -42,6 +42,7 @@
     ]
   },
   "devDependencies": {
+    "@types/three": "^0.144.0",
     "npm-run-all": "^4.1.5"
   }
 }
