@@ -8,6 +8,10 @@ So I decided to create a tool where you can draw, edit, optimize and even animat
 
 The Texture Tinker Tool is a fast, powerful, elegant and dynamic texture editor, to use together with [ThreeJS](https://threejs.org/) and [React Three Fiber](https://github.com/pmndrs/react-three-fiber). It helps you to dynamically optimize your textures thanks to the many features available in the [Canvas Rendering Context](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D) interface, like [filters](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter), [composite operations (blending)](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation), [gradient](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createLinearGradient) and additional effects like [bloom](<https://en.wikipedia.org/wiki/Bloom_(shader_effect)>), alpha channel mapping, and outline effects.
 
+## Demo
+
+[Texture Tinker Tool Demo](https://texture-tinker-tool.netlify.app)
+
 ## Installation
 
 ```
