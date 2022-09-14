@@ -12,16 +12,24 @@ import PrettyCylinder from "../meshes/PrettyCylinder";
 import Images from "../demos/Images";
 import { Schema } from "leva/dist/declarations/src/types";
 import Alpha from "../demos/Alpha";
-import { Link, Redirect, Route, useLocation } from "wouter";
+import { Link, Redirect, Route, Router, useLocation } from "wouter";
 
-const menuItems = [Images, Transformation, Gradient, Blending, Filters, Effects, Alpha];
+const menuItems = [
+  { Component: Images, name: "Images" },
+  { Component: Transformation, name: "Transformation" },
+  { Component: Gradient, name: "Gradient" },
+  { Component: Blending, name: "Blending" },
+  { Component: Filters, name: "Filters" },
+  { Component: Effects, name: "Effects" },
+  { Component: Alpha, name: "Alpha" },
+];
 
 export const Navigation = () => {
   const [location] = useLocation();
 
   return (
     <nav>
-      {menuItems.map(({ name }) => {
+      {menuItems.map(({ Component, name }) => {
         const className = location.indexOf(name.toLowerCase()) === 1 ? "selected" : "";
         return (
           <Link key={name} href={`/${name.toLowerCase()}`}>
@@ -52,9 +60,9 @@ export const Pages = () => {
         <Redirect to={`/${menuItems[0].name.toLowerCase()}`} />
       </Route>
       <group position={[0, 0.5, 0]}>
-        {menuItems.map((MenuItem) => (
-          <Route key={MenuItem.name} path={`/${MenuItem.name.toLowerCase()}`}>
-            <MenuItem globalProps={globalControlProps} {...controlProps} />
+        {menuItems.map(({ Component, name }) => (
+          <Route key={name} path={`/${name.toLowerCase()}`}>
+            <Component globalProps={globalControlProps} {...controlProps} />
           </Route>
         ))}
       </group>

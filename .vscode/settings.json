@@ -7,6 +7,7 @@
     "examples/src/temp": false,
     "src": true,
     "dist": true,
+    "**/build": true,
     "**/node_modules": true,
     "**/yarn-error.log": true,
     "**/.gitignore": true
