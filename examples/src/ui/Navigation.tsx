@@ -12,7 +12,7 @@ import PrettyCylinder from "../meshes/PrettyCylinder";
 import Images from "../demos/Images";
 import { Schema } from "leva/dist/declarations/src/types";
 import Alpha from "../demos/Alpha";
-import { Link, Redirect, Route, Router, useLocation } from "wouter";
+import { Link, Redirect, Route, useLocation } from "wouter";
 
 const menuItems = [
   { Component: Images, name: "Images" },
