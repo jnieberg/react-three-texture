@@ -165,6 +165,16 @@ Images that are not exactly square sized can be fit in the texture as we like wi
 
 \*\* default, when not defining the property "image"
 
+#### Repeat
+
+![Repeat Example](./public/readme-repeat.png)
+
+Instead of a single render of a layer, it is also possible to repeat it as a pattern. When scaling the layer down, the pattern will become visible.
+
+```jsx
+<Layer src="image.png" scale={[0.2, 0.2]} repeat />
+```
+
 #### Color
 
 ![Outline Example](./public/readme-color.png)
@@ -357,10 +367,11 @@ The alpha (transparency) channel can be altered in many ways. It is possible to 
 ### New layer effects
 
 - [ ] Flip layer (x, y, both)
-- [ ] Repeat layer and pattern drawing
+- [x] Repeat layer and pattern drawing
 - [ ] Drawing shapes and text
 - [ ] Bevel and emboss effect
 - [ ] Image scaling while maintaining aspect ratio
+- [ ] Seamless rendering
 - [ ] Procedural rendering
   - [ ] clouds
   - [ ] perlin noise

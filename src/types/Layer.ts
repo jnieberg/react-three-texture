@@ -59,6 +59,7 @@ export interface LayerProps extends ImageProps, TransformationProps, ColorProps 
   dimensions?: number;
   gradient?: GradientLinearProps | GradientRadialProps | boolean;
   nearest?: boolean;
+  repeat?: boolean;
   shadow?: ShadowProps | boolean;
   outline?: OutlineProps | boolean;
   filter?: string;

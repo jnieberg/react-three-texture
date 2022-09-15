@@ -21,9 +21,9 @@ nav a.selected {
 
 nav a.more-info {
   position: relative;
-  color: #000000;
+  color: #ffffff;
   font-size: 14px;
-  background-color: #ffffff44;
+  background-color: #0044ff44;
   border-radius: 16px;
   text-shadow: none;
   margin: 8px 8px 0;
@@ -36,5 +36,5 @@ nav a:hover {
 
 nav a.more-info:hover {
   text-decoration: none;
-  background-color: #ffffff88;
+  background-color: #0044ff88;
 }

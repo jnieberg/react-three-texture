@@ -13,6 +13,7 @@ const SceneSetup = () => {
 
   gl.shadowMap.enabled = true;
   gl.shadowMap.type = VSMShadowMap;
+  gl.shadowMap.needsUpdate = true;
 
   return (
     <>
@@ -75,7 +76,7 @@ const App = () => (
     <Canvas
       gl={{
         antialias: true,
-        alpha: false,
+        alpha: true,
         stencil: false,
         pixelRatio: window.devicePixelRatio,
         outputEncoding: sRGBEncoding,
@@ -84,6 +85,7 @@ const App = () => (
         physicallyCorrectLights: true,
       }}
       shadows
+      // camera={{ position: [-4, 2, 4], fov: 30 }} // for readme
       camera={{ position: [-2.5, 2, 5], fov: 30 }}
       frameloop="demand"
     >

@@ -9,7 +9,6 @@
     "skipLibCheck": true,
     "moduleResolution": "node",
     "strictNullChecks": true,
-    "noImplicitAny": true,
-    "noUnusedLocals": true
+    "noImplicitAny": true
   }
 }

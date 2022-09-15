@@ -20,7 +20,10 @@
     "three",
     "fiber",
     "r3f",
-    "tool"
+    "tool",
+    "blending",
+    "effect",
+    "gradient"
   ],
   "devDependencies": {
     "@react-three/fiber": "^8.6.2",

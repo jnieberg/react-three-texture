@@ -8,10 +8,11 @@ const toUUID = function (props: object) {
       } else if (typeof value === "number") {
         newValue = value.toFixed(2);
       }
-      return [key, newValue];
+      return newValue ? [key, newValue] : null;
     })
     .flat(Infinity)
-    .join("-");
+    .join("-")
+    .replace(/[\s\t]+/g, "-");
 };
 
 export default toUUID;

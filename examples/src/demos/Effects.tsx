@@ -10,12 +10,12 @@ const Effects: FC<DemoProps> = ({ globalProps, ...props }) => {
   return Mesh ? (
     <>
       <Mesh position={[-1.5, 0, 0]}>
-        <TextureSet name="texture/effects-1">
+        <TextureSet>
           <Layer src="girl.png" scale={[1, 1.5]} bloom={{ size, strength, softness, detail, darken }} />
         </TextureSet>
       </Mesh>
       <Mesh>
-        <TextureSet name="texture/effects-2">
+        <TextureSet>
           <Layer fill="#ff4400" />
           <Layer
             src="burning-meteor.svg"
@@ -27,7 +27,7 @@ const Effects: FC<DemoProps> = ({ globalProps, ...props }) => {
         </TextureSet>
       </Mesh>
       <Mesh position={[1.5, 0, 0]}>
-        <TextureSet name="texture/effects-3">
+        <TextureSet>
           <Layer fill="#0000ff" />
           <Layer
             src="wolf-head.svg"

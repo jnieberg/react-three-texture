@@ -10,7 +10,7 @@ const Blending: FC<DemoProps> = ({ globalProps, ...props }) => {
   return Mesh ? (
     <>
       <Mesh position={[-1.5, 0, 0]}>
-        <TextureSet name="texture/blend-1">
+        <TextureSet>
           <Layer fill="#004477" scale={[0.2, 1]} position={[0, 0]} />
           <Layer fill="#774400" scale={[0.2, 1]} position={[0.4, 0]} />
           <Layer fill="#447700" scale={[0.2, 1]} position={[0.8, 0]} />
@@ -18,7 +18,7 @@ const Blending: FC<DemoProps> = ({ globalProps, ...props }) => {
         </TextureSet>
       </Mesh>
       <Mesh>
-        <TextureSet name="texture/blend-2">
+        <TextureSet>
           <Layer
             gradient={{
               type: "radial",
@@ -45,7 +45,7 @@ const Blending: FC<DemoProps> = ({ globalProps, ...props }) => {
         </TextureSet>
       </Mesh>
       <Mesh position={[1.5, 0, 0]}>
-        <TextureSet name="texture/blend-1">
+        <TextureSet>
           <Layer src="wall.png" />
           <Layer
             gradient={{
@@ -58,7 +58,7 @@ const Blending: FC<DemoProps> = ({ globalProps, ...props }) => {
           />
           <Layer src="castle.svg" image="center" color="#880088" blend={blending} />
         </TextureSet>
-        <TextureSet name="texture/blend-1" map="roughness">
+        <TextureSet map="roughness">
           <Layer src="wall.png" />
           <Layer src="castle.svg" image="center" color="black" blend={blending} />
         </TextureSet>

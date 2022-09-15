@@ -16,8 +16,7 @@
     "outDir": "dist",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "emitDeclarationOnly": true,
-    "noUnusedLocals": true
+    "emitDeclarationOnly": true
   },
   "exclude": ["examples"]
 }

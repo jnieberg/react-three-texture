@@ -10,17 +10,17 @@ const Filters: FC<DemoProps> = ({ globalProps, ...props }) => {
   return Mesh ? (
     <>
       <Mesh position={[-1.5, 0, 0]}>
-        <TextureSet name="texture/filters-1">
+        <TextureSet>
           <Layer src="girl.png" image="fit-max center" filter={filters} />
         </TextureSet>
       </Mesh>
       <Mesh>
-        <TextureSet name="texture/filters-2">
+        <TextureSet>
           <Layer src="desk.png" image="fit-max center" filter={filters} />
         </TextureSet>
       </Mesh>
       <Mesh position={[1.5, 0, 0]}>
-        <TextureSet name="texture/filters-3">
+        <TextureSet>
           <Layer src="city.png" image="fit-max center" filter={filters} />
         </TextureSet>
       </Mesh>

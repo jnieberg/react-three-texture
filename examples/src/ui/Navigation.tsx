@@ -29,6 +29,20 @@ export const Navigation = () => {
 
   return (
     <nav>
+      <a href="https://github.com/jnieberg/react-three-texture" className="more-info" title="Visit the Texture Tinker Tool on GitHub">
+        More info
+        <svg width="16" height="16" viewBox="0 -4 16 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9"
+            stroke="#ffffff"
+            strokeWidth="3"
+            fill="none"
+            fillRule="evenodd"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          ></path>
+        </svg>
+      </a>
       {menuItems.map(({ Component, name }) => {
         const className = location.indexOf(name.toLowerCase()) === 1 ? "selected" : "";
         return (
@@ -39,20 +53,6 @@ export const Navigation = () => {
           </Link>
         );
       })}
-      <a href="https://github.com/jnieberg/react-three-texture" className="more-info">
-        More info
-        <svg width="16" height="16" viewBox="0 -4 16 24" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9"
-            stroke="#000000"
-            stroke-width="3"
-            fill="none"
-            fill-rule="evenodd"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-        </svg>
-      </a>
     </nav>
   );
 };

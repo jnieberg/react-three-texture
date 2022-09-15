@@ -1,8 +1,13 @@
 import { ReactElement } from "react";
 import { LayerProps } from ".";
 
+export type TransformReturn = {
+  position: [number, number];
+  scale: [number, number];
+  rotation: number;
+};
+
 export interface TextureSetProps {
-  name?: string;
   map?:
     | "env"
     | "specular"
@@ -24,5 +29,5 @@ export interface TextureSetProps {
     | "thickness"
     | "transmission"
     | "ao";
-  children: ReactElement<LayerProps> | ReactElement<LayerProps>[];
+  children?: ReactElement<LayerProps> | ReactElement<LayerProps>[];
 }

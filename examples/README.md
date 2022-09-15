@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This is an examples demo of the Texture Tinker Tool. Go to https://github.com/jnieberg/react-three-texture for more information about the Texture Tinker Tool.
+This is an examples demo of the Texture Tinker Tool. Go to https://github.com/jnieberg/react-three-texture for more information about this package.
 
 ## Installation and Run
 
