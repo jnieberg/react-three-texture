@@ -9,7 +9,6 @@ declare global {
   }
 }
 
-export default interface PrettyMeshProps extends MeshProps {
-  children: ReactNode;
-  [key: string]: any;
+export default interface PrettyMeshProps extends MeshProps, Record<string, any> {
+  children?: ReactNode;
 }

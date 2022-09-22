@@ -25,3 +25,10 @@ cd react-three-texture/examples
 npm install
 npm start
 ```
+
+## To do
+
+- Full freeform demo
+- Source code preview
+- Copy source code to clipboard
+- Fix shadow glitch

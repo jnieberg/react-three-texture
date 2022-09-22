@@ -2,7 +2,7 @@ import newCanvasHelper from "../helpers/newCanvasHelper";
 import { DEFAULT } from "../setup";
 import { LayerProps, OutlineProps } from "../types";
 
-export const outline = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const effectOutline = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
   if (props.outline) {
     const { color, size, detail } = { ...DEFAULT.outline, ...(props.outline as OutlineProps) };
     newCanvasHelper(ctx, (ctxOutline) => {
@@ -15,12 +15,12 @@ export const outline = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
         const sizeNorm = size * (dims / DEFAULT.dimensions);
         const detailNorm = detail;
         let i = 0;
+        ctxOutline.globalCompositeOperation = "destination-in";
         for (; i < detailNorm; i++) {
           const angle = Math.PI * 2 * (i / detailNorm) + Math.PI * 0.25;
           const direction = [Math.sin(angle), Math.cos(angle)];
           ctxOutlineIn.drawImage(ctx.canvas, direction[0] * sizeNorm, direction[1] * sizeNorm, ctxOutlineIn.canvas.width, ctxOutlineIn.canvas.height);
         }
-        ctxOutline.globalCompositeOperation = "destination-in";
       });
 
       ctxOutline.globalCompositeOperation = "source-over";

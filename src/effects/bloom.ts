@@ -2,7 +2,7 @@ import newCanvasHelper from "../helpers/newCanvasHelper";
 import { DEFAULT } from "../setup";
 import { BloomProps, LayerProps } from "../types";
 
-export const bloom = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const effectBloom = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
   if (props.bloom) {
     const { size, strength, softness, detail, darken } = { ...DEFAULT.bloom, ...(props.bloom as BloomProps) };
     newCanvasHelper(ctx, (ctxBloom) => {
@@ -27,8 +27,6 @@ export const bloom = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
           ctxBloom.drawImage(ctx.canvas, direction[0] * sizeNormalized, direction[1] * sizeNormalized, ctx.canvas.width, ctx.canvas.height);
         }
       }
-
-      ctx.globalCompositeOperation = "source-in";
     });
   }
 };

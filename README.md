@@ -90,7 +90,7 @@ Layers are like a stack of transparent film paper, used in old animated movies. 
 
 ![Src Example](./public/readme-src.png)
 
-Will directly load an image source onto the texture. All loaded images will be cached, to increase performance. I.e. when the same image is used somewhere else there will be no reloading. It is also possible to load SVG files, and even external sources can be used.
+Will directly load an image source onto the texture. All loaded images will be cached, to increase performance. I.e. when the same image is used somewhere else there will be no reloading. It is also possible to load SVG files, and even external sources can be used. The root folder for the source files is `/src/assets`.
 
 ```jsx
 <Layer src="image.png" />
@@ -235,11 +235,11 @@ Gradients is an operation to smoothly blend two or more colors into each other. 
 | key   | default value                  | arguments        | description                                                                                           |
 | ----- | ------------------------------ | ---------------- | ----------------------------------------------------------------------------------------------------- |
 | type  | `"linear"`                     | linear or radial | the type of gradient. Can be linear or radial.                                                        |
-| from  | `[0, 0]` or `[0.5, 0.5, 0]`    | x, y, r?         | The starting point of the gradient. The radius (r) only applies for radial gradients.                 |
-| to    | `[0, 1]` or `[0.5, 0.5, 1]`    | x, y, r?         | The end point of the gradient. The radius (r) only applies for radial gradients.                      |
+| from  | `[0, 0]` or `[0.5, 0.5, 0]`    | x, y, r?         | The starting point of the gradient. The radius `r` only applies for radial gradients.                 |
+| to    | `[0, 1]` or `[0.5, 0.5, 1]`    | x, y, r?         | The end point of the gradient. The radius `r` only applies for radial gradients.                      |
 | stops | `[[0, "white"], [1, "black"]]` | index, color     | The stop index and color between the start and the end point. Multiply stops and indexes can be used. |
 
-#### Image smoothing
+#### Image smoothing\*\*
 
 ![Image smoothing Example](./public/readme-nearest.png)
 
@@ -248,6 +248,8 @@ Turn off image smoothing for the layer (the "nearest neighbour" algorithm), when
 ```jsx
 <Layer img="image.png" nearest /> // true
 ```
+
+_\*\* Unfortunately, currently image smoothing is not working in most of the browsers_
 
 #### Shadow and glow
 
@@ -348,6 +350,8 @@ Blending is a method to mix the colors of two or more layers together by a mathe
 The alpha (transparency) channel can be altered in many ways. It is possible to alter the alpha channel in such a way that darker colors become more transparent. Or vice versa.
 
 ```jsx
+<Layer src="image.png" alpha={0.5} /> // level: 0.5
+
 <Layer src="image.png" alpha /> // { level: 1, power: 1, offset: 0, reverse: false }
 
 <Layer src="image.png" alpha={{ level: 0.5}} />
@@ -362,13 +366,62 @@ The alpha (transparency) channel can be altered in many ways. It is possible to 
 | offset  | `0`           | 0 to 1        | Shift the alpha levels down or up, making respectively less or more colors transparent.         |
 | reverse | `false`       | true or false | Reverse the alpha channels to make lighter colors more transparent.                             |
 
+#### Shapes
+
+![Shapes Example](./public/readme-shapes.png)
+
+A variety of basic shapes can be drawn on a layer. Think of lines or curved lines, circles, rectanges and text.
+
+```jsx
+<Layer line={[0.1, 0.1, 0.9, 0.9, 0.9, 0.1]} shapeThickness={32} shapeRounded />
+
+<Layer curved={[0.1, 0.1, 0.9, 0.9, 0.9, 0.1]} shapeThickness={16} />
+
+<Layer circle={[0.5, 0.5, 0.7, 0.4]} />
+
+<Layer rect={[0.2, 0.3, 0.6, 0.4, 0.1]} />
+
+<Layer text={{ value: "This is a nice text-ure", font: "Arial", weight: "bold" }} position={[0.5, 0.5]} scale={[0.1, 0.1]} />
+```
+
+##### Shapes
+
+| property       | default value | arguments                                   | description                                                                                                                                                                                                                                                                          |
+| -------------- | ------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| shapeThickness | `0`           | 0 to x                                      | The thickness of the shape. Will work with all shapes. A shape thickness of 0 will fill the shape.                                                                                                                                                                                   |
+| shapeRounded   | `false`       | true or false                               | Will make lines rounded in the corners, and lines and curved lines rounded on the start and end points.                                                                                                                                                                              |
+| line           |               | x1, y1, x2, y2, ...                         | Draw a line from one coordinate to the next. Ending with the same point as the starting point will close the path.                                                                                                                                                                   |
+| curved         |               | x1, y1, x2, y2, x3, y3, x4?, y4?            | Draw a curved line from one coordinate to the next. Can be a bezier curve (3 points), or a quadratic curve (4 points).                                                                                                                                                               |
+| circle         |               | x, y, rx, ry?, rotation?, start?, end?, cc? | Will draw a circle at a certain point `x, y` and a radius of `rx`. When a second radius `ry` is defined the circle will become an ellipse, and with the start and end point defined the circle is only partly drawn. Optionally the circle can be drawn counter-clockwise with `cc`. |
+| rect           |               | x, y, w, h?, rounded?                       | Will draw a rectangle at a certain point `x, y` and a fixed size of `w` and and optional height of `h`. It is also possible to give the rectangle rounded corners.                                                                                                                   |
+
+##### Text
+
+| key    | default value | arguments             | description                                                                                                                                                                                             |
+| ------ | ------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| value  |               | string                | The text value.                                                                                                                                                                                         |
+| font   | `serif`       | string                | The font family of the text. System fonts can be used, but also a path to a custom font file, or even a url can be used to retreive a font face. The root folder for the source files is `/src/assets`. |
+| style  |               | string                | The font style. For example `italic` or `oblique`.                                                                                                                                                      |
+| weight |               | string                | The font weight. Examples are `bold` or `lighter`, but you can use number values to define the strength of the weight.                                                                                  |
+| width  | `0`           | number                | The maximum width of the text. When the text exceeds this width, the words will wrap down to the next line. The value is a factor of the full width of the layer. A value of 0 will not wrap the text.  |
+| height | `1`           | number                | The line height of the text. The number is a multiplier for the height of the font.                                                                                                                     |
+| align  | `center`      | left, center of right | The horizontal alignment of the text. The text will orientate around the position of the layer.                                                                                                         |
+| base   | `middle`      | top, middle or bottom | The vertical alignment of the text. The text will orientate around the position of the layer.                                                                                                           |
+
+## Q and A
+
+### Disabling the smooth effect does not always work.
+
+When using the `nearest` property, the texture's smooth effect is not always disabled. This is a known bug, and is not working in some browsers. For now use the ThreeJS `texture.magFilter = THREE.NearestFilter` value instead.
+
 ## Known issues and Roadmap
 
 ### New layer effects
 
 - [ ] Flip layer (x, y, both)
 - [x] Repeat layer and pattern drawing
-- [ ] Drawing shapes and text
+- [x] Drawing shapes and text
+- [ ] Inner shadow/glow
 - [ ] Bevel and emboss effect
 - [ ] Image scaling while maintaining aspect ratio
 - [ ] Seamless rendering

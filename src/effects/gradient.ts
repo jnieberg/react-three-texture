@@ -1,7 +1,7 @@
 import { DEFAULT } from "../setup";
 import { GradientLinearProps, GradientRadialProps, LayerProps } from "../types";
 
-export const gradient = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const effectGradient = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
   if (props.gradient) {
     const gradientProp = props.gradient as GradientLinearProps | GradientRadialProps;
     const { type, from, to, stops } = { ...DEFAULT.gradient[gradientProp.type || DEFAULT.gradient.type], ...gradientProp };

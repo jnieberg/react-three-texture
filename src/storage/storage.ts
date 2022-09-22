@@ -1,26 +1,21 @@
 import { CanvasTexture } from "three";
 
-interface KeyProps<T> {
-  [key: string]: T;
-}
+type KeyProps<T> = Record<string, T>;
 
-type Key = "IMG" | "LAY" | "TEX";
+type Key = "IMG" | "LAY" | "TEX" | "FON";
 
-type StoreImg = KeyProps<HTMLImageElement>;
-type StoreLay = KeyProps<HTMLCanvasElement>;
-type StoreTex = KeyProps<CanvasTexture>;
-
-type StoreKeyProps<T> = T extends "IMG" ? HTMLImageElement : T extends "LAY" ? HTMLCanvasElement : CanvasTexture;
+type StoredObject<T> = T extends "IMG" ? HTMLImageElement : T extends "LAY" ? HTMLCanvasElement : T extends "FON" ? FontFace : CanvasTexture;
 
 type StorageRet<T> = {
-  get: () => StoreKeyProps<T>;
-  set: (layer?: StoreKeyProps<T>) => void;
+  get: () => StoredObject<T>;
+  set: (layer?: StoredObject<T>) => void;
 };
 
 const STORE = {
-  IMG: {} as StoreImg,
-  LAY: {} as StoreLay,
-  TEX: {} as StoreTex,
+  IMG: {} as KeyProps<StoredObject<"IMG">>,
+  LAY: {} as KeyProps<StoredObject<"LAY">>,
+  TEX: {} as KeyProps<StoredObject<"TEX">>,
+  FON: {} as KeyProps<StoredObject<"FON">>,
 };
 
 export const storage = <T extends Key>(key: T, name: string = ""): StorageRet<T> => ({

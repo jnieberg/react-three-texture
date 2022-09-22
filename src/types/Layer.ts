@@ -14,7 +14,7 @@ export type GradientRadialProps = {
 
 export type ImageProps = {
   src?: string;
-  image?: string; //"fit-max" | "fit-min" | "fit-x" | "fit-y" | "fit-fill" | "fit-none" | "center" | "left" | "right" | "middle" | "top" | "bottom";
+  image?: string | boolean;
 };
 
 export type TransformationProps = {
@@ -24,8 +24,8 @@ export type TransformationProps = {
 };
 
 export type ColorProps = {
-  color?: string;
-  fill?: string;
+  color?: string | boolean;
+  fill?: string | boolean;
 };
 
 export type ShadowProps = {
@@ -55,7 +55,28 @@ export type BloomProps = {
   darken?: boolean;
 };
 
-export interface LayerProps extends ImageProps, TransformationProps, ColorProps {
+export type TextProps = {
+  value: string;
+  font?: string;
+  style?: string;
+  weight?: string | number;
+  width?: number;
+  height?: number;
+  align?: CanvasTextAlign;
+  base?: CanvasTextBaseline;
+};
+
+export type ShapeProps = {
+  shapeThickness?: number;
+  shapeRounded?: boolean;
+  line?: [number, number, number, number, ...number[]];
+  circle?: [number, number, number, number?, number?, number?, number?, boolean?];
+  rect?: [number, number, number, number?, number?];
+  curve?: [number, number, number, number, number, number, number?, number?];
+  text?: TextProps;
+};
+
+export interface LayerProps extends ImageProps, TransformationProps, ColorProps, ShapeProps {
   dimensions?: number;
   gradient?: GradientLinearProps | GradientRadialProps | boolean;
   nearest?: boolean;
@@ -64,6 +85,6 @@ export interface LayerProps extends ImageProps, TransformationProps, ColorProps 
   outline?: OutlineProps | boolean;
   filter?: string;
   blend?: GlobalCompositeOperation;
-  alpha?: AlphaProps | boolean;
+  alpha?: AlphaProps | number | boolean;
   bloom?: BloomProps | boolean;
 }

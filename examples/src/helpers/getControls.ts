@@ -1,8 +1,6 @@
 import { folder } from "leva";
 
-type LevaControls = {
-  [key: string]: any;
-};
+type LevaControls = Record<string, any>;
 
 const getControls = (location: string) => {
   let controls: LevaControls = {};
@@ -40,11 +38,6 @@ const getControls = (location: string) => {
               top: "top",
               bottom: "bottom",
             },
-          },
-        }),
-        "Image dimensions": folder({
-          pixels: {
-            options: [512, 256, 128, 64, 32],
           },
         }),
       };
@@ -183,6 +176,12 @@ const getControls = (location: string) => {
             max: 400,
             step: 10,
           },
+          invert: {
+            value: 0,
+            min: 0,
+            max: 1,
+            step: 0.05,
+          },
           blur: {
             value: 0,
             min: 0,
@@ -224,13 +223,13 @@ const getControls = (location: string) => {
         Shadow: folder({
           color: "#440000",
           blur: {
-            value: 20,
+            value: 10,
             min: 0,
             max: 40,
             step: 2,
           },
           offset: {
-            value: { x: 0, y: 0 },
+            value: { x: 5, y: 5 },
             step: 1,
           },
         }),
@@ -261,7 +260,7 @@ const getControls = (location: string) => {
             step: 0.05,
           },
           power: {
-            value: 15,
+            value: 5,
             min: 0,
             max: 30,
             step: 0.05,
@@ -273,6 +272,48 @@ const getControls = (location: string) => {
             step: 0.05,
           },
           reverse: false,
+        }),
+      };
+      break;
+    case "/shapes":
+      controls = {
+        Curve: folder({
+          positionA: {
+            value: { x: 0.2, y: 0.2 },
+            step: 0.01,
+          },
+          positionB: {
+            value: { x: 0.2, y: 0.8 },
+            step: 0.01,
+          },
+          positionC: {
+            value: { x: 0.8, y: 0.2 },
+            step: 0.01,
+          },
+          positionD: {
+            value: { x: 0.8, y: 0.8 },
+            step: 0.01,
+          },
+        }),
+        Text: folder({
+          value: "This text looks cool in the Texture Tinker Tool",
+          scale: {
+            value: 0.5,
+            min: 0.1,
+            max: 1.5,
+            step: 0.01,
+          },
+          alignment: false,
+          bold: false,
+          italic: false,
+        }),
+        "Rounded Box": folder({
+          radius: {
+            value: 0.1,
+            min: 0,
+            max: 0.5,
+            step: 0.02,
+          },
         }),
       };
       break;

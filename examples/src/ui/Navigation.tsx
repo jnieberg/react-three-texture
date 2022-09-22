@@ -13,6 +13,9 @@ import Images from "../demos/Images";
 import { Schema } from "leva/dist/declarations/src/types";
 import Alpha from "../demos/Alpha";
 import { Link, Redirect, Route, useLocation } from "wouter";
+import Shapes from "../demos/Shapes";
+import { textureDefaults } from "../temp";
+import { GlobalControlProps } from "../types/Demo";
 
 const menuItems = [
   { Component: Images, name: "Images" },
@@ -22,6 +25,7 @@ const menuItems = [
   { Component: Filters, name: "Filters" },
   { Component: Effects, name: "Effects" },
   { Component: Alpha, name: "Alpha" },
+  { Component: Shapes, name: "Shapes" },
 ];
 
 export const Navigation = () => {
@@ -61,12 +65,15 @@ export const Pages = () => {
   const globalControl: Schema = {
     "Global Settings": folder({
       mesh: { options: { Box: PrettyBox, Sphere: PrettySphere, Cylinder: PrettyCylinder } },
+      dimensions: { options: [512, 256, 128, 64, 32] },
       canvas: { value: false, onChange: (v) => document.querySelector("#textureset__preview")?.classList.toggle("show", v) },
     }),
   };
-  const { layers: showLayers, textures: showTextures, ...globalControlProps } = useControls(globalControl);
+  const globalControlProps = useControls(globalControl) as unknown as GlobalControlProps;
+  const dimensions = globalControlProps.dimensions as number;
   const [location] = useLocation();
-  const controlProps = getControls(location);
+  const { ...controlProps } = getControls(location);
+  textureDefaults({ dimensions });
 
   return (
     <>
@@ -74,9 +81,9 @@ export const Pages = () => {
         <Redirect to={`/${menuItems[0].name.toLowerCase()}`} />
       </Route>
       <group position={[0, 0.5, 0]}>
-        {menuItems.map(({ Component, name }) => (
+        {menuItems.map(({ Component: Page, name }) => (
           <Route key={name} path={`/${name.toLowerCase()}`}>
-            <Component globalProps={globalControlProps} {...controlProps} />
+            <Page globalProps={globalControlProps} {...controlProps} />
           </Route>
         ))}
       </group>

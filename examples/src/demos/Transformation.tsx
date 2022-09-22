@@ -15,7 +15,7 @@ const Transformation: FC<DemoProps> = ({ globalProps, ...props }) => {
     <>
       <Mesh position={[-1.5, 0, 0]}>
         <TextureSet>
-          <Layer src="city.png" scale={[scale.x, scale.y]} position={[position.x, position.y]} rotation={rotation} />
+          <Layer src="city.png" scale={[scale.x, scale.y]} position={[position.x, position.y]} rotation={rotation} repeat />
         </TextureSet>
       </Mesh>
       <Mesh>

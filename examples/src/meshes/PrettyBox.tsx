@@ -6,9 +6,9 @@ import PrettyMeshProps from "../types/PrettyMesh";
 extend({ RoundedBoxGeometry });
 
 const PrettyBox = ({ children, ...props }: PrettyMeshProps) => (
-  <mesh castShadow {...props}>
+  <mesh castShadow receiveShadow {...props}>
     <roundedBoxGeometry attach="geometry" args={[1, 1, 1, 3, 0.05]} />
-    <meshStandardMaterial attach="material" emissiveIntensity={0.2} roughness={0.8} metalness={0.9} bumpScale={0.1} transparent side={DoubleSide}>
+    <meshStandardMaterial attach="material" emissiveIntensity={0.2} roughness={0.8} metalness={0.9} bumpScale={0.05} transparent side={DoubleSide}>
       {children}
     </meshStandardMaterial>
   </mesh>

@@ -1,6 +1,8 @@
 ## New ideas / fixes
 
 - JSDoc
+- See if possible to combine TextureSet with different "map"s
+- Combine image fit with font alignment props?
 - apply same Layer properties to TextureSet
 - texture without textureset
 - groups (recusively use TextureSet)
@@ -15,4 +17,4 @@
 - distort effect
 - sharpen
 - procedural perlin noise generator
-- custom canvas shapes
+- clipping / cropping

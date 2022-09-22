@@ -1,7 +1,7 @@
 import "./App.css";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, invalidate, useFrame, useThree } from "@react-three/fiber";
 import { ACESFilmicToneMapping, SpotLight, sRGBEncoding, Vector3, VSMShadowMap } from "three";
-import { useRef } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import { Environment, OrbitControls, Plane } from "@react-three/drei";
 import { Navigation, Pages } from "./ui/Navigation";
 
@@ -11,9 +11,12 @@ const SceneSetup = () => {
   const floorColor = "#888888";
   const backColor = "#bbccdd";
 
-  gl.shadowMap.enabled = true;
-  gl.shadowMap.type = VSMShadowMap;
-  gl.shadowMap.needsUpdate = true;
+  useEffect(() => {
+    gl.shadowMap.enabled = true;
+    gl.shadowMap.type = VSMShadowMap;
+    gl.shadowMap.needsUpdate = true;
+    invalidate();
+  }, [gl.shadowMap]);
 
   return (
     <>
@@ -40,7 +43,9 @@ const SceneSetup = () => {
         shadow-radius={4}
         shadow-blurSamples={20}
       />
-      <Environment preset="forest" />
+      <Suspense fallback={null}>
+        <Environment preset="forest" />
+      </Suspense>
     </>
   );
 };

@@ -1,7 +1,7 @@
 import newCanvasHelper from "../helpers/newCanvasHelper";
 import { LayerProps, TransformReturn } from "../types";
 
-export const repeat = (ctx: CanvasRenderingContext2D, props: LayerProps, transform: TransformReturn) => {
+export const effectRepeat = (ctx: CanvasRenderingContext2D, props: LayerProps, transform: TransformReturn) => {
   if (props.repeat) {
     const texSize = [ctx.canvas.width, ctx.canvas.height];
 
@@ -20,8 +20,8 @@ export const repeat = (ctx: CanvasRenderingContext2D, props: LayerProps, transfo
 
         const offset = position.map((p, i) => (((p % scale[i]) + scale[i]) % scale[i]) - scale[i]);
         const repeat = scale.map((s, i) => Math.ceil(texSize[i] / s));
-        for (let y = -Math.floor(repeat[1] * 0.2); y <= Math.floor(repeat[1] * 1.2); y += 1) {
-          for (let x = -Math.floor(repeat[0] * 0.2); x <= Math.floor(repeat[0] * 1.2); x += 1) {
+        for (let y = -Math.ceil(repeat[1] * 0.2); y <= Math.ceil(repeat[1] * 1.2); y += 1) {
+          for (let x = -Math.ceil(repeat[0] * 0.2); x <= Math.ceil(repeat[0] * 1.2); x += 1) {
             ctx.drawImage(ctxRepeat.canvas, offset[0] + x * scale[0], offset[1] + y * scale[1], scale[0], scale[1]);
           }
         }

@@ -6,11 +6,12 @@ const toUUID = function (props: object) {
       if (typeof value === "object") {
         newValue = toUUID(value);
       } else if (typeof value === "number") {
-        newValue = value.toFixed(2);
+        newValue = value.toFixed(4);
       }
       return newValue ? [key, newValue] : null;
     })
     .flat(Infinity)
+    .filter((k) => k !== null)
     .join("-")
     .replace(/[\s\t]+/g, "-");
 };

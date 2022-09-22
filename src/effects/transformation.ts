@@ -2,7 +2,11 @@ import { DEFAULT } from "../setup";
 import { storage } from "../storage/storage";
 import { LayerProps, TransformReturn } from "../types";
 
-export const transformation = (ctx: CanvasRenderingContext2D, props: LayerProps): TransformReturn => {
+export const effectTransformation = async (
+  ctx: CanvasRenderingContext2D,
+  props: LayerProps,
+  callback: (transform: TransformReturn) => Promise<void>
+) => {
   const imgSrc = props.src && storage("IMG", props.src).get();
   const target = imgSrc || ctx.canvas;
   const tw = target.width;
@@ -35,18 +39,21 @@ export const transformation = (ctx: CanvasRenderingContext2D, props: LayerProps)
       if (align === "right") position[0] += 1 - scale[0];
     });
   }
-  position = [ctx.canvas.width * position[0] - ctx.canvas.width * 0.5, ctx.canvas.height * position[1] - ctx.canvas.height * 0.5];
 
-  if (!props.repeat) {
+  if (props.repeat) {
+    position = [dims * position[0] - dims * 0.5, dims * position[1] - dims * 0.5];
+  } else {
+    position = [ctx.canvas.width * position[0] - dims * 0.5, ctx.canvas.height * position[1] - dims * 0.5];
     ctx.scale(dims / ctx.canvas.width, dims / ctx.canvas.height);
-    ctx.translate(ctx.canvas.width * 0.5, ctx.canvas.height * 0.5);
+    ctx.translate(dims * 0.5, dims * 0.5);
     ctx.rotate(rotation);
     ctx.translate(position[0], position[1]);
     ctx.scale(scale[0], scale[1]);
   }
 
-  position = [position[0] + DEFAULT.dimensions * 0.5, position[1] + DEFAULT.dimensions * 0.5];
-  scale = [scale[0] * DEFAULT.dimensions, scale[1] * DEFAULT.dimensions];
+  position = [position[0] + dims * 0.5, position[1] + dims * 0.5];
+  scale = [scale[0] * dims, scale[1] * dims];
 
-  return { position, scale, rotation };
+  await callback({ position, scale, rotation });
+  ctx.resetTransform();
 };
