@@ -1,3 +1,4 @@
+import { TextureProps } from "@react-three/fiber";
 import { ReactNode } from "react";
 
 export type TransformReturn = {
@@ -28,7 +29,7 @@ export type MapType =
   | "transmission"
   | "ao";
 
-export interface TextureSetProps extends Record<string, any> {
+export interface TextureSetProps extends TextureProps {
   map?: MapType;
   children?: ReactNode;
 }
