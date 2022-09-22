@@ -14,8 +14,8 @@ import { Schema } from "leva/dist/declarations/src/types";
 import Alpha from "../demos/Alpha";
 import { Link, Redirect, Route, useLocation } from "wouter";
 import Shapes from "../demos/Shapes";
-import { textureDefaults } from "../temp";
 import { GlobalControlProps } from "../types/Demo";
+import { textureDefaults } from "react-three-texture";
 
 const menuItems = [
   { Component: Images, name: "Images" },
