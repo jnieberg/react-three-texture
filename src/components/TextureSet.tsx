@@ -33,7 +33,7 @@ declare global {
 const TextureSet: React.FC<TextureSetProps> = ({ map, children, ...propsMap }) => {
   const layers = children ? (Array.isArray(children) ? children : [children]) : [];
   const [texture, setTexture] = React.useState<CanvasTexture | null>(null);
-  let uuid = toUUID({ ...textureGlobals, map: map, layers: layers.map((layer) => layer?.props) }); //, props: propsMap
+  let uuid = toUUID({ ...textureGlobals, map: map, layers: layers.map((layer) => layer?.props), props: propsMap });
 
   const domPreview = "#textureset__preview";
   const domTexturePreview = `${domPreview} .texture`;
