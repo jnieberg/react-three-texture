@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import { CanvasTexture, PMREMGenerator, Texture } from "three";
-import { LayerProps } from "../types/Layer";
-import toUUID from "./toUUID";
-import { storage } from "../storage/storage";
+import { LayerProps } from "../../types/Layer";
+import toUUID from "../../helpers/toUUID";
+import { storage } from "../../storage/storage";
 import {
   effectColor,
   effectAlpha,
@@ -17,10 +17,10 @@ import {
   effectRepeat,
   effectShape,
   effectNearest,
-} from "../effects";
-import { DEFAULT, textureGlobals } from "../setup";
+} from "../../effects";
+import { DEFAULT, textureGlobals } from "../../setup";
 import { TextureProps, useThree } from "@react-three/fiber";
-import { MapType } from "../types";
+import { MapType } from "../../types";
 
 type SetCanvas = CanvasTexture | Texture | null;
 

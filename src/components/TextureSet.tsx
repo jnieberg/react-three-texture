@@ -2,7 +2,7 @@ import * as React from "react";
 import { sRGBEncoding } from "three";
 import { TextureSetProps } from "../types/TextureSet";
 import { PrimitiveProps } from "@react-three/fiber";
-import { useTextureSet } from "../helpers/useTextureSet";
+import { useTextureSet } from ".";
 
 declare global {
   namespace JSX {
