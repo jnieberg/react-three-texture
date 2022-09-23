@@ -1,5 +1,6 @@
 const toUUID = function (props: object) {
   return Object.entries(props)
+    .filter((_, v) => typeof v !== "undefined")
     .sort(([a], [b]) => (a < b ? -1 : 1))
     .map(([key, value]) => {
       let newValue = value;
