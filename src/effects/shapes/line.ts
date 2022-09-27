@@ -1,10 +1,9 @@
-import { DEFAULT } from "../../setup";
 import { LayerProps } from "../../types";
 
 export const shapeLine = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
   const line = props.line;
   if (line) {
-    const dims = props.dimensions || DEFAULT.dimensions;
+    const dims = props.dimensions || ctx.canvas.width;
     ctx.beginPath();
     for (var i = 0; i < line.length; i += 2) {
       const x = line[i];

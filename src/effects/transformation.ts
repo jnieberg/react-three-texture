@@ -1,5 +1,5 @@
 import { DEFAULT } from "../setup";
-import { storage } from "../storage/storage";
+import storage from "../storage/storage";
 import { LayerProps, TransformReturn } from "../types";
 
 export const effectTransformation = async (
@@ -15,8 +15,7 @@ export const effectTransformation = async (
   let scale: [number, number] = [...(props.scale || DEFAULT.scale)];
   let position: [number, number] = [...(props.position || DEFAULT.position)];
   const rotation = props.rotation || DEFAULT.rotation;
-
-  const dims = props.dimensions || DEFAULT.dimensions;
+  const dims = props.dimensions || ctx.canvas.width;
 
   if (props.image) {
     if (typeof props.image === "boolean") props.image = DEFAULT.image;

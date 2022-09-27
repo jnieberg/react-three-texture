@@ -5,7 +5,7 @@ export const effectGradient = (ctx: CanvasRenderingContext2D, props: LayerProps)
   if (props.gradient) {
     const gradientProp = props.gradient as GradientLinearProps | GradientRadialProps;
     const { type, from, to, stops } = { ...DEFAULT.gradient[gradientProp.type || DEFAULT.gradient.type], ...gradientProp };
-    const dims = props.dimensions || DEFAULT.dimensions;
+    const dims = props.dimensions || ctx.canvas.width;
     let args: number[] = [...from, ...to];
     args = args.map((a, i) => args[i] * dims);
 

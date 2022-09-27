@@ -1,10 +1,9 @@
-import { DEFAULT } from "../../setup";
 import { LayerProps } from "../../types";
 
 export const shapeCurve = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
   const curve = props.curve;
   if (curve) {
-    const dims = props.dimensions || DEFAULT.dimensions;
+    const dims = props.dimensions || ctx.canvas.width;
     const curveArgs: [number, number, number, number, number, number, number?, number?] = [
       curve[0] * dims,
       curve[1] * dims,

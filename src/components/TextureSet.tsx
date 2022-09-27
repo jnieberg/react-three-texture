@@ -2,7 +2,7 @@ import * as React from "react";
 import { sRGBEncoding } from "three";
 import { TextureSetProps } from "../types/TextureSet";
 import { PrimitiveProps } from "@react-three/fiber";
-import { useTextureSet } from ".";
+import { useTextureSetI } from "./hooks/useTextureSetI";
 
 declare global {
   namespace JSX {
@@ -12,8 +12,8 @@ declare global {
   }
 }
 
-const TextureSet: React.FC<TextureSetProps> = ({ map, children, ...propsMap }) => {
-  const texture = useTextureSet(children, propsMap, map);
+const TextureSet: React.FC<TextureSetProps> = ({ map, dimensions, children, ...propsMap }) => {
+  const texture = useTextureSetI(children, dimensions, map, propsMap);
   return !!texture ? <primitive attach={map ? `${map}Map` : "map"} encoding={sRGBEncoding} {...propsMap} object={texture} /> : null;
 };
 

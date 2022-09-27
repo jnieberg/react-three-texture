@@ -1,5 +1,44 @@
 # Texture Tinker Tool
 
+## Table of Contents
+
+- [Texture Tinker Tool](#texture-tinker-tool)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Demo](#demo)
+  - [Installation](#installation)
+  - [Prerequisites](#prerequisites)
+  - [Quickstart Example](#quickstart-example)
+  - [Documentation](#documentation)
+    - [Default Texture Settings](#default-texture-settings)
+    - [Texture Set](#texture-set)
+      - [Map types](#map-types)
+    - [The _useTextureSet_ hook](#the-usetextureset-hook)
+    - [Layer](#layer)
+      - [Src](#src)
+      - [Dimensions](#dimensions)
+      - [Basic transformations](#basic-transformations)
+      - [Image transformations](#image-transformations)
+      - [Repeat](#repeat)
+      - [Color](#color)
+      - [Fill](#fill)
+      - [Gradient](#gradient)
+      - [Image smoothing\*\*](#image-smoothing)
+      - [Shadow and glow](#shadow-and-glow)
+      - [Outline](#outline)
+      - [Bloom](#bloom)
+      - [Filters](#filters)
+      - [Blending](#blending)
+      - [Alpha](#alpha)
+      - [Shapes](#shapes)
+      - [Text](#text)
+  - [Q and A](#q-and-a)
+    - [Disabling the smooth effect does not always work.](#disabling-the-smooth-effect-does-not-always-work)
+  - [Known issues and Roadmap](#known-issues-and-roadmap)
+    - [New layer effects](#new-layer-effects)
+    - [Technical upgrades](#technical-upgrades)
+  - [Known bugs](#known-bugs)
+
 ## Introduction
 
 The 3D drawing tool [ThreeJS](https://threejs.org/), its React rendering solution [React Three Fiber](https://github.com/pmndrs/react-three-fiber), and on its turn the R3F abstraction library [Drei](https://github.com/pmndrs/drei) can be useful in making quick and beautiful 3D creations. And there are many other useful ThreeJS tools, helpers, libraries and documentations available around the web. However, on the level of drawing and handling _images and textures_ there is not much available, except for professional designers and experts in handling expensive photo drawing and editing programs.
@@ -65,13 +104,64 @@ textureGlobals({
 });
 ```
 
-### TextureSet
+### Texture Set
 
-A texture containing a set of layers. All features like _map_, _offset_, _repeat_ and _rotation_ that are normally available for the basic `Texture` object, can also be used here. Its children can only be layers. [Read more about ThreeJS Textures](https://threejs.org/docs/#api/en/textures/Texture).
+A texture containing a set of layers. A `map` propertly can be added to determine the type of map. Also the `dimensions` can be defined for this texture. Additionally, all features like `offset`, `repeat` and `rotation` that are normally available for the basic `Texture` object, can also be used here. Its children can only be layers. [Read more about ThreeJS Textures](https://threejs.org/docs/#api/en/textures/Texture).
 
 ```jsx
-<TextureSet {...props}>{children}</TextureSet>
+<TextureSet offset={[0.5, 0.5]}>...</TextureSet>
+
+<TextureSet map="bump">...</TextureSet>
+
+<TextureSet map="env" dimensions={1024}>...</TextureSet>
 ```
+
+#### Map types
+
+The following map types are available. When no `map` property is defined, by default the color map is used. Technically, all `Material` properties ending with `Map` can be used as a `TextureSet` property.
+
+- `env`
+- `specular`
+- `displacement`
+- `normal`
+- `bump`
+- `roughness`
+- `metalness`
+- `alpha`
+- `light`
+- `emissive`
+- `clearcoat`
+- `clearcoatNormal`
+- `clearcoatRoughness`
+- `sheenRoughness`
+- `sheenColor`
+- `specularIntensity`
+- `specularColor`
+- `thickness`
+- `transmission`
+- `ao`
+
+### The _useTextureSet_ hook
+
+Alternatively, the texture can be built by using the `useTextureSet` hook. The hook returns a `CanvasTexture` object, which can directly be used as a texture map. When applying the texture to a material, be sure to update the material, using `material.needsUpdate = true`.
+
+```jsx
+const texture = useTextureSet(
+  <>
+    <Layer fill="darkBlue" />
+    <Layer circle={[0.5, 0.5, 0.4]} color="lightBlue" />
+  </>,
+  1024
+);
+
+<meshStandardMaterial attach="material" map={texture} bumpMap={texture} />;
+```
+
+| arguments   | example                | type    | description                                                                                        |
+| ----------- | ---------------------- | ------- | -------------------------------------------------------------------------------------------------- |
+| layer       | `<Layer fill="red" />` | JSX     | A React Node object containing all the layers                                                      |
+| dimensions? | `512`                  | number  | The width and height of the texture, in pixels                                                     |
+| isEnvMap?   | `true`                 | boolean | When the type is an environment map, set this to true to be sure the PMREM is correctly generated. |
 
 ### Layer
 
@@ -294,7 +384,7 @@ You can give your image an outline effect. Other than shadow or glow, outline wi
 Bloom is an effect, well known to photographers and videogame developers, to intensify the light parts of an image with a bleeding effect of brightness.
 
 ```jsx
-<Layer src="image.png" bloom /> // { size: 30, strength: 0.9, softness: 0.7, detail: 10, darken: false }
+<Layer src="image.png" bloom /> // { size: 30, strength: 0.4, softness: 0.7, detail: 10, darken: false }
 
 <Layer src="image.png" bloom={{ size: 10, strength: 0.5, softness: 0.3 }} />
 
@@ -305,7 +395,7 @@ Bloom is an effect, well known to photographers and videogame developers, to int
 | key      | default value | arguments  | description                                                                                                             |
 | -------- | ------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- |
 | size     | `30`          | 0 to x     | Indicates the radius of the bloom effect. The higher the larger the scale of the effect.                                |
-| strength | `0.9`         | 0.0 to 1.0 | The power of the effect. The higher the value the brighter the effect will remain, moving further away from the center. |
+| strength | `0.4`         | 0.0 to 1.0 | The power of the effect. The higher the value the brighter the effect will remain, moving further away from the center. |
 | softness | `0.7`         | 0.0 to 1.0 | The fallout of the effect. The higher the value the faster the effect will fade, moving further away from the center.   |
 | detail   | `10`          | 1 to x     | The detail of the bloom effect. The higher the more instances of the effect will be drawn.                              |
 | darken   | `false`       | boolean    | Optionally darken the effect.                                                                                           |
@@ -370,7 +460,7 @@ The alpha (transparency) channel can be altered in many ways. It is possible to 
 
 ![Shapes Example](./public/readme-shapes.png)
 
-A variety of basic shapes can be drawn on a layer. Think of lines or curved lines, circles, rectanges and text.
+A variety of basic shapes can be drawn on a layer. Think of lines, curved lines, circles or rectanges.
 
 ```jsx
 <Layer line={[0.1, 0.1, 0.9, 0.9, 0.9, 0.1]} shapeThickness={32} shapeRounded />
@@ -380,11 +470,7 @@ A variety of basic shapes can be drawn on a layer. Think of lines or curved line
 <Layer circle={[0.5, 0.5, 0.7, 0.4]} />
 
 <Layer rect={[0.2, 0.3, 0.6, 0.4, 0.1]} />
-
-<Layer text={{ value: "This is a nice text-ure", font: "Arial", weight: "bold" }} position={[0.5, 0.5]} scale={[0.1, 0.1]} />
 ```
-
-##### Shapes
 
 | property       | default value | arguments                                   | description                                                                                                                                                                                                                                                                          |
 | -------------- | ------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -395,7 +481,27 @@ A variety of basic shapes can be drawn on a layer. Think of lines or curved line
 | circle         |               | x, y, rx, ry?, rotation?, start?, end?, cc? | Will draw a circle at a certain point `x, y` and a radius of `rx`. When a second radius `ry` is defined the circle will become an ellipse, and with the start and end point defined the circle is only partly drawn. Optionally the circle can be drawn counter-clockwise with `cc`. |
 | rect           |               | x, y, w, h?, rounded?                       | Will draw a rectangle at a certain point `x, y` and a fixed size of `w` and and optional height of `h`. It is also possible to give the rectangle rounded corners.                                                                                                                   |
 
-##### Text
+#### Text
+
+Texts can be created in all sorts of types, styles, colors and sizes. Font faces can also be retreived from files or a url. The property `shapeThickness` can also be used here, to create outlined text.
+
+```jsx
+<Layer text={{ value: "Lorem ipsum" }}  />
+
+<Layer text={{ value: "This is a nice text-ure", font: "Arial", weight: "bold" }} color="red" position={[0.5, 0.5]} scale={[0.1, 0.1]} />
+
+<Layer text={{
+    value: "Texts can be created in all sorts of types, styles, colors and sizes.",
+    font: "fonts/myLovelyFont.otf",
+    width: {0.8}
+    height: {1.0}
+    align: "center",
+    base: "middle"
+  }}
+  position={[0.5, 0.5]}
+  scale={[0.1, 0.1]}
+/>
+```
 
 | key    | default value | arguments             | description                                                                                                                                                                                             |
 | ------ | ------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -404,7 +510,7 @@ A variety of basic shapes can be drawn on a layer. Think of lines or curved line
 | style  |               | string                | The font style. For example `italic` or `oblique`.                                                                                                                                                      |
 | weight |               | string                | The font weight. Examples are `bold` or `lighter`, but you can use number values to define the strength of the weight.                                                                                  |
 | width  | `0`           | number                | The maximum width of the text. When the text exceeds this width, the words will wrap down to the next line. The value is a factor of the full width of the layer. A value of 0 will not wrap the text.  |
-| height | `1`           | number                | The line height of the text. The number is a multiplier for the height of the font.                                                                                                                     |
+| height | `1.3`         | number                | The line height of the text. The number is a multiplier for the height of the font.                                                                                                                     |
 | align  | `center`      | left, center of right | The horizontal alignment of the text. The text will orientate around the position of the layer.                                                                                                         |
 | base   | `middle`      | top, middle or bottom | The vertical alignment of the text. The text will orientate around the position of the layer.                                                                                                           |
 
@@ -412,7 +518,7 @@ A variety of basic shapes can be drawn on a layer. Think of lines or curved line
 
 ### Disabling the smooth effect does not always work.
 
-When using the `nearest` property, the texture's smooth effect is not always disabled. This is a known bug, and is not working in some browsers. For now use the ThreeJS `texture.magFilter = THREE.NearestFilter` value instead.
+When using the `nearest` property, the texture's smooth effect is not always disabled. Then try to use the ThreeJS `texture.magFilter = THREE.NearestFilter` value instead.
 
 ## Known issues and Roadmap
 

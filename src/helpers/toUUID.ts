@@ -7,7 +7,7 @@ const toUUID = function (props: object) {
       if (typeof value === "object") {
         newValue = toUUID(value);
       } else if (typeof value === "number") {
-        newValue = value.toFixed(4);
+        newValue = parseFloat(value.toFixed(4));
       }
       return newValue ? [key, newValue] : null;
     })

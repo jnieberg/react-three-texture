@@ -1,5 +1,5 @@
-import { TextureProps } from "@react-three/fiber";
 import { ReactNode } from "react";
+import { CanvasTexture, Texture } from "three";
 
 export type TransformReturn = {
   position: [number, number];
@@ -29,7 +29,10 @@ export type MapType =
   | "transmission"
   | "ao";
 
-export interface TextureSetProps extends TextureProps {
+export interface TextureSetProps extends Record<string, any> {
   map?: MapType;
+  dimensions?: number;
   children?: ReactNode;
 }
+
+export type TextureResult = CanvasTexture | Texture | null;

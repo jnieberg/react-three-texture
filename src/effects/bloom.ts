@@ -11,7 +11,7 @@ export const effectBloom = (ctx: CanvasRenderingContext2D, props: LayerProps) =>
       ctxBloom.globalCompositeOperation = darken ? "darken" : "lighten";
 
       // Sizes
-      const dims = props.dimensions || DEFAULT.dimensions;
+      const dims = props.dimensions || ctx.canvas.width;
       const sizeDefault = 32;
       const sizeFactor = size / sizeDefault;
       let s = sizeDefault;

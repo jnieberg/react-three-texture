@@ -16,6 +16,7 @@ import { Link, Redirect, Route, useLocation } from "wouter";
 import Shapes from "../demos/Shapes";
 import { GlobalControlProps } from "../types/Demo";
 import { textureDefaults } from "react-three-texture";
+import Test from "../demos/Test";
 
 const menuItems = [
   { Component: Images, name: "Images" },
@@ -26,6 +27,7 @@ const menuItems = [
   { Component: Effects, name: "Effects" },
   { Component: Alpha, name: "Alpha" },
   { Component: Shapes, name: "Shapes" },
+  { Component: Test, name: "Test" },
 ];
 
 export const Navigation = () => {

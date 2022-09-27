@@ -18,9 +18,11 @@ const STORE = {
   FON: {} as KeyProps<StoredObject<"FON">>,
 };
 
-export const storage = <T extends Key>(key: T, name: string = ""): StorageRet<T> => ({
+const storage = <T extends Key>(key: T, name: string = ""): StorageRet<T> => ({
   get: () => STORE[key][name] as any,
   set: (layer) => {
     if (typeof layer !== "undefined") STORE[key][name] = layer;
   },
 });
+
+export default storage;

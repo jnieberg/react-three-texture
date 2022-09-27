@@ -11,7 +11,7 @@ export const effectOutline = (ctx: CanvasRenderingContext2D, props: LayerProps) 
 
       // The actual outlining
       newCanvasHelper(ctxOutline, (ctxOutlineIn) => {
-        const dims = props.dimensions || DEFAULT.dimensions;
+        const dims = props.dimensions || ctx.canvas.width;
         const sizeNorm = size * (dims / DEFAULT.dimensions);
         const detailNorm = detail;
         let i = 0;

@@ -1,10 +1,9 @@
-import { DEFAULT } from "../../setup";
 import { LayerProps } from "../../types";
 
 export const shapeCircle = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
   const circle = props.circle;
   if (circle) {
-    const dims = props.dimensions || DEFAULT.dimensions;
+    const dims = props.dimensions || ctx.canvas.width;
     const circleArgs: [number, number, number, number, number, number, number, boolean?] = [
       circle[0] * dims,
       circle[1] * dims,

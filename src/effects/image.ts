@@ -1,4 +1,4 @@
-import { storage } from "../storage/storage";
+import storage from "../storage/storage";
 import { LayerProps } from "../types";
 
 export const effectImage = (ctx: CanvasRenderingContext2D, props: LayerProps) => {

@@ -1,11 +1,10 @@
 import { ctxRoundRect } from "../../polyfill/ctx";
-import { DEFAULT } from "../../setup";
 import { LayerProps } from "../../types";
 
 export const shapeRect = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
   const rect = props.rect;
   if (rect) {
-    const dims = props.dimensions || DEFAULT.dimensions;
+    const dims = props.dimensions || ctx.canvas.width;
     const rectArgs: [number, number, number, number, number] = [
       rect[0] * dims,
       rect[1] * dims,

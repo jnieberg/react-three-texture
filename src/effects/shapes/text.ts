@@ -1,6 +1,6 @@
 import wrapText from "../../helpers/wrapText";
 import { DEFAULT } from "../../setup";
-import { storage } from "../../storage/storage";
+import storage from "../../storage/storage";
 import { LayerProps } from "../../types";
 
 export const shapeText = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
@@ -8,7 +8,7 @@ export const shapeText = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
   if (text) {
     return new Promise<void>((resolve) => {
       const { font, style, weight, height, value, width, align, base } = { ...DEFAULT.text, ...text };
-      const dims = props.dimensions || DEFAULT.dimensions;
+      const dims = props.dimensions || ctx.canvas.width;
       const scale = props.scale?.[0] || 1;
       const wrapWidth = (width * dims) / scale;
 

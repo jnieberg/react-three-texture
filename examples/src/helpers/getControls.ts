@@ -195,10 +195,10 @@ const getControls = (location: string) => {
       controls = {
         Bloom: folder({
           size: {
-            value: 20,
+            value: 30,
             min: 0,
-            max: 40,
-            step: 5,
+            max: 50,
+            step: 1,
           },
           strength: {
             value: 0.4,
