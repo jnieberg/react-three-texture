@@ -3,7 +3,7 @@ import { LayerProps } from "./types";
 export const DEFAULT = {
   dimensions: 512,
   src: "",
-  image: "fit-max center middle",
+  image: "size-max center middle",
   position: [0, 0],
   scale: [1, 1],
   rotation: 0,
@@ -50,7 +50,7 @@ export const DEFAULT = {
 export let textureGlobals: LayerProps = {
   dimensions: undefined,
   src: undefined,
-  image: undefined,
+  fit: undefined,
   position: undefined,
   scale: undefined,
   rotation: undefined,

@@ -23,6 +23,7 @@ import { useThree } from "@react-three/fiber";
 import { MapType, TextureResult } from "../../types";
 import flattenChildren from "../../helpers/flattenChildren";
 import generatePMREM from "../../helpers/generatePMREM";
+import { effectFlip } from "../../effects/flip";
 
 export const useTextureSetI = (
   children: React.ReactNode,
@@ -113,6 +114,7 @@ export const useTextureSetI = (
 
   const setEffects = async (ctxLayer: CanvasRenderingContext2D, props: LayerProps) => {
     effectNearest(ctxLayer, props);
+    if (!props.repeat) effectFlip(ctxLayer, props);
     await effectTransformation(ctxLayer, props, async (transform) => {
       effectFill(ctxLayer, props);
       effectGradient(ctxLayer, props);

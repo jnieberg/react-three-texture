@@ -17,12 +17,12 @@ const getControls = (location: string) => {
         "Image positioning": folder({
           "image fit": {
             options: {
-              max: "fit-max",
-              min: "fit-min",
-              x: "fit-x",
-              y: "fit-y",
-              fill: "fit-fill",
-              none: "fit-none",
+              max: "size-max",
+              min: "size-min",
+              x: "size-x",
+              y: "size-y",
+              fill: "size-fill",
+              none: "size-none",
             },
           },
           "image horizontal alignment": {
@@ -59,6 +59,11 @@ const getControls = (location: string) => {
             max: Math.PI * 2,
             step: 0.1,
           },
+        }),
+        Extra: folder({
+          "flip x": false,
+          "flip y": false,
+          repeat: false,
         }),
       };
       break;

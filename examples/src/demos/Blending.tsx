@@ -56,11 +56,11 @@ const Blending: FC<DemoProps> = ({ globalProps, ...props }) => {
             }}
             blend="xor"
           />
-          <Layer src="castle.svg" image="center" color="#880088" blend={blending} />
+          <Layer src="castle.svg" fit="center" color="#880088" blend={blending} />
         </TextureSet>
         <TextureSet map="roughness">
           <Layer src="wall.png" />
-          <Layer src="castle.svg" image="center" color="black" blend={blending} />
+          <Layer src="castle.svg" fit="center" color="black" blend={blending} />
         </TextureSet>
       </Mesh>
     </>

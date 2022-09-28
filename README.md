@@ -18,7 +18,7 @@
       - [Src](#src)
       - [Dimensions](#dimensions)
       - [Basic transformations](#basic-transformations)
-      - [Image transformations](#image-transformations)
+      - [Fit transformations](#fit-transformations)
       - [Repeat](#repeat)
       - [Color](#color)
       - [Fill](#fill)
@@ -222,34 +222,34 @@ All layers can separately be moved, scaled and rotated, relative to the texture.
 | scale    | `[1, 1]`      | w, h      | The scale of the layer.                                                                                |
 | rotation | `0`           | rad       | The rotation of the layer in radians. The rotation will be done relative to the center of the texture. |
 
-#### Image transformations
+#### Fit transformations
 
 ![Image Example](./public/readme-image.png)
 
-Images that are not exactly square sized can be fit in the texture as we like without getting deformed. We can choose to fit a rectangular sized image on a square sized texture, while keeping the aspect ratio of the image. Also, when the image is too big to fit on the texture we can choose to position the image to a side.
+Layers and images that are smaller or larger than the layer can be fit into the layer as we like, without getting deformed. We can choose to fit a rectangular sized image on a square sized texture, while keeping the aspect ratio of the image. Also, when the image is too big to fit on the texture we can choose to position the image to a side.
 
 ```jsx
-<Layer src="image.png" image /> // "fit-max center middle"
+<Layer src="image.png" image /> // "size-max center middle"
 
-<Layer src="image.png" image="fit-max" />
+<Layer src="image.png" image="size-max" />
 
-<Layer src="image.png" image="fit-x center middle" />
+<Layer src="image.png" image="size-x center middle" />
 ```
 
-| string        | description                                                                                                                       |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| fit-fill \*\* | Image will be resized to match the given dimension, and may stretch it to fit.                                                    |
-| fit-max \*    | Will fit the image to whichever side (width or height) is smaller, and keeping the image's aspect ratio. This may clip the image. |
-| fit-min       | Will fit the image to whichever side (width or height) is larger, and keeping the image's aspect ratio.                           |
-| fit-x         | Will fit the image to its width, and keeping the image's aspect ratio.                                                            |
-| fit-y         | Will fit the image to its height, and keeping the image's aspect ratio.                                                           |
-| fit-none      | Will not fit the image and will keep its original size.                                                                           |
-| top \*\*      | Will align the image to the top.                                                                                                  |
-| right         | Will align the image to the right.                                                                                                |
-| bottom \*\*   | Will align the image to the bottom.                                                                                               |
-| left          | Will align the image to the left.                                                                                                 |
-| center \*     | Will horizontally align the image to the center.                                                                                  |
-| middle \*     | Will vertically align the image to the middle.                                                                                    |
+| string         | description                                                                                                                       |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| size-fill \*\* | Image will be resized to match the given dimension, and may stretch it to fit.                                                    |
+| size-max \*    | Will fit the image to whichever side (width or height) is smaller, and keeping the image's aspect ratio. This may clip the image. |
+| size-min       | Will fit the image to whichever side (width or height) is larger, and keeping the image's aspect ratio.                           |
+| size-x         | Will fit the image to its width, while keeping the image's aspect ratio.                                                          |
+| size-y         | Will fit the image to its height, while keeping the image's aspect ratio.                                                         |
+| size-none      | Will not fit the image and will keep its original size.                                                                           |
+| top \*\*       | Will align the image to the top.                                                                                                  |
+| right          | Will align the image to the right.                                                                                                |
+| bottom \*\*    | Will align the image to the bottom.                                                                                               |
+| left           | Will align the image to the left.                                                                                                 |
+| center \*      | Will horizontally align the image to the center.                                                                                  |
+| middle \*      | Will vertically align the image to the middle.                                                                                    |
 
 \* default, when defining the property "image" without a value
 

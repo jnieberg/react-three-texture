@@ -17,7 +17,7 @@ const Test: FC<DemoProps> = () => {
     }
   });
 
-  const ExtraLayer = () => <Layer src="burger.svg" scale={[0.5, 0.5]} image />;
+  const ExtraLayer = () => <Layer src="burger.svg" scale={[0.5, 0.5]} fit />;
 
   const texture = useTextureSet(
     <>

@@ -11,22 +11,22 @@ const Images: FC<DemoProps> = ({ globalProps, ...props }) => {
     <>
       <Mesh position={[-1.5, 0, 0]}>
         <TextureSet>
-          <Layer src={upload} image={`${fit} ${alignX} ${alignY}`} nearest />
+          <Layer src={upload} fit={`${fit} ${alignX} ${alignY}`} nearest />
         </TextureSet>
       </Mesh>
       <Mesh>
         <TextureSet>
           <Layer fill="#113355" />
-          <Layer src="burger.svg" scale={[0.75, 0.75]} image={`${fit} ${alignX} ${alignY}`} />
+          <Layer src="burger.svg" scale={[0.75, 0.75]} fit={`${fit} ${alignX} ${alignY}`} />
         </TextureSet>
         <TextureSet map="roughness">
           <Layer fill="white" />
-          <Layer src="burger.svg" scale={[0.75, 0.75]} image={`${fit} ${alignX} ${alignY}`} color="black" />
+          <Layer src="burger.svg" scale={[0.75, 0.75]} fit={`${fit} ${alignX} ${alignY}`} color="black" />
         </TextureSet>
       </Mesh>
       <Mesh position={[1.5, 0, 0]}>
         <TextureSet>
-          <Layer src={url} image={`${fit} ${alignX} ${alignY}`} />
+          <Layer src={url} fit={`${fit} ${alignX} ${alignY}`} />
         </TextureSet>
       </Mesh>
     </>

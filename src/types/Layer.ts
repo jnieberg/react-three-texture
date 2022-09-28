@@ -14,7 +14,7 @@ export type GradientRadialProps = {
 
 export type ImageProps = {
   src?: string;
-  image?: string | boolean;
+  fit?: string | boolean;
 };
 
 export type TransformationProps = {
@@ -84,6 +84,7 @@ export interface LayerProps extends ImageProps, TransformationProps, ColorProps,
   shadow?: ShadowProps | boolean;
   outline?: OutlineProps | boolean;
   filter?: string;
+  flip?: string | boolean;
   blend?: GlobalCompositeOperation;
   alpha?: AlphaProps | number | boolean;
   bloom?: BloomProps | boolean;

@@ -30,7 +30,7 @@ const Effects: FC<DemoProps> = ({ globalProps, ...props }) => {
           <Layer
             src="wolf-head.svg"
             scale={[0.75, 0.75]}
-            image="center middle"
+            fit="center middle"
             color="#4488ff"
             outline={{ color: colorO, size: sizeO, detail: detailO }}
           />

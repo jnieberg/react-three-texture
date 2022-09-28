@@ -5,17 +5,25 @@ import DemoProps from "../types/Demo";
 
 const Transformation: FC<DemoProps> = ({ globalProps, ...props }) => {
   const { mesh: Mesh } = globalProps;
-  const { position, scale, rotation } = useControls(props);
+  const { position, scale, rotation, "flip x": flipX, "flip y": flipY, repeat } = useControls(props);
   const centerX = 0.15 - scale.x * 0.15;
   const centerY = 0.15 - scale.y * 0.15;
-  const greenBoxProps: LayerProps = { position: [position.x, position.y], rotation, image: "center middle" };
+  const greenBoxProps: LayerProps = { position: [position.x, position.y], rotation, fit: "center middle" };
   const rubicProps: LayerProps = { scale: [scale.x * 0.3, scale.y * 0.3], rotation, blend: "lighten" };
 
   return Mesh ? (
     <>
       <Mesh position={[-1.5, 0, 0]}>
         <TextureSet>
-          <Layer src="city.png" scale={[scale.x, scale.y]} position={[position.x, position.y]} rotation={rotation} repeat />
+          <Layer
+            src="city.png"
+            scale={[scale.x, scale.y]}
+            position={[position.x, position.y]}
+            rotation={rotation}
+            flip={`${flipX ? "horizontal" : ""} ${flipY ? "vertical" : ""}`}
+            repeat={repeat}
+            fit
+          />
         </TextureSet>
       </Mesh>
       <Mesh>

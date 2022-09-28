@@ -23,7 +23,7 @@ const Alpha: FC<DemoProps> = ({ globalProps, ...props }) => {
       <Mesh position={[1.5, 0, 0]}>
         <TextureSet>
           <Layer fill="#880088" />
-          <Layer src="girl.png" color="#00ffff" image="fit-max" alpha={{ level, power, offset, reverse }} blend="hard-light" />
+          <Layer src="girl.png" color="#00ffff" fit="size-max" alpha={{ level, power, offset, reverse }} blend="hard-light" />
         </TextureSet>
       </Mesh>
     </>

@@ -17,19 +17,19 @@ export const effectTransformation = async (
   const rotation = props.rotation || DEFAULT.rotation;
   const dims = props.dimensions || ctx.canvas.width;
 
-  if (props.image) {
-    if (typeof props.image === "boolean") props.image = DEFAULT.image;
-    props.image.split(" ").forEach((align) => {
-      if (align === "fit-max") {
-        align = th > tw ? "fit-x" : "fit-y";
-      } else if (align === "fit-min") {
-        align = th < tw ? "fit-x" : "fit-y";
+  if (props.fit) {
+    if (typeof props.fit === "boolean") props.fit = DEFAULT.image;
+    props.fit.split(" ").forEach((align) => {
+      if (align === "size-max") {
+        align = th > tw ? "size-x" : "size-y";
+      } else if (align === "size-min") {
+        align = th < tw ? "size-x" : "size-y";
       }
-      if (align === "fit-x") {
+      if (align === "size-x") {
         scale = [scale[0], scale[1] * (th / tw)];
-      } else if (align === "fit-y") {
+      } else if (align === "size-y") {
         scale = [scale[0] * (tw / th), scale[1]];
-      } else if (align === "fit-none") {
+      } else if (align === "size-none") {
         scale = [scale[0] * (tw / ctx.canvas.width), scale[1] * (th / ctx.canvas.height)];
       }
       if (align === "center") position[0] += 0.5 - scale[0] * 0.5;
