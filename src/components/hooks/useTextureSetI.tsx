@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import { CanvasTexture } from "three";
-import { LayerProps } from "../../types/Layer";
+import { LayerProps } from "../../types";
 import toUUID from "../../helpers/toUUID";
 import storage from "../../storage/storage";
 import {
@@ -17,13 +17,14 @@ import {
   effectRepeat,
   effectShape,
   effectNearest,
+  effectFlip,
+  effectSeamless,
 } from "../../effects";
 import { DEFAULT, textureGlobals } from "../../setup";
 import { useThree } from "@react-three/fiber";
 import { MapType, TextureResult } from "../../types";
 import flattenChildren from "../../helpers/flattenChildren";
 import generatePMREM from "../../helpers/generatePMREM";
-import { effectFlip } from "../../effects/flip";
 
 export const useTextureSetI = (
   children: React.ReactNode,
@@ -122,6 +123,7 @@ export const useTextureSetI = (
       await effectShape(ctxLayer, props);
       effectRepeat(ctxLayer, props, transform);
     });
+    effectSeamless(ctxLayer, props);
     effectColor(ctxLayer, props);
     effectAlpha(ctxLayer, props);
     effectShadow(ctxLayer, props);

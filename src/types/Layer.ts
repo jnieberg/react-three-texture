@@ -76,6 +76,16 @@ export type ShapeProps = {
   text?: TextProps;
 };
 
+export type SeamlessProps = {
+  offset?: [number, number];
+  size?: [number, number];
+  both?: boolean;
+  flipX?: boolean;
+  flipY?: boolean;
+  alphaOffset?: number;
+  alphaReverse?: boolean;
+};
+
 export interface LayerProps extends ImageProps, TransformationProps, ColorProps, ShapeProps {
   dimensions?: number;
   gradient?: GradientLinearProps | GradientRadialProps | boolean;
@@ -84,8 +94,10 @@ export interface LayerProps extends ImageProps, TransformationProps, ColorProps,
   shadow?: ShadowProps | boolean;
   outline?: OutlineProps | boolean;
   filter?: string;
-  flip?: string | boolean;
+  flipX?: boolean;
+  flipY?: boolean;
   blend?: GlobalCompositeOperation;
   alpha?: AlphaProps | number | boolean;
   bloom?: BloomProps | boolean;
+  seamless?: SeamlessProps | boolean;
 }

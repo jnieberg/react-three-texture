@@ -17,6 +17,7 @@ import Shapes from "../demos/Shapes";
 import { GlobalControlProps } from "../types/Demo";
 import { textureDefaults } from "react-three-texture";
 import Test from "../demos/Test";
+import Seamless from "../demos/Seamless";
 
 const menuItems = [
   { Component: Images, name: "Images" },
@@ -27,6 +28,7 @@ const menuItems = [
   { Component: Effects, name: "Effects" },
   { Component: Alpha, name: "Alpha" },
   { Component: Shapes, name: "Shapes" },
+  { Component: Seamless, name: "Seamless" },
   { Component: Test, name: "Test" },
 ];
 

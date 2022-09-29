@@ -61,8 +61,8 @@ const getControls = (location: string) => {
           },
         }),
         Extra: folder({
-          "flip x": false,
-          "flip y": false,
+          flipX: false,
+          flipY: false,
           repeat: false,
         }),
       };
@@ -319,6 +319,54 @@ const getControls = (location: string) => {
             max: 0.5,
             step: 0.02,
           },
+        }),
+      };
+      break;
+    case "/seamless":
+      controls = {
+        Seamless: folder({
+          url: {
+            options: {
+              "dungeon wall": "https://mj-gallery.com/24134e3d-bfbf-42bf-a192-f13baa7b4233/grid_0.png",
+              "crystal cave": "https://mj-gallery.com/86e633fc-3133-4037-ac2a-e4c0bafdf72e/grid_0.png",
+              "medieval city": "https://mj-gallery.com/eb8320cd-07b1-4d22-9140-4fb6d30e2552/grid_0.png",
+              "alien city": "https://mj-gallery.com/896dfb08-437b-4417-b02e-443d3195f733/grid_0.png",
+            },
+          },
+          offsetX: {
+            value: 0.3,
+            min: 0,
+            max: 1,
+            step: 0.01,
+          },
+          offsetY: {
+            value: 0.3,
+            min: 0,
+            max: 1,
+            step: 0.01,
+          },
+          sizeX: {
+            value: 0.2,
+            min: 0,
+            max: 0.5,
+            step: 0.01,
+          },
+          sizeY: {
+            value: 0.2,
+            min: 0,
+            max: 0.5,
+            step: 0.01,
+          },
+          "offset both": false,
+          flipX: false,
+          flipY: false,
+          alphaOffset: {
+            value: 0,
+            min: 0,
+            max: 1,
+            step: 0.01,
+          },
+          alphaReverse: false,
         }),
       };
       break;

@@ -5,7 +5,7 @@ import DemoProps from "../types/Demo";
 
 const Transformation: FC<DemoProps> = ({ globalProps, ...props }) => {
   const { mesh: Mesh } = globalProps;
-  const { position, scale, rotation, "flip x": flipX, "flip y": flipY, repeat } = useControls(props);
+  const { position, scale, rotation, flipX, flipY, repeat } = useControls(props);
   const centerX = 0.15 - scale.x * 0.15;
   const centerY = 0.15 - scale.y * 0.15;
   const greenBoxProps: LayerProps = { position: [position.x, position.y], rotation, fit: "center middle" };
@@ -20,7 +20,8 @@ const Transformation: FC<DemoProps> = ({ globalProps, ...props }) => {
             scale={[scale.x, scale.y]}
             position={[position.x, position.y]}
             rotation={rotation}
-            flip={`${flipX ? "horizontal" : ""} ${flipY ? "vertical" : ""}`}
+            flipX={flipX}
+            flipY={flipY}
             repeat={repeat}
             fit
           />

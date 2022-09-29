@@ -5,7 +5,7 @@ import { LayerProps, TransformReturn } from "../types";
 export const effectTransformation = async (
   ctx: CanvasRenderingContext2D,
   props: LayerProps,
-  callback: (transform: TransformReturn) => Promise<void>
+  callback: (transform?: TransformReturn) => Promise<void> | void = () => {}
 ) => {
   const imgSrc = props.src && storage("IMG", props.src).get();
   const target = imgSrc || ctx.canvas;
@@ -53,6 +53,6 @@ export const effectTransformation = async (
   position = [position[0] + dims * 0.5, position[1] + dims * 0.5];
   scale = [scale[0] * dims, scale[1] * dims];
 
-  await callback({ position, scale, rotation });
+  if (callback) await callback({ position, scale, rotation });
   ctx.resetTransform();
 };

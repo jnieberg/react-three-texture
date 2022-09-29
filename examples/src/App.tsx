@@ -70,7 +70,7 @@ const Controls = () => {
         angle={Math.PI * 0.1}
         decay={2}
       />
-      <OrbitControls target={[0, 0.5, 0]} minDistance={3} maxDistance={30} minPolarAngle={Math.PI / 4} maxPolarAngle={Math.PI / 2} />
+      <OrbitControls target={[0, 0.5, 0]} minDistance={2} maxDistance={30} minPolarAngle={Math.PI / 4} maxPolarAngle={Math.PI / 2} />
     </>
   );
 };
@@ -91,7 +91,7 @@ const App = () => (
       }}
       shadows
       // camera={{ position: [-4, 2, 4], fov: 30 }} // for readme
-      camera={{ position: [-2.5, 2, 5], fov: 30 }}
+      camera={{ position: [-2.5, 2, 5], near: 1.15, fov: 30 }}
       frameloop="demand"
     >
       <Controls />

@@ -10,3 +10,5 @@ export { effectShadow } from "./shadow";
 export { effectTransformation } from "./transformation";
 export { effectShape } from "./shape";
 export { effectNearest } from "./nearest";
+export { effectFlip } from "./flip";
+export { effectSeamless } from "./seamless";

@@ -32,6 +32,7 @@
       - [Alpha](#alpha)
       - [Shapes](#shapes)
       - [Text](#text)
+      - [Seamless texture](#seamless-texture)
   - [Q and A](#q-and-a)
     - [Disabling the smooth effect does not always work.](#disabling-the-smooth-effect-does-not-always-work)
   - [Known issues and Roadmap](#known-issues-and-roadmap)
@@ -206,7 +207,7 @@ You can set the width and the height (in pixels) for the layer. By default the t
 
 ![Transformation Example](./public/readme-transform.png)
 
-All layers can separately be moved, scaled and rotated, relative to the texture.
+All layers can separately be moved, scaled and rotated, relative to the texture. It is also possible to flip (mirror) the layer either horizontally or vertically
 
 ```jsx
 <Layer src="image.png" position={[0.5, 0.5]} />
@@ -221,6 +222,8 @@ All layers can separately be moved, scaled and rotated, relative to the texture.
 | position | `[0, 0]`      | x, y      | The position of the layer.                                                                             |
 | scale    | `[1, 1]`      | w, h      | The scale of the layer.                                                                                |
 | rotation | `0`           | rad       | The rotation of the layer in radians. The rotation will be done relative to the center of the texture. |
+| flipX    | `false`       | boolean   | Flip the layer horizontally.                                                                           |
+| flipY    | `false`       | boolean   | Flip the layer vertically.                                                                             |
 
 #### Fit transformations
 
@@ -449,12 +452,12 @@ The alpha (transparency) channel can be altered in many ways. It is possible to 
 <Layer src="image.png" alpha={{ power: 10, offset: 0.5, reverse: true }} />
 ```
 
-| key     | default value | arguments     | description                                                                                     |
-| ------- | ------------- | ------------- | ----------------------------------------------------------------------------------------------- |
-| level   | `1`           | 0 to 1        | The opacity of the layer. 0 means transparent, 1 means opaque.                                  |
-| power   | `1`           | 0 to x        | The power of the alpha map levels. Higher power means more difference between the alpha levels. |
-| offset  | `0`           | 0 to 1        | Shift the alpha levels down or up, making respectively less or more colors transparent.         |
-| reverse | `false`       | true or false | Reverse the alpha channels to make lighter colors more transparent.                             |
+| key     | default value | arguments | description                                                                                     |
+| ------- | ------------- | --------- | ----------------------------------------------------------------------------------------------- |
+| level   | `1`           | 0 to 1    | The opacity of the layer. 0 means transparent, 1 means opaque.                                  |
+| power   | `1`           | 0 to x    | The power of the alpha map levels. Higher power means more difference between the alpha levels. |
+| offset  | `0`           | 0 to 1    | Shift the alpha levels down or up, making respectively less or more colors transparent.         |
+| reverse | `false`       | boolean   | Reverse the alpha channels to make lighter colors more transparent.                             |
 
 #### Shapes
 
@@ -475,7 +478,7 @@ A variety of basic shapes can be drawn on a layer. Think of lines, curved lines,
 | property       | default value | arguments                                   | description                                                                                                                                                                                                                                                                          |
 | -------------- | ------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | shapeThickness | `0`           | 0 to x                                      | The thickness of the shape. Will work with all shapes. A shape thickness of 0 will fill the shape.                                                                                                                                                                                   |
-| shapeRounded   | `false`       | true or false                               | Will make lines rounded in the corners, and lines and curved lines rounded on the start and end points.                                                                                                                                                                              |
+| shapeRounded   | `false`       | boolean                                     | Will make lines rounded in the corners, and lines and curved lines rounded on the start and end points.                                                                                                                                                                              |
 | line           |               | x1, y1, x2, y2, ...                         | Draw a line from one coordinate to the next. Ending with the same point as the starting point will close the path.                                                                                                                                                                   |
 | curved         |               | x1, y1, x2, y2, x3, y3, x4?, y4?            | Draw a curved line from one coordinate to the next. Can be a bezier curve (3 points), or a quadratic curve (4 points).                                                                                                                                                               |
 | circle         |               | x, y, rx, ry?, rotation?, start?, end?, cc? | Will draw a circle at a certain point `x, y` and a radius of `rx`. When a second radius `ry` is defined the circle will become an ellipse, and with the start and end point defined the circle is only partly drawn. Optionally the circle can be drawn counter-clockwise with `cc`. |
@@ -513,6 +516,26 @@ Texts can be created in all sorts of types, styles, colors and sizes. Font faces
 | height | `1.3`         | number                | The line height of the text. The number is a multiplier for the height of the font.                                                                                                                     |
 | align  | `center`      | left, center of right | The horizontal alignment of the text. The text will orientate around the position of the layer.                                                                                                         |
 | base   | `middle`      | top, middle or bottom | The vertical alignment of the text. The text will orientate around the position of the layer.                                                                                                           |
+
+#### Seamless texture
+
+![Seamless Example](./public/readme-seamless.png)
+
+Seamless textures are textures that can be repeated without leaving an ugly "seam" between the copies of the image. Finding a well created seamless image on the internet can be either expensive or difficult. And manually adjusting an image in a photo editing tool can sometimes be a time-consuming and difficult job. Here, without much effort it is possible to make a texture seamless.
+
+```jsx
+<Layer seamless /> //
+```
+
+| key          | default value | arguments | description                                                                                                   |
+| ------------ | ------------- | --------- | ------------------------------------------------------------------------------------------------------------- |
+| offset       | `[0.3, 0.3]`  | 0 to 1    | The offset of the seamless edges.                                                                             |
+| size         | `[0.2, 0.2]`  | 0 to 0.5  | The size of the seamless edges.                                                                               |
+| both         | `false`       | boolean   | Both edges (x and y) are affected by the offset.                                                              |
+| flipX        | `false`       | boolean   | Flip the seamless edge horizontally.                                                                          |
+| flipY        | `false`       | boolean   | Flip the seamless edge vertically.                                                                            |
+| alphaOffset  | `0`           | 0 to 1    | The edges are affected by an alpha channel offset. Is disabled when the value is 0. See also [alpha](#alpha). |
+| alphaReverse | `false`       | boolean   | When alphaOffset is larger than 0, set this to reverse the alpha channel. See also [alpha](#alpha).           |
 
 ## Q and A
 

@@ -45,6 +45,15 @@ export const DEFAULT = {
     align: "center",
     base: "middle",
   },
+  seamless: {
+    offset: [0.3, 0.3],
+    size: [0.2, 0.2],
+    both: false,
+    alphaOffset: 0,
+    alphaReverse: false,
+    flipX: false,
+    flipY: false,
+  },
 } as const;
 
 export let textureGlobals: LayerProps = {
@@ -64,6 +73,7 @@ export let textureGlobals: LayerProps = {
   blend: undefined,
   alpha: undefined,
   bloom: undefined,
+  seamless: undefined,
 };
 
 export const textureDefaults = (props: LayerProps) => {
