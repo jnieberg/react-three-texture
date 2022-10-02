@@ -31,7 +31,7 @@ export const DEFAULT = {
   nearest: false,
   shadow: { color: "black", blur: 20, offset: [0, 0] },
   outline: { color: "black", size: 1, detail: 8 },
-  filter: "",
+  filter: "none",
   blend: "source-over",
   alpha: { level: 1, power: 1, offset: 0, reverse: false },
   bloom: { size: 30, strength: 0.4, softness: 0.7, detail: 10, darken: false },

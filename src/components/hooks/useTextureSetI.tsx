@@ -90,7 +90,7 @@ export const useTextureSetI = (
                   effectNearest(ctx, layer.props);
 
                   // Apply filters
-                  ctx.filter = layer.props.filter || "none";
+                  ctx.filter = layer.props.filter || DEFAULT.filter;
 
                   ctx.drawImage(layer.canvas, 0, 0, cw, ch, 0, 0, layer.canvas.width, layer.canvas.height);
                   if (document.querySelector(domLayerPreview)) {

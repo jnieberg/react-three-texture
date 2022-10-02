@@ -1,3 +1,4 @@
+import newCanvasHelper from "../helpers/newCanvasHelper";
 import { DEFAULT } from "../setup";
 import { LayerProps } from "../types";
 
@@ -6,12 +7,19 @@ export const effectColor = (ctx: CanvasRenderingContext2D, props: LayerProps) =>
   if (props.color && !isShape) {
     // TO DO - find a way to make this generally work for both SVG and other image types
     if (props.src?.search(/\.svg$/) === -1) {
-      ctx.globalCompositeOperation = "color";
+      newCanvasHelper(ctx, (ctxColor) => {
+        ctxColor.filter = "grayscale(100%)";
+        ctxColor.drawImage(ctx.canvas, 0, 0);
+        ctxColor.filter = DEFAULT.filter;
+        ctxColor.globalCompositeOperation = "multiply";
+        ctxColor.fillStyle = !props.color || typeof props.color === "boolean" ? DEFAULT.color : props.color;
+        ctxColor.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      });
     } else {
       ctx.globalCompositeOperation = "source-in";
+      ctx.fillStyle = typeof props.color === "boolean" ? DEFAULT.color : props.color;
+      ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      ctx.globalCompositeOperation = "source-over";
     }
-    ctx.fillStyle = typeof props.color === "boolean" ? DEFAULT.color : props.color;
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    ctx.globalCompositeOperation = "source-over";
   }
 };

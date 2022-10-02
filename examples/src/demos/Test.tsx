@@ -6,6 +6,24 @@ import PrettySphere from "../meshes/PrettySphere";
 import { MapType, Layer, TextureSet, useTextureSet } from "react-three-texture";
 import DemoProps from "../types/Demo";
 
+const LayerHelp = {
+  Sky: ({ color, fill }: { color: string; fill: string }) => (
+    <>
+      <Layer src="parchment.png" repeat seamless={{ offset: [0.5, 0], size: [0.3, 0], flipX: true }} />
+      <Layer
+        gradient={{
+          stops: [
+            [0, color],
+            [0.4, color],
+            [0.6, fill],
+          ],
+        }}
+        blend="color"
+      />
+    </>
+  ),
+};
+
 const Test: FC<DemoProps> = () => {
   const refCube = useRef<any>(null);
   const ref = useRef<MeshStandardMaterial>(null);
@@ -28,7 +46,7 @@ const Test: FC<DemoProps> = () => {
     64
   );
 
-  const envTexture = useTextureSet(<Layer src="https://images.unsplash.com/photo-1570284613060-766c33850e00" />, 4096, true);
+  const envTexture = useTextureSet(<Layer src="https://images.unsplash.com/photo-1570284613060-766c33850e00" />, 2048, true);
 
   const children = (
     <>
@@ -58,7 +76,7 @@ const Test: FC<DemoProps> = () => {
         <TextureSet map="roughness">
           <Layer fill="black" />
         </TextureSet>
-        <TextureSet map="env" dimensions={4096}>
+        <TextureSet map="env" dimensions={2048}>
           <Layer src="https://images.unsplash.com/photo-1582129165473-a878f105f3b8" />
         </TextureSet>
       </PrettyBox>
@@ -77,14 +95,16 @@ const Test: FC<DemoProps> = () => {
         />
       </mesh>
       <PrettySphere position={[1.5, 0, 0]}>
-        <TestTextureSet map="bump" />
-        <TextureSet map="roughness">
-          <Layer fill="black" />
-        </TextureSet>
-        <TextureSet map="env" dimensions={4096}>
+        <TestTextureSet map="roughness" />
+        <TextureSet map="env" dimensions={2048}>
           <Layer src="https://images.unsplash.com/photo-1582129165473-a878f105f3b8" />
         </TextureSet>
       </PrettySphere>
+      <PrettyBox position={[0, 0, 1.5]}>
+        <TextureSet repeat={[2, 2]} wrapS={RepeatWrapping} wrapT={RepeatWrapping}>
+          <LayerHelp.Sky color="blue" fill="red" />
+        </TextureSet>
+      </PrettyBox>
     </>
   );
 };
