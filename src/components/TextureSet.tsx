@@ -12,9 +12,11 @@ declare global {
   }
 }
 
-const TextureSet: React.FC<TextureSetProps> = ({ map, dimensions, children, ...propsMap }) => {
+const TextureSet: React.FC<TextureSetProps> = React.forwardRef(({ map, dimensions, children, ...propsMap }, forwardRef) => {
+  const ref = React.useRef();
   const texture = useTextureSetI(children, dimensions, map, propsMap);
-  return !!texture ? <primitive attach={map ? `${map}Map` : "map"} encoding={sRGBEncoding} {...propsMap} object={texture} /> : null;
-};
+  React.useImperativeHandle(forwardRef, () => ref.current);
+  return !!texture ? <primitive ref={ref} attach={map ? `${map}Map` : "map"} encoding={sRGBEncoding} {...propsMap} object={texture} /> : null;
+});
 
 export { TextureSet };
