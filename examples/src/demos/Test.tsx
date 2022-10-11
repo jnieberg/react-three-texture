@@ -1,5 +1,6 @@
 import { invalidate, useFrame } from "@react-three/fiber";
 import { FC, useEffect, useRef } from "react";
+import { TextureSetProps } from "react-three-texture";
 import { MeshStandardMaterial, RepeatWrapping } from "three";
 import PrettyBox from "../meshes/PrettyBox";
 import PrettySphere from "../meshes/PrettySphere";
@@ -7,7 +8,7 @@ import { MapType, Layer, TextureSet, useTextureSet } from "react-three-texture";
 import DemoProps from "../types/Demo";
 
 const LayerHelp = {
-  Sky: ({ color, fill }: { color: string; fill: string }) => (
+  Map: ({ color, fill }: { color: string; fill: string }) => (
     <>
       <Layer src="parchment.png" repeat seamless={{ offset: [0.5, 0], size: [0.3, 0], flipX: true }} />
       <Layer
@@ -16,6 +17,7 @@ const LayerHelp = {
             [0, color],
             [0.4, color],
             [0.6, fill],
+            [1.0, fill],
           ],
         }}
         blend="color"
@@ -27,10 +29,14 @@ const LayerHelp = {
 const Test: FC<DemoProps> = () => {
   const refCube = useRef<any>(null);
   const ref = useRef<MeshStandardMaterial>(null);
+  const textureRef = useRef<TextureSetProps>(null);
+  let offsetIncrement = 0;
 
   useFrame(() => {
-    if (refCube.current) {
+    if (refCube.current && textureRef.current) {
       refCube.current.rotateY(0.002);
+      textureRef.current.offset.set(offsetIncrement, 0);
+      offsetIncrement += 0.01;
       invalidate();
     }
   });
@@ -101,8 +107,8 @@ const Test: FC<DemoProps> = () => {
         </TextureSet>
       </PrettySphere>
       <PrettyBox position={[0, 0, 1.5]}>
-        <TextureSet repeat={[2, 2]} wrapS={RepeatWrapping} wrapT={RepeatWrapping}>
-          <LayerHelp.Sky color="blue" fill="red" />
+        <TextureSet ref={textureRef} repeat={[2, 2]} wrapS={RepeatWrapping} wrapT={RepeatWrapping}>
+          <LayerHelp.Map color="blue" fill="red" />
         </TextureSet>
       </PrettyBox>
     </>
