@@ -84,7 +84,7 @@ export const useTextureSetI = (
                   ctx.globalCompositeOperation = layer.props.blend || DEFAULT.blend;
 
                   // Alpha
-                  if (typeof layer.props.alpha === "number") ctx.globalAlpha = layer.props.alpha;
+                  ctx.globalAlpha = typeof layer.props.alpha === "number" ? layer.props.alpha : 1.0;
 
                   // Nearest neighbour rendering
                   effectNearest(ctx, layer.props);
