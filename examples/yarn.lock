@@ -8057,10 +8057,10 @@ react-scripts@^5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
-react-three-texture@^1.1.17:
-  version "1.1.17"
-  resolved "https://registry.yarnpkg.com/react-three-texture/-/react-three-texture-1.1.17.tgz#249d6afe092a063147410c47e2aade3cb4e5b7b7"
-  integrity sha512-DhUXBU4ehTdD7EbC8FTigFRZVQx83upKYyalZQ3gx52CVr/J+vkKDkmEWwK/pPastA8c35oejqPflbWCq7249Q==
+react-three-texture@^1.1.18:
+  version "1.1.18"
+  resolved "https://registry.yarnpkg.com/react-three-texture/-/react-three-texture-1.1.18.tgz#8566e077a339f987b3af91c2c425e5483c627718"
+  integrity sha512-3Dnbngt39pgAVcf84xKxYGN+n/SIAeywCxMGqMV9EKpvt/DNDsbl2NZ/ix7OXb3gfHXdjX9GphYGgfahP44+bA==
 
 react-use-measure@^2.1.1:
   version "2.1.1"
