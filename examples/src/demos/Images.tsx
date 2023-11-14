@@ -9,7 +9,7 @@ const Images: FC<DemoProps> = ({ globalProps, ...props }) => {
 
   return Mesh ? (
     <>
-      <Mesh position={[-1.5, 0, 0]}>
+      <Mesh x={-1.5}>
         <TextureSet>
           <Layer src={upload} fit={`${fit} ${alignX} ${alignY}`} nearest />
         </TextureSet>
@@ -24,7 +24,7 @@ const Images: FC<DemoProps> = ({ globalProps, ...props }) => {
           <Layer src="burger.svg" scale={[0.75, 0.75]} fit={`${fit} ${alignX} ${alignY}`} color="black" />
         </TextureSet>
       </Mesh>
-      <Mesh position={[1.5, 0, 0]}>
+      <Mesh x={1.5}>
         <TextureSet>
           <Layer src={url} fit={`${fit} ${alignX} ${alignY}`} />
         </TextureSet>

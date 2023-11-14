@@ -13,7 +13,7 @@ const Transformation: FC<DemoProps> = ({ globalProps, ...props }) => {
 
   return Mesh ? (
     <>
-      <Mesh position={[-1.5, 0, 0]}>
+      <Mesh x={-1.5}>
         <TextureSet>
           <Layer
             src="city.png"
@@ -38,7 +38,7 @@ const Transformation: FC<DemoProps> = ({ globalProps, ...props }) => {
           <Layer fill="#000000" scale={[scale.x * 0.5, scale.y * 0.5]} {...greenBoxProps} />
         </TextureSet>
       </Mesh>
-      <Mesh position={[1.5, 0, 0]}>
+      <Mesh x={1.5}>
         <TextureSet>
           <Layer fill="black" />
           <Layer fill="red" position={[centerX + position.x * 0.325 + 0.025, centerY + 0.025 + position.y * 0.325]} {...rubicProps} />

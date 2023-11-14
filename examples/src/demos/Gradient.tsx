@@ -9,7 +9,7 @@ const Gradient: FC<DemoProps> = ({ globalProps, ...props }) => {
 
   return Mesh ? (
     <>
-      <Mesh position={[-1.5, 0, 0]}>
+      <Mesh x={-1.5}>
         <TextureSet>
           <Layer
             gradient={{
@@ -34,7 +34,7 @@ const Gradient: FC<DemoProps> = ({ globalProps, ...props }) => {
           />
         </TextureSet>
       </Mesh>
-      <Mesh position={[1.5, 0, 0]}>
+      <Mesh x={1.5}>
         <TextureSet>
           <Layer
             gradient={{

@@ -1,6 +1,6 @@
 import "./App.css";
 import { Canvas, invalidate, useFrame, useThree } from "@react-three/fiber";
-import { ACESFilmicToneMapping, SpotLight, sRGBEncoding, Vector3, VSMShadowMap } from "three";
+import { ACESFilmicToneMapping, SpotLight, SRGBColorSpace, Vector3, VSMShadowMap } from "three";
 import { Suspense, useEffect, useRef } from "react";
 import { Environment, OrbitControls, Plane } from "@react-three/drei";
 import { Navigation, Pages } from "./ui/Navigation";
@@ -8,7 +8,7 @@ import { Navigation, Pages } from "./ui/Navigation";
 const SceneSetup = () => {
   const { gl } = useThree();
 
-  const floorColor = "#888888";
+  const floorColor = "#668877";
   const backColor = "#bbccdd";
 
   useEffect(() => {
@@ -25,25 +25,26 @@ const SceneSetup = () => {
       <Plane position={[0, -0.01, 0]} rotation={[-Math.PI * 0.5, 0, 0]} scale={[100, 100, 100]} receiveShadow>
         <meshStandardMaterial attach="material" color={floorColor} />
       </Plane>
-      <spotLight
-        castShadow
-        intensity={60}
-        distance={40}
-        position={[0, 2, 3]}
-        lookAt={() => new Vector3(0, 0, 0)}
-        color="white"
-        penumbra={1}
-        angle={Math.PI * 0.3}
-        decay={2}
-        shadow-bias={-0.001}
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-        shadow-camera-near={0.1}
-        shadow-camera-far={40}
-        shadow-radius={4}
-        shadow-blurSamples={20}
-      />
       <Suspense fallback={null}>
+        <spotLight
+          castShadow
+          intensity={60}
+          power={50}
+          distance={40}
+          position={[0, 2, 3]}
+          lookAt={() => new Vector3(0, 0, 0)}
+          color="white"
+          penumbra={1}
+          angle={Math.PI * 0.3}
+          decay={2}
+          shadow-bias={-0.001}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+          shadow-camera-near={0.1}
+          shadow-camera-far={40}
+          shadow-radius={4}
+          shadow-blurSamples={20}
+        />
         <Environment preset="forest" />
       </Suspense>
     </>
@@ -84,14 +85,13 @@ const App = () => (
         alpha: true,
         stencil: false,
         pixelRatio: window.devicePixelRatio,
-        outputEncoding: sRGBEncoding,
+        outputColorSpace: SRGBColorSpace,
         powerPreference: "high-performance",
         toneMapping: ACESFilmicToneMapping,
-        physicallyCorrectLights: true,
       }}
       shadows
       // camera={{ position: [-4, 2, 4], fov: 30 }} // for readme
-      camera={{ position: [-2.5, 2, 5], near: 1.15, fov: 30 }}
+      camera={{ position: [-2.5, 2, 5], near: 0.01, fov: 30 }}
       frameloop="demand"
     >
       <Controls />

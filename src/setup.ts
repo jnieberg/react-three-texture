@@ -1,7 +1,7 @@
 import { LayerProps } from "./types";
 
 export const DEFAULT = {
-  dimensions: 512,
+  dimensions: 1024,
   src: "",
   image: "size-max center middle",
   position: [0, 0],

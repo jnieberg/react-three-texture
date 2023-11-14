@@ -3,18 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@react-three/drei": "^9.28.2",
-    "@react-three/fiber": "^8.7.2",
+    "@react-three/drei": "^9.88.11",
+    "@react-three/fiber": "^8.15.10",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/react": "^18.0.18",
-    "leva": "^0.9.31",
+    "@types/react": "^18.2.37",
+    "leva": "^0.9.35",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
     "react-three-texture": "*",
-    "three": "^0.144.0",
+    "three": "^0.158.0",
     "typescript": "^4.8.2",
     "web-vitals": "^2.1.4",
     "wouter": "^2.8.0-alpha.2"
@@ -44,7 +44,7 @@
     ]
   },
   "devDependencies": {
-    "@types/three": "^0.144.0",
+    "@types/three": "^0.158.2",
     "npm-run-all": "^4.1.5"
   }
 }

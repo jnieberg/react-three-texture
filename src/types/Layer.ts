@@ -86,6 +86,16 @@ export type SeamlessProps = {
   alphaReverse?: boolean;
 };
 
+export type NoiseRandomProps = {
+  type: "random" | "perlin";
+  from?: string;
+  to?: string;
+  steps?: number;
+  seed?: string | number;
+  detail?: number;
+  offset?: number;
+};
+
 export interface LayerProps extends ImageProps, TransformationProps, ColorProps, ShapeProps {
   dimensions?: number;
   gradient?: GradientLinearProps | GradientRadialProps | boolean;
@@ -100,4 +110,5 @@ export interface LayerProps extends ImageProps, TransformationProps, ColorProps,
   alpha?: AlphaProps | number | boolean;
   bloom?: BloomProps | boolean;
   seamless?: SeamlessProps | boolean;
+  noise?: NoiseRandomProps;
 }

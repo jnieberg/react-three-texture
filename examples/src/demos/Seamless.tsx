@@ -10,7 +10,7 @@ const Seamless: FC<DemoProps> = ({ globalProps, ...props }) => {
   return Mesh ? (
     <>
       <Mesh>
-        <TextureSet repeat={[4, 4]} wrapS={RepeatWrapping} wrapT={RepeatWrapping}>
+        <TextureSet repeat={[3, 3]} wrapS={RepeatWrapping} wrapT={RepeatWrapping}>
           <Layer src={url} fit seamless={{ offset: [offsetX, offsetY], size: [sizeX, sizeY], alphaOffset, alphaReverse, both, flipX, flipY }} />
         </TextureSet>
       </Mesh>

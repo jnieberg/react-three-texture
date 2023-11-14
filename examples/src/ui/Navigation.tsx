@@ -18,6 +18,8 @@ import { GlobalControlProps } from "../types/Demo";
 import { textureDefaults } from "react-three-texture";
 import Test from "../demos/Test";
 import Seamless from "../demos/Seamless";
+import Renders from "../demos/Renders";
+import PrettyPlane from "../meshes/PrettyPlane";
 
 const menuItems = [
   { Component: Images, name: "Images" },
@@ -29,6 +31,7 @@ const menuItems = [
   { Component: Alpha, name: "Alpha" },
   { Component: Shapes, name: "Shapes" },
   { Component: Seamless, name: "Seamless" },
+  { Component: Renders, name: "Renders" },
   { Component: Test, name: "Test" },
 ];
 
@@ -68,8 +71,8 @@ export const Navigation = () => {
 export const Pages = () => {
   const globalControl: Schema = {
     "Global Settings": folder({
-      mesh: { options: { Box: PrettyBox, Sphere: PrettySphere, Cylinder: PrettyCylinder } },
-      dimensions: { options: [512, 256, 128, 64, 32] },
+      mesh: { options: { Box: PrettyBox, Sphere: PrettySphere, Cylinder: PrettyCylinder, Plane: PrettyPlane } },
+      dimensions: { options: [1024, 512, 256, 128, 64, 32] },
       canvas: { value: false, onChange: (v) => document.querySelector("#textureset__preview")?.classList.toggle("show", v) },
     }),
   };

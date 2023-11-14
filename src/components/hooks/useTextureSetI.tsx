@@ -25,6 +25,7 @@ import { useThree } from "@react-three/fiber";
 import { MapType, TextureResult } from "../../types";
 import flattenChildren from "../../helpers/flattenChildren";
 import generatePMREM from "../../helpers/generatePMREM";
+import { effectNoise } from "../../effects/noise";
 
 export const useTextureSetI = (
   children: React.ReactNode,
@@ -93,6 +94,7 @@ export const useTextureSetI = (
                   ctx.filter = layer.props.filter || DEFAULT.filter;
 
                   ctx.drawImage(layer.canvas, 0, 0, cw, ch, 0, 0, layer.canvas.width, layer.canvas.height);
+
                   if (document.querySelector(domLayerPreview)) {
                     document.querySelector(domLayerPreview)?.prepend(layer.canvas);
                   } else {
@@ -118,6 +120,7 @@ export const useTextureSetI = (
     if (!props.repeat) effectFlip(ctxLayer, props);
     await effectTransformation(ctxLayer, props, async (transform) => {
       effectFill(ctxLayer, props);
+      effectNoise(ctxLayer, props);
       effectGradient(ctxLayer, props);
       effectImage(ctxLayer, props);
       await effectShape(ctxLayer, props);

@@ -9,7 +9,7 @@ const Blending: FC<DemoProps> = ({ globalProps, ...props }) => {
 
   return Mesh ? (
     <>
-      <Mesh position={[-1.5, 0, 0]}>
+      <Mesh x={-1.5}>
         <TextureSet>
           <Layer fill="#004477" scale={[0.2, 1]} position={[0, 0]} />
           <Layer fill="#774400" scale={[0.2, 1]} position={[0.4, 0]} />
@@ -44,7 +44,7 @@ const Blending: FC<DemoProps> = ({ globalProps, ...props }) => {
           />
         </TextureSet>
       </Mesh>
-      <Mesh position={[1.5, 0, 0]}>
+      <Mesh x={1.5}>
         <TextureSet>
           <Layer src="wall.png" />
           <Layer

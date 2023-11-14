@@ -327,10 +327,12 @@ const getControls = (location: string) => {
         Seamless: folder({
           url: {
             options: {
-              "dungeon wall": "https://mj-gallery.com/24134e3d-bfbf-42bf-a192-f13baa7b4233/grid_0.png",
-              "crystal cave": "https://mj-gallery.com/86e633fc-3133-4037-ac2a-e4c0bafdf72e/grid_0.png",
-              "medieval city": "https://mj-gallery.com/eb8320cd-07b1-4d22-9140-4fb6d30e2552/grid_0.png",
-              "alien city": "https://mj-gallery.com/896dfb08-437b-4417-b02e-443d3195f733/grid_0.png",
+              castle: "castle.jpg",
+              bricks: "bricks.jpg",
+              "wooden floor":
+                "https://plus.unsplash.com/premium_photo-1670159661171-4efef5308566?q=80&w=2972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+              "egyptian wall":
+                "https://images.unsplash.com/photo-1622366681698-af1f8305a17f?q=80&w=3174&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             },
           },
           offsetX: {
@@ -367,6 +369,24 @@ const getControls = (location: string) => {
             step: 0.01,
           },
           alphaReverse: false,
+        }),
+      };
+      break;
+    case "/renders":
+      controls = {
+        Noise: folder({
+          "random seed": {
+            value: 0,
+            min: 0,
+            max: 1000000,
+            step: 1,
+          },
+          detail: {
+            value: 2,
+            min: 1,
+            max: 4,
+            step: 0.1,
+          },
         }),
       };
       break;

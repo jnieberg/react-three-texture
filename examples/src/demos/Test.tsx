@@ -74,7 +74,7 @@ const Test: FC<DemoProps> = () => {
 
   return (
     <>
-      <PrettyBox position={[-1.5, 0, 0]}>
+      <PrettyBox x={-1.5}>
         <TextureSet repeat={[4, 4]} wrapS={RepeatWrapping} wrapT={RepeatWrapping}>
           <Layer fill="lightGrey" />
           {children}
@@ -86,7 +86,7 @@ const Test: FC<DemoProps> = () => {
           <Layer src="https://images.unsplash.com/photo-1582129165473-a878f105f3b8" />
         </TextureSet>
       </PrettyBox>
-      <mesh ref={refCube} castShadow receiveShadow position={[0, 0, 0]} scale={[1.5, 1, 1.5]}>
+      <mesh ref={refCube} castShadow position={[0, 0, 0]} scale={[1.5, 1, 1.5]}>
         <roundedBoxGeometry attach="geometry" args={[1, 1, 1, 8, 0.5]} />
         <meshStandardMaterial
           ref={ref}
@@ -100,7 +100,7 @@ const Test: FC<DemoProps> = () => {
           envMapIntensity={1}
         />
       </mesh>
-      <PrettySphere position={[1.5, 0, 0]}>
+      <PrettySphere x={1.5}>
         <TestTextureSet map="roughness" />
         <TextureSet map="env" dimensions={2048}>
           <Layer src="https://images.unsplash.com/photo-1582129165473-a878f105f3b8" />

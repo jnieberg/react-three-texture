@@ -9,7 +9,7 @@ const Effects: FC<DemoProps> = ({ globalProps, ...props }) => {
 
   return Mesh ? (
     <>
-      <Mesh position={[-1.5, 0, 0]}>
+      <Mesh x={-1.5}>
         <TextureSet>
           <Layer src="girl.png" scale={[1, 1.5]} bloom={{ size, strength, softness, detail, darken }} />
         </TextureSet>
@@ -24,7 +24,7 @@ const Effects: FC<DemoProps> = ({ globalProps, ...props }) => {
           <Layer src="wall.svg" color="white" shadow={{ color: "white", blur: 10 }} />
         </TextureSet>
       </Mesh>
-      <Mesh position={[1.5, 0, 0]}>
+      <Mesh x={1.5}>
         <TextureSet>
           <Layer fill="#0000ff" />
           <Layer

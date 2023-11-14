@@ -9,7 +9,7 @@ const Filters: FC<DemoProps> = ({ globalProps, ...props }) => {
   const filters = `brightness(${brightness}%) contrast(${contrast}%) blur(${blur}px) hue-rotate(${hue}deg) saturate(${saturate}%) invert(${invert})`;
   return Mesh ? (
     <>
-      <Mesh position={[-1.5, 0, 0]}>
+      <Mesh x={-1.5}>
         <TextureSet>
           <Layer src="girl.png" fit="size-max center" filter={filters} />
         </TextureSet>
@@ -19,7 +19,7 @@ const Filters: FC<DemoProps> = ({ globalProps, ...props }) => {
           <Layer src="desk.png" fit="size-max center" filter={filters} />
         </TextureSet>
       </Mesh>
-      <Mesh position={[1.5, 0, 0]}>
+      <Mesh x={1.5}>
         <TextureSet>
           <Layer src="city.png" fit="size-max center" filter={filters} />
         </TextureSet>
