@@ -1,4 +1,4 @@
-export const rgbToHex = ([red, green, blue, alpha = 1.0]: number[]) => {
+export const rgbToHex = (red: number, green: number, blue: number, alpha: number = 1.0) => {
   var r = red & 0xff;
   var g = green & 0xff;
   var b = blue & 0xff;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { sRGBEncoding } from "three";
+import { SRGBColorSpace } from "three";
 import { TextureSetProps } from "../types/TextureSet";
 import { PrimitiveProps } from "@react-three/fiber";
 import { useTextureSetI } from "./hooks/useTextureSetI";
@@ -16,7 +16,7 @@ const TextureSet: React.FC<TextureSetProps> = React.forwardRef(({ map, dimension
   const ref = React.useRef();
   const texture = useTextureSetI(children, dimensions, map, propsMap);
   React.useImperativeHandle(forwardRef, () => ref.current);
-  return !!texture ? <primitive ref={ref} attach={map ? `${map}Map` : "map"} encoding={sRGBEncoding} {...propsMap} object={texture} /> : null;
+  return !!texture ? <primitive ref={ref} attach={map ? `${map}Map` : "map"} colorSpace={SRGBColorSpace} {...propsMap} object={texture} /> : null;
 });
 
 export { TextureSet };

@@ -1,4 +1,4 @@
-export const mixColors = (c1: number[], c2: number[], factor: number) => {
+export const mixColors = (c1: number[], c2: number[], factor: number): [number, number, number, number?] => {
   const [r1, g1, b1, a1] = c1;
   const [r2, g2, b2, a2] = c2;
   const mix = (start: number, end: number) => {

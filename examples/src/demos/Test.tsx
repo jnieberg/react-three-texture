@@ -86,7 +86,7 @@ const Test: FC<DemoProps> = () => {
           <Layer src="https://images.unsplash.com/photo-1582129165473-a878f105f3b8" />
         </TextureSet>
       </PrettyBox>
-      <mesh ref={refCube} castShadow position={[0, 0, 0]} scale={[1.5, 1, 1.5]}>
+      <mesh ref={refCube} scale={[1.5, 1, 1.5]}>
         <roundedBoxGeometry attach="geometry" args={[1, 1, 1, 8, 0.5]} />
         <meshStandardMaterial
           ref={ref}

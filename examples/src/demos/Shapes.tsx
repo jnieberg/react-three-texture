@@ -89,7 +89,7 @@ const Shapes: FC<DemoProps> = ({ globalProps, ...props }) => {
         <ShapeTexture p1={positionA} p2={positionB} p3={positionC} p4={positionD} />
         <ShapeTexture p1={positionA} p2={positionB} p3={positionC} p4={positionD} map="alpha" />
       </Mesh>
-      <Mesh position={[0, 0, 0]}>
+      <Mesh>
         <TextTexture value={value} bold={bold} italic={italic} scale={scale} alignment={alignment} />
         <TextTexture value={value} bold={bold} italic={italic} scale={scale} alignment={alignment} map="bump" />
       </Mesh>

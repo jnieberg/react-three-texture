@@ -7,7 +7,7 @@ const newCanvasHelper = (ctx: CanvasRenderingContext2D, callback: (ctxHelper: Ca
 
   callback(ctxHelper);
 
-  if (draw) ctx.drawImage(ctxHelper.canvas, 0, 0, ctxHelper.canvas.width, ctxHelper.canvas.height);
+  if (draw) ctx.drawImage(ctxHelper.canvas, 0, 0); //, ctxHelper.canvas.width, ctxHelper.canvas.height
 
   ctxHelper.canvas.remove();
 };

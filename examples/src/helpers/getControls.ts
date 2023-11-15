@@ -381,7 +381,13 @@ const getControls = (location: string) => {
             max: 1000000,
             step: 1,
           },
-          detail: {
+          "perlin seed": {
+            value: 0,
+            min: 0,
+            max: 1000000,
+            step: 1,
+          },
+          "perlin detail": {
             value: 2,
             min: 1,
             max: 4,

@@ -48,4 +48,8 @@ export default class Random {
     const max = minA < maxA ? maxA : minA;
     return Math.floor(this._rnd() * (max - min + 1) + min);
   }
+
+  reset() {
+    this._seedAdd = 0;
+  }
 }
