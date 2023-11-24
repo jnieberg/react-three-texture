@@ -16,7 +16,7 @@ import { Link, Redirect, Route, useLocation } from "wouter";
 import Shapes from "../demos/Shapes";
 import { GlobalControlProps } from "../types/Demo";
 import { textureDefaults } from "react-three-texture";
-import Test from "../demos/Test";
+import Misc from "../demos/Misc";
 import Seamless from "../demos/Seamless";
 import Renders from "../demos/Renders";
 import Bricks from "../demos/Bricks";
@@ -38,7 +38,7 @@ const menuItems = [
     name: "Presets",
     submenu: [{ Component: Bricks, name: "Bricks" }],
   },
-  // { Component: Test, name: "Test" },
+  { Component: Misc, name: "Misc" },
 ];
 
 export const Navigation = () => {

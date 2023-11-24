@@ -24,7 +24,7 @@ const Bricks = (props: BricksProps) => {
     .map((_, y) => (y + (y > 0 && y < Math.ceil(1.0 / height) - 1 ? sy() : 0)) * height);
   const verticals = new Array(Math.ceil(1.0 / height))
     .fill(null)
-    .map((_, y) => new Array(Math.ceil(1.0 / width)).fill(null).map((_, x) => (x + sx()) * width + y * offsetX));
+    .map((_, y) => new Array(Math.ceil(1.0 / width)).fill(null).map((_, x) => (x + sx()) * width + ((y * offsetX) % 1)));
   const verticalsS = verticals.map((vert) => vert.map((v) => ss()));
   const bricks: ({ x1: number; y1: number; x2: number; y2: number; s1: number; s2: number; color: string } | null)[] = [];
 
@@ -40,21 +40,23 @@ const Bricks = (props: BricksProps) => {
           let y1 = h1 + thickness * 0.5;
           let x2 = v2 - thickness * 0.5;
           let y2 = h2 - thickness * 0.5;
-          const xmin1 = x1 - Math.abs(vs1);
-          const xmin2 = x2 + Math.abs(vs2);
+          const xmin1 = Math.floor(x1 - Math.abs(vs1));
+          const xmin2 = Math.floor(x2 + Math.abs(vs2));
           if (o > 0) {
-            if (xmin2 >= 1.0) {
-              x1 = x1 - Math.floor(xmin2);
-              x2 = x2 - Math.floor(xmin2);
-            } else if (xmin1 < 0.0) {
-              x2 = x2 - Math.floor(xmin1);
-              x1 = x1 - Math.floor(xmin1);
+            if (xmin1 === 0 && xmin2 > 0) {
+              x1 = x1 - xmin2;
+              x2 = x2 - xmin2;
+            } else if (xmin1 < 0 && xmin2 === 0) {
+              x2 = x2 - xmin1;
+              x1 = x1 - xmin1;
             } else {
               return null;
             }
-          } else if (o === 0 && x1 - Math.abs(vs1) >= 1.0) {
-            x2 = x2 - Math.floor(x1 - Math.abs(vs1));
-            x1 = x1 - Math.floor(x1 - Math.abs(vs1));
+          } else if (o === 0) {
+            if (xmin1 > 0) {
+              x2 = x2 - xmin1;
+              x1 = x1 - xmin1;
+            }
           }
           const newColor = Array.isArray(color) ? color : [color];
           const randomColor = new Random(`bricks_color_${seed}_${i}_${j}`);
