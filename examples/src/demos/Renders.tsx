@@ -9,17 +9,12 @@ const Renders: FC<DemoProps> = ({ globalProps, ...props }) => {
 
   return (
     <>
-      <Mesh x={-1.5}>
-        <TextureSet>
-          <Layer scale={[1, 1]} noise={{ type: "random", seed: `random_1_${randomSeed}`, from: "#000000", to: "#ffffff" }} />
-        </TextureSet>
-        <TextureSet map="bump">
-          <Layer scale={[1, 1]} noise={{ type: "random", seed: `random_1_${randomSeed}`, from: "#000000", to: "#ffffff" }} />
-        </TextureSet>
-      </Mesh>
       <Mesh>
         <TextureSet>
           <Layer noise={{ type: "perlin", from: "yellow", to: "red", seed: `perlin_1_${perlinSeed}`, detail }} />
+        </TextureSet>
+        <TextureSet map="roughness">
+          <Layer noise={{ type: "perlin", from: "white", to: "black", seed: `perlin_1_${perlinSeed}`, detail }} />
         </TextureSet>
       </Mesh>
     </>

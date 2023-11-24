@@ -72,6 +72,7 @@ export type ShapeProps = {
   line?: [number, number, number, number, ...number[]];
   circle?: [number, number, number, number?, number?, number?, number?, boolean?];
   rect?: [number, number, number, number?, number?];
+  poly?: [...number[], number];
   curve?: [number, number, number, number, number, number, number?, number?];
   text?: TextProps;
 };
@@ -94,6 +95,18 @@ export type NoiseRandomProps = {
   seed?: string | number;
   detail?: number;
   offset?: number;
+};
+
+export type BricksProps = {
+  color?: string | string[];
+  width?: number;
+  height?: number;
+  thickness?: number;
+  offsetX?: number;
+  seed?: number;
+  randomize?: [number, number?, number?];
+  radius?: number;
+  layer?: LayerProps;
 };
 
 export interface LayerProps extends ImageProps, TransformationProps, ColorProps, ShapeProps {

@@ -7,7 +7,7 @@ export default class Random {
 
   constructor(seedSuffix = "foo", seedString = "") {
     this.seedSuffix = seedSuffix;
-    this.seed = seedString;
+    this.seed(seedString);
   }
 
   _setSeed(str: string) {
@@ -21,11 +21,11 @@ export default class Random {
     })();
   }
 
-  get seed() {
+  getSeed() {
     return this._seedString;
   }
 
-  set seed(seedString) {
+  seed(seedString: string) {
     this._seedString = `${seedString}_${this.seedSuffix}`;
     this._setSeed(this._seedString);
     this._rnd = () => {
@@ -34,7 +34,7 @@ export default class Random {
       t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
       return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
     };
-    // return this;
+    return this;
   }
 
   float(minA = 1, maxA = 0) {

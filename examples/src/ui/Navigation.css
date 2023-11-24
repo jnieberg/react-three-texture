@@ -38,6 +38,10 @@ nav a.more-info:hover {
   text-decoration: none;
   background-color: #0044ff88;
 }
-nav a:last-child {
-  display: none;
+
+.submenu {
+  position: absolute;
+  top: 32px;
+  left: 104px;
+  z-index: 1;
 }

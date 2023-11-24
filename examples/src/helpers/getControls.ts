@@ -396,6 +396,66 @@ const getControls = (location: string) => {
         }),
       };
       break;
+    case "/presets/bricks":
+      controls = {
+        Noise: folder({
+          width: {
+            value: 0.2,
+            min: 0.04,
+            max: 1,
+            step: 0.02,
+          },
+          height: {
+            value: 0.2,
+            min: 0.04,
+            max: 1,
+            step: 0.02,
+          },
+          thickness: {
+            value: 0.02,
+            min: 0,
+            max: 0.1,
+            step: 0.005,
+          },
+          radius: {
+            value: 0.02,
+            min: 0,
+            max: 0.1,
+            step: 0.005,
+          },
+          offsetX: {
+            value: 0,
+            min: 0,
+            max: 1,
+            step: 0.02,
+          },
+          "random seed": {
+            value: 0,
+            min: 0,
+            max: 1000000,
+            step: 1,
+          },
+          randomizeX: {
+            value: 0,
+            min: 0,
+            max: 1,
+            step: 0.02,
+          },
+          randomizeY: {
+            value: 0,
+            min: 0,
+            max: 1,
+            step: 0.02,
+          },
+          randomizeS: {
+            value: 0,
+            min: 0,
+            max: 0.2,
+            step: 0.01,
+          },
+        }),
+      };
+      break;
     default:
       break;
   }

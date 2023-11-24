@@ -35,6 +35,7 @@ export const useTextureSetI = (
 ): TextureResult => {
   const { gl } = useThree();
   const layers = flattenChildren(children);
+
   let uuid = toUUID({ ...textureGlobals, layers: layers.map((layer) => layer?.props), map, dimensions, props: propsMap });
   const [texture, setTexture] = React.useState<TextureResult>(null);
   const domPreview = "#textureset__preview";

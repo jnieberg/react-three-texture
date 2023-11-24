@@ -19,7 +19,9 @@ import { textureDefaults } from "react-three-texture";
 import Test from "../demos/Test";
 import Seamless from "../demos/Seamless";
 import Renders from "../demos/Renders";
+import Bricks from "../demos/Bricks";
 import PrettyPlane from "../meshes/PrettyPlane";
+import { Fragment } from "react";
 
 const menuItems = [
   { Component: Images, name: "Images" },
@@ -32,7 +34,11 @@ const menuItems = [
   { Component: Shapes, name: "Shapes" },
   { Component: Seamless, name: "Seamless" },
   { Component: Renders, name: "Renders" },
-  { Component: Test, name: "Test" },
+  {
+    name: "Presets",
+    submenu: [{ Component: Bricks, name: "Bricks" }],
+  },
+  // { Component: Test, name: "Test" },
 ];
 
 export const Navigation = () => {
@@ -54,14 +60,32 @@ export const Navigation = () => {
           ></path>
         </svg>
       </a>
-      {menuItems.map(({ Component, name }) => {
-        const className = location.indexOf(name.toLowerCase()) === 1 ? "selected" : "";
+      {menuItems.map(({ name, submenu }) => {
+        const isCurrentPage = location.replace(/\/(.*?)(?:\/(.*$)|$)/, "$1") === name.toLowerCase();
+        const className = isCurrentPage ? "selected" : "";
         return (
-          <Link key={name} href={`/${name.toLowerCase()}`}>
-            <a href="?" className={className}>
-              {name}
-            </a>
-          </Link>
+          <Fragment key={name}>
+            <Link href={`/${name.toLowerCase()}`}>
+              <a href="?" className={className}>
+                {name}
+              </a>
+            </Link>
+            {isCurrentPage && (
+              <div className="submenu">
+                {submenu?.map(({ name: subName }) => {
+                  const isCurrentSubPage = location.replace(/\/(.*?)(?:\/(.*$)|$)/, "$2") === subName.toLowerCase();
+                  const subClassName = isCurrentSubPage ? "selected" : "";
+                  return (
+                    <Link key={subName} href={`/${name.toLowerCase()}/${subName.toLowerCase()}`}>
+                      <a href="?" className={subClassName}>
+                        {subName}
+                      </a>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </Fragment>
         );
       })}
     </nav>
@@ -88,10 +112,15 @@ export const Pages = () => {
         <Redirect to={`/${menuItems[0].name.toLowerCase()}`} />
       </Route>
       <group position={[0, 0.5, 0]}>
-        {menuItems.map(({ Component: Page, name }) => (
-          <Route key={name} path={`/${name.toLowerCase()}`}>
-            <Page globalProps={globalControlProps} {...controlProps} />
-          </Route>
+        {menuItems.map(({ Component: Page, name, submenu }) => (
+          <Fragment key={name}>
+            <Route path={`/${name.toLowerCase()}`}>{Page && <Page globalProps={globalControlProps} {...controlProps} />}</Route>
+            {submenu?.map(({ Component: SubPage, name: subName }) => (
+              <Route key={name} path={`/${name.toLowerCase()}/${subName.toLowerCase()}`}>
+                <SubPage globalProps={globalControlProps} {...controlProps} />
+              </Route>
+            ))}
+          </Fragment>
         ))}
       </group>
     </>
