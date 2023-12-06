@@ -1,7 +1,7 @@
 import { ctxRoundPoly } from "../../polyfill/ctx";
 import { LayerProps } from "../../types";
 
-export const shapePoly = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const shapePoly = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, props: LayerProps) => {
   const poly = props.poly;
   if (poly) {
     const dims = props.dimensions || ctx.canvas.width;

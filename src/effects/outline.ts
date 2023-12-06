@@ -2,7 +2,7 @@ import newCanvasHelper from "../helpers/newCanvasHelper";
 import { DEFAULT } from "../setup";
 import { LayerProps, OutlineProps } from "../types";
 
-export const effectOutline = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const effectOutline = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, props: LayerProps) => {
   if (props.outline) {
     const { color, size, detail } = { ...DEFAULT.outline, ...(props.outline as OutlineProps) };
     newCanvasHelper(ctx, (ctxOutline) => {

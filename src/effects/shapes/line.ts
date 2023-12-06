@@ -1,6 +1,6 @@
 import { LayerProps } from "../../types";
 
-export const shapeLine = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const shapeLine = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, props: LayerProps) => {
   const line = props.line;
   if (line) {
     const dims = props.dimensions || ctx.canvas.width;

@@ -1,6 +1,6 @@
 import { LayerProps } from "../types";
 
-export const effectFlip = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const effectFlip = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, props: LayerProps) => {
   if (props.flipX) {
     ctx.scale(-1, 1);
     ctx.translate(-ctx.canvas.width, 0);

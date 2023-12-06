@@ -3,7 +3,7 @@ import { DEFAULT } from "../../setup";
 import storage from "../../storage/storage";
 import { LayerProps } from "../../types";
 
-export const shapeText = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const shapeText = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, props: LayerProps) => {
   const text = props.text;
   if (text) {
     return new Promise<void>((resolve) => {

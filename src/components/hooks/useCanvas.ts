@@ -17,11 +17,11 @@ import {
   effectShadow,
   effectShape,
   effectTransformation,
+  effectNoise,
 } from "../../effects";
-import { effectNoise } from "../../effects/noise";
-import storage from "../../storage/storage";
 import { useEffect, useState } from "react";
 import flattenChildren from "../../helpers/flattenChildren";
+import storage from "../../storage/storage";
 
 export const useCanvas = (
   children: React.ReactNode,
@@ -34,52 +34,65 @@ export const useCanvas = (
   const ctx = document.createElement("canvas").getContext("2d");
 
   const drawAll = async () => {
+    const textureStored = storage("TEX", uuid);
+
     return new Promise<CanvasRenderingContext2D>((resolve) => {
-      if (ctx) {
-        ctx.canvas.width = dimensions;
-        ctx.canvas.height = dimensions;
-        ctx.canvas.id = uuid;
-        Promise.all(
-          layers.map(async (layer) => {
-            const layerProps: LayerProps = { ...textureGlobals, dimensions, ...layer?.props };
-            const ctxLayer = document.createElement("canvas").getContext("2d");
-            if (ctxLayer) {
-              ctxLayer.canvas.width = ctx.canvas.width;
-              ctxLayer.canvas.height = ctx.canvas.height;
-              await drawLayer(ctxLayer, layerProps);
-              return { ctxLayer, canvas: ctxLayer.canvas, props: layerProps };
-            }
-            // }
-            return null;
-          })
-        ).then((all: ({ ctxLayer: CanvasRenderingContext2D; canvas: HTMLCanvasElement; props: LayerProps } | null)[]) => {
-          // Draw each layer
-          all.forEach((layer) => {
-            if (layer) {
-              const cw = layer.props.dimensions || layer.canvas.width;
-              const ch = layer.props.dimensions || layer.canvas.height;
-
-              if (layer.canvas) {
-                // Blending
-                ctx.globalCompositeOperation = layer.props.blend || DEFAULT.blend;
-
-                // Alpha
-                ctx.globalAlpha = typeof layer.props.alpha === "number" ? layer.props.alpha : 1.0;
-
-                // Nearest neighbour rendering
-                effectNearest(ctx, layer.props);
-
-                // Apply filters
-                ctx.filter = layer.props.filter || DEFAULT.filter;
-
-                ctx.drawImage(layer.canvas, 0, 0, cw, ch, 0, 0, layer.canvas.width, layer.canvas.height);
+      if (typeof textureStored.get() !== "undefined") {
+        resolve(textureStored.get());
+      } else {
+        if (ctx) {
+          ctx.canvas.width = dimensions;
+          ctx.canvas.height = dimensions;
+          textureStored.set(ctx);
+          ctx.canvas.id = uuid;
+          Promise.all(
+            layers.map(async (layer) => {
+              const layerProps: LayerProps = { ...textureGlobals, dimensions, ...layer?.props };
+              const layerUuid = toUUID(layerProps);
+              const layerStored = storage("TEX", layerUuid);
+              if (typeof layerStored.get() !== "undefined") {
+                const ctxLayer = layerStored.get();
+                return { ctxLayer, canvas: ctxLayer.canvas, props: layerProps };
+              } else {
+                const ctxLayer = document.createElement("canvas").getContext("2d");
+                if (ctxLayer) {
+                  ctxLayer.canvas.width = ctx.canvas.width;
+                  ctxLayer.canvas.height = ctx.canvas.height;
+                  await drawLayer(ctxLayer, layerProps);
+                  layerStored.set(ctxLayer);
+                  return { ctxLayer, canvas: ctxLayer.canvas, props: layerProps };
+                }
               }
-            }
+              return null;
+            })
+          ).then((all: ({ ctxLayer: CanvasRenderingContext2D; canvas: HTMLCanvasElement; props: LayerProps } | null)[]) => {
+            // Draw each layer
+            all.forEach((layer) => {
+              if (layer) {
+                const cw = layer.props.dimensions || layer.canvas.width;
+                const ch = layer.props.dimensions || layer.canvas.height;
+
+                if (layer.canvas) {
+                  // Blending
+                  ctx.globalCompositeOperation = layer.props.blend || DEFAULT.blend;
+
+                  // Alpha
+                  ctx.globalAlpha = typeof layer.props.alpha === "number" ? layer.props.alpha : 1.0;
+
+                  // Nearest neighbour rendering
+                  effectNearest(ctx, layer.props);
+
+                  // Apply filters
+                  ctx.filter = layer.props.filter || DEFAULT.filter;
+
+                  ctx.drawImage(layer.canvas, 0, 0, cw, ch, 0, 0, layer.canvas.width, layer.canvas.height);
+                }
+              }
+            });
+            resolve(ctx);
           });
-          resolve(ctx);
-        });
+        }
       }
-      // }
     });
   };
 
@@ -121,7 +134,12 @@ export const useCanvas = (
           }
         }
         img.src = srcString;
-        img.onload = () => setEffects(ctxLayer, props).then(() => resolve());
+        img.onerror = (ev) => {
+          console.error("Image not found:", ev);
+        };
+        img.onload = () => {
+          setEffects(ctxLayer, props).then(() => resolve());
+        };
       }
     });
   };

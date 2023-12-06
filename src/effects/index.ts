@@ -12,3 +12,4 @@ export { effectShape } from "./shape";
 export { effectNearest } from "./nearest";
 export { effectFlip } from "./flip";
 export { effectSeamless } from "./seamless";
+export { effectNoise } from "./noise";

@@ -2,7 +2,7 @@ import newCanvasHelper from "../helpers/newCanvasHelper";
 import { DEFAULT } from "../setup";
 import { BloomProps, LayerProps } from "../types";
 
-export const effectBloom = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const effectBloom = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, props: LayerProps) => {
   if (props.bloom) {
     const { size, strength, softness, detail, darken } = { ...DEFAULT.bloom, ...(props.bloom as BloomProps) };
     newCanvasHelper(ctx, (ctxBloom) => {

@@ -1,4 +1,11 @@
-export const ctxRoundRect = function (ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
+export const ctxRoundRect = function (
+  ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  r: number
+) {
   if (Math.abs(w) < 2 * r) r = Math.abs(w) / 2;
   if (Math.abs(h) < 2 * r) r = Math.abs(h) / 2;
   ctx.beginPath();
@@ -40,7 +47,7 @@ type VectorType = {
 //    ctx.stroke();
 //    ctx.fill();
 // as it only adds a path and does not render.
-export const ctxRoundPoly2 = (ctx: CanvasRenderingContext2D, points: VectorProp[], radiusAll: number = 0) => {
+export const ctxRoundPoly2 = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, points: VectorProp[], radiusAll: number = 0) => {
   let i: number;
   let x: number;
   let y: number;
@@ -147,7 +154,7 @@ type VecProp = {
   x: number;
   y: number;
 };
-export const ctxRoundPoly = (ctx: CanvasRenderingContext2D, points: VecProp[], radius: number) => {
+export const ctxRoundPoly = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, points: VecProp[], radius: number) => {
   const distance = (p1: VecProp, p2: VecProp) => Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
 
   const lerp = (a: number, b: number, x: number) => a + (b - a) * x;

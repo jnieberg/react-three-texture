@@ -1,4 +1,4 @@
-const wrapText = (ctx: CanvasRenderingContext2D, text: string, maxWidth: number) => {
+const wrapText = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, text: string, maxWidth: number) => {
   var words = text.split(" ");
   var lines = [];
   var currentLine = words[0];

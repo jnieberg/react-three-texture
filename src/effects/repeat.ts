@@ -2,7 +2,7 @@ import newCanvasHelper from "../helpers/newCanvasHelper";
 import { LayerProps, TransformReturn } from "../types";
 import { effectFlip } from ".";
 
-export const effectRepeat = (ctx: CanvasRenderingContext2D, props: LayerProps, transform?: TransformReturn) => {
+export const effectRepeat = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, props: LayerProps, transform?: TransformReturn) => {
   if (props.repeat) {
     const texSize = [ctx.canvas.width, ctx.canvas.height];
 

@@ -1,6 +1,6 @@
 import { LayerProps } from "../../types";
 
-export const shapeCurve = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const shapeCurve = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, props: LayerProps) => {
   const curve = props.curve;
   if (curve) {
     const dims = props.dimensions || ctx.canvas.width;

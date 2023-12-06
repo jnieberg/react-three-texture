@@ -1,7 +1,7 @@
 import { ctxRoundRect } from "../../polyfill/ctx";
 import { LayerProps } from "../../types";
 
-export const shapeRect = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const shapeRect = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, props: LayerProps) => {
   const rect = props.rect;
   if (rect) {
     const dims = props.dimensions || ctx.canvas.width;

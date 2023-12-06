@@ -1,4 +1,8 @@
-const newCanvasHelper = (ctx: CanvasRenderingContext2D, callback: (ctxHelper: CanvasRenderingContext2D) => void, draw = true) => {
+const newCanvasHelper = (
+  ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
+  callback: (ctxHelper: CanvasRenderingContext2D) => void,
+  draw = true
+) => {
   const ctxHelper = document.createElement("canvas").getContext("2d");
   if (!ctxHelper) return;
 

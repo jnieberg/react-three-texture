@@ -1,7 +1,7 @@
 import { DEFAULT } from "../setup";
 import { LayerProps, ShadowProps } from "../types";
 
-export const effectShadow = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const effectShadow = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, props: LayerProps) => {
   if (props.shadow) {
     const { color, blur, offset } = { ...DEFAULT.shadow, ...(props.shadow as ShadowProps) };
     const dims = props.dimensions || ctx.canvas.width;

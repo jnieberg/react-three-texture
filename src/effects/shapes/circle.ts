@@ -1,6 +1,6 @@
 import { LayerProps } from "../../types";
 
-export const shapeCircle = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const shapeCircle = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, props: LayerProps) => {
   const circle = props.circle;
   if (circle) {
     const dims = props.dimensions || ctx.canvas.width;

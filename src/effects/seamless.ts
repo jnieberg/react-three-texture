@@ -3,7 +3,7 @@ import { DEFAULT } from "../setup";
 import { LayerProps, SeamlessProps } from "../types";
 import { effectAlpha, effectFlip, effectGradient } from ".";
 
-export const effectSeamless = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const effectSeamless = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, props: LayerProps) => {
   if (props.seamless) {
     const { offset, size, both, alphaOffset, alphaReverse, flipX, flipY } = { ...DEFAULT.seamless, ...(props.seamless as SeamlessProps) };
     const xyArr = both

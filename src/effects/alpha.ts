@@ -1,7 +1,7 @@
 import { DEFAULT } from "../setup";
 import { AlphaProps, LayerProps } from "../types";
 
-export const effectAlpha = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const effectAlpha = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, props: LayerProps) => {
   if (props.alpha && typeof props.alpha !== "number") {
     const { level, power, offset, reverse } = { ...DEFAULT.alpha, ...(props.alpha as AlphaProps) };
     const imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);

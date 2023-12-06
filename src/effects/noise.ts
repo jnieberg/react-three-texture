@@ -5,7 +5,7 @@ import { rgbToHex } from "../helpers/rgbToHex";
 import { LayerProps } from "../types";
 import * as ColorString from "color-string";
 
-export const effectNoise = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const effectNoise = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, props: LayerProps) => {
   const noise = props.noise;
   if (noise) {
     const random = new Random(`noise_${noise.seed}`);

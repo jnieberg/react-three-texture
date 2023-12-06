@@ -2,7 +2,7 @@ import newCanvasHelper from "../helpers/newCanvasHelper";
 import { DEFAULT } from "../setup";
 import { LayerProps } from "../types";
 
-export const effectColor = (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const effectColor = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, props: LayerProps) => {
   const isShape = props.circle || props.curve || props.line || props.rect || props.text;
   if (props.color && !isShape) {
     newCanvasHelper(ctx, (ctxColor) => {

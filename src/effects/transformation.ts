@@ -3,7 +3,7 @@ import storage from "../storage/storage";
 import { LayerProps, TransformReturn } from "../types";
 
 export const effectTransformation = async (
-  ctx: CanvasRenderingContext2D,
+  ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
   props: LayerProps,
   callback: (transform?: TransformReturn) => Promise<void> | void = () => {}
 ) => {

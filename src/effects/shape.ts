@@ -2,7 +2,7 @@ import { DEFAULT } from "../setup";
 import { LayerProps } from "../types";
 import { shapeLine, shapeCircle, shapeRect, shapeCurve, shapeText, shapePoly } from "./shapes";
 
-export const effectShape = async (ctx: CanvasRenderingContext2D, props: LayerProps) => {
+export const effectShape = async (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, props: LayerProps) => {
   const dims = props.dimensions || ctx.canvas.width;
   const color = !props.color || typeof props.color === "boolean" ? DEFAULT.color : props.color;
   const scale = props.scale?.[0] || 1;

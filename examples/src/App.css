@@ -9,6 +9,7 @@
   bottom: 0;
   left: 0;
   display: none;
+  pointer-events: none;
 }
 
 #textureset__preview > .texture {
