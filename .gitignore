@@ -1,5 +1,3 @@
-.npmrc
-
 # dependencies
 /node_modules
 
@@ -8,6 +6,7 @@
 /dist
 
 # misc
+.npmrc
 .DS_Store
 .env.local
 .env.development.local
