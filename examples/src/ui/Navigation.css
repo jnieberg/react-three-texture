@@ -1,18 +1,24 @@
 nav {
-  position: absolute;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.8);
   z-index: 1;
+  max-height: calc(100% - 32px);
+  overflow-y: auto;
+  margin: 8px;
+  border-radius: 8px;
+  padding: 8px;
 }
 
 nav a {
-  color: #e0e0e0;
+  display: block;
+  color: #a0a0a0;
   font-size: 18px;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   text-shadow: 1px 1px #000000;
-  display: inline-block;
   height: 16px;
   padding: 2px 8px 8px;
-  margin: 8px 0px 0;
   text-decoration: none;
+  border-radius: 8px;
 }
 
 nav a.selected {
@@ -20,28 +26,25 @@ nav a.selected {
 }
 
 nav a.more-info {
-  position: relative;
   color: #ffffff;
-  font-size: 14px;
-  background-color: #0044ff44;
+  font-size: 13px;
+  background-color: #4488cc;
   border-radius: 16px;
   text-shadow: none;
-  margin: 8px 8px 0;
-  top: -1px;
+  margin-bottom: 8px;
+  text-align: center;
 }
 
 nav a:hover {
-  text-decoration: underline;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 nav a.more-info:hover {
   text-decoration: none;
-  background-color: #0044ff88;
+  background-color: #66aaee;
 }
 
 .submenu {
-  position: absolute;
-  top: 32px;
-  left: 104px;
-  z-index: 1;
+  margin-left: 8px;
+  margin-bottom: 8px;
 }

@@ -31,7 +31,7 @@ export const shapeText = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderi
       if (font.indexOf(".") > 0) {
         let fontFace = storage("FON", font).get();
         if (!fontFace) {
-          const srcString = font.search(/^(blob:)?https?:\/\//) === 0 ? font : require(`/src/assets/${font}`);
+          const srcString = font.search(/^(blob:)?https?:\/\//) === 0 ? font : new URL(`/src/assets/${font}`, import.meta.url).href;
           fontFace = new FontFace(name, `url(${srcString})`);
           storage("FON", font).set(fontFace);
         }

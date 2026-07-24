@@ -3,7 +3,17 @@
   "author": "Jorg Nieberg",
   "description": "Live texture editing tool for ThreeJS and React Three Fiber",
   "license": "MIT",
-  "version": "1.1.18",
+  "version": "1.2.0",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "private": false,
   "repository": {
     "type": "git",
@@ -11,6 +21,7 @@
   },
   "keywords": [
     "texture",
+    "3d",
     "layers",
     "material",
     "image",
@@ -25,62 +36,38 @@
     "effect",
     "gradient"
   ],
+  "dependencies": {
+    "color-string": "^1.9.1"
+  },
   "devDependencies": {
-    "@react-three/fiber": "^8.6.2",
-    "@rollup/plugin-commonjs": "^22.0.2",
-    "@rollup/plugin-node-resolve": "^13.3.0",
-    "@rollup/plugin-typescript": "^8.4.0",
-    "@types/color-string": "^1.5.5",
-    "@types/react": "^18.2.37",
-    "@types/three": "^0.158.2",
-    "copyfiles": "^2.4.1",
-    "json": "^11.0.0",
-    "npm-run-all": "^4.1.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "rollup": "^2.79.0",
-    "rollup-plugin-dts": "^4.2.2",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-terser": "^7.0.2",
-    "three": "^0.158.0",
-    "tslib": "^2.4.0",
-    "typescript": "^4.8.2"
+    "@react-three/fiber": "^8.17.14",
+    "@types/node": "^22.13.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@types/three": "^0.174.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "^0.174.0",
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3"
   },
   "peerDependencies": {
-    "@react-three/fiber": ">=8.0",
-    "react": ">=18.0",
-    "react-dom": ">=18.0",
-    "three": ">=0.137"
+    "@react-three/fiber": ">=8.0.0",
+    "react": ">=18.0.0",
+    "three": ">=0.140.0"
   },
   "scripts": {
-    "build": "npm-run-all close build:clean build:copy build:rollup",
-    "build:clean": "rm -rf dist",
-    "build:rollup": "rollup -c",
-    "build:copy": "copyfiles package.json README.md LICENSE dist && json -I -f dist/package.json -e \"this.private=false; this.devDependencies=undefined; this.optionalDependencies=undefined; this.scripts=undefined; this.prettier=undefined; this['lint-staged']=undefined;\"",
-    "open": "npm-run-all open:marker open:clean open:copy open:replace",
-    "open:marker": "touch !!EDIT_DO_NOT_PUSH",
-    "open:clean": "rm -rf ./examples/src/temp",
-    "open:copy": "cp -R ./src ./examples/src/temp",
-    "open:replace": "find ./examples/src/demos -type f -name '*.tsx' -exec sed -i '' 's/\"react-three-texture\"/\"\\.\\.\\/temp\"/g' {} \\;",
-    "save": "npm-run-all save:clean save:copy",
-    "save:clean": "rm -rf ./src",
-    "save:copy": "cp -R ./examples/src/temp ./src",
-    "close": "npm-run-all save close:replace close:marker",
-    "close:marker": "rm -rf !!EDIT_DO_NOT_PUSH",
-    "close:replace": "find ./examples/src/demos -type f -name '*.tsx' -exec sed -i '' 's/\".*\\/temp\"/\"react-three-texture\"/g' {} \\;"
+    "dev": "tsup ./src/index.ts --watch",
+    "build": "tsup ./src/index.ts --shims",
+    "prepublishOnly": "npm run build"
   },
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
-  "types": "./dist/index.d.ts",
   "bugs": {
     "url": "https://github.com/jnieberg/react-three-texture/issues"
   },
-  "homepage": "https://github.com/jnieberg/react-three-texture#readme",
-  "dependencies": {
-    "color-string": "^1.9.1"
-  }
+  "homepage": "https://github.com/jnieberg/react-three-texture#readme"
 }

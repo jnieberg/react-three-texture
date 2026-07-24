@@ -1,8 +1,6 @@
 import { FC, useEffect, useRef, useState } from "react";
 import DemoProps from "../types/Demo";
-import { useCanvas } from "../temp/components/hooks/useCanvas";
-import Bricks from "../temp/components/presets/Bricks";
-import { Layer } from "react-three-texture";
+import { Layer, useCanvas, Bricks } from "react-three-texture";
 import { CanvasTexture, MeshStandardMaterial } from "three";
 
 const Misc: FC<DemoProps> = () => {
@@ -15,7 +13,7 @@ const Misc: FC<DemoProps> = () => {
       <Bricks color="#444444" width={0.1} height={0.05} thickness={0.01} offsetX={0.02} randomize={[1, 1]} layer={{ blend: "lighter" }} />
       <Bricks color="#444444" width={0.05} height={0.025} thickness={0.005} offsetX={0.01} randomize={[1, 1]} layer={{ blend: "lighter" }} />
     </>,
-    512
+    512,
   );
 
   useEffect(() => {

@@ -23,9 +23,15 @@ import { useEffect, useState } from "react";
 import flattenChildren from "../../helpers/flattenChildren";
 import storage from "../../storage/storage";
 
+/**
+ * A custom hook for creating a canvas element from React nodes
+ * @param children The React nodes to be rendered onto the canvas
+ * @param dimensions The dimensions of the canvas (width and height)
+ * @returns A HTMLCanvasElement created from the rendered React nodes
+ */
 export const useCanvas = (
   children: React.ReactNode,
-  dimensions: number = textureGlobals.dimensions || DEFAULT.dimensions
+  dimensions: number = textureGlobals.dimensions || DEFAULT.dimensions,
 ): HTMLCanvasElement | null => {
   const [texture, setTexture] = useState<HTMLCanvasElement | null>(null);
   const layers = flattenChildren(children);
@@ -64,7 +70,7 @@ export const useCanvas = (
                 }
               }
               return null;
-            })
+            }),
           ).then((all: ({ ctxLayer: CanvasRenderingContext2D; canvas: HTMLCanvasElement; props: LayerProps } | null)[]) => {
             // Draw each layer
             all.forEach((layer) => {
@@ -130,7 +136,7 @@ export const useCanvas = (
             img.crossOrigin = "Anonymous";
             srcString = src;
           } else {
-            srcString = require(`/src/assets/${src}`);
+            srcString = new URL(`/src/assets/${src}`, import.meta.url).href;
           }
         }
         img.src = srcString;

@@ -375,12 +375,7 @@ const getControls = (location: string) => {
     case "/renders":
       controls = {
         Noise: folder({
-          "random seed": {
-            value: 0,
-            min: 0,
-            max: 1000000,
-            step: 1,
-          },
+          type: { options: ["perlin", "random"] },
           "perlin seed": {
             value: 0,
             min: 0,

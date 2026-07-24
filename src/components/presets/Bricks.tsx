@@ -2,7 +2,12 @@ import Random from "../../helpers/Random";
 import { Layer } from "../Layer";
 import { BricksProps } from "../../types";
 
-const Bricks = (props: BricksProps) => {
+/**
+ * A component for creating a bricks pattern
+ * @param props The props for the bricks pattern
+ * @returns A React component rendering the bricks pattern
+ */
+export const Bricks = (props: BricksProps) => {
   const {
     color = "white",
     width = 0.5,
@@ -62,18 +67,16 @@ const Bricks = (props: BricksProps) => {
           const randomColor = new Random(`bricks_color_${seed}_${i}_${j}`);
           const c = randomColor.int(0, newColor.length - 1);
           return { x1: x1 - vs1, y1, x2: x2 - vs2, y2, s1: x1 + vs1, s2: x2 + vs2, color: newColor[c] };
-        })
+        }),
       );
-    })
+    }),
   );
 
   return (
     <>
       {bricks.map(
-        (p, o) => p && <Layer key={`verticals_${o}`} color={p.color} poly={[p.x1, p.y1, p.x2, p.y1, p.s2, p.y2, p.s1, p.y2, radius]} {...layer} />
+        (p, o) => p && <Layer key={`verticals_${o}`} color={p.color} poly={[p.x1, p.y1, p.x2, p.y1, p.s2, p.y2, p.s1, p.y2, radius]} {...layer} />,
       )}
     </>
   );
 };
-
-export default Bricks;

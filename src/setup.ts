@@ -1,7 +1,10 @@
 import { LayerProps } from "./types";
 
+/**
+ * This constant defines the default properties for a texture set, providing baseline values for various visual effects and transformations. It includes default settings for dimensions, image source, position, scale, rotation, color, fill, gradient, nearest neighbor filtering, shadow, outline, filter, blending mode, alpha settings, bloom effects, shape thickness, text properties, and seamless tiling. These defaults serve as a starting point for creating textures and can be overridden by user-defined properties when generating texture sets.
+ */
 export const DEFAULT = {
-  dimensions: 1024,
+  dimensions: 256,
   src: "",
   image: "size-max center middle",
   position: [0, 0],
@@ -56,6 +59,9 @@ export const DEFAULT = {
   },
 } as const;
 
+/**
+ * This variable holds the global properties for a texture set, allowing for the configuration of various visual effects and transformations. It includes properties for dimensions, image source, position, scale, rotation, color, fill, gradient, nearest neighbor filtering, shadow, outline, filter, blending mode, alpha settings, bloom effects, seamless tiling, and noise generation. These global properties can be modified to customize the appearance and behavior of textures generated within the application.
+ */
 export let textureGlobals: LayerProps = {
   dimensions: undefined,
   src: undefined,
@@ -76,6 +82,10 @@ export let textureGlobals: LayerProps = {
   seamless: undefined,
 };
 
+/**
+ * This function updates the global properties for a texture set with the provided properties, allowing for the customization of various visual effects and transformations. It merges the specified properties into the existing `textureGlobals` object, enabling users to modify settings such as dimensions, image source, position, scale, rotation, color, fill, gradient, nearest neighbor filtering, shadow, outline, filter, blending mode, alpha settings, bloom effects, seamless tiling, and noise generation. This function can be used to set default values for texture generation operations within the application.
+ * @param props The properties to be merged into the global texture settings, allowing for customization of visual effects and transformations in texture generation.
+ */
 export const textureDefaults = (props: LayerProps) => {
   Object.assign(textureGlobals, props);
 };

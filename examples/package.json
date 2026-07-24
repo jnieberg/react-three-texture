@@ -1,27 +1,37 @@
 {
-  "name": "texture-demo",
-  "version": "0.1.0",
+  "name": "react-three-texture-examples",
+  "version": "1.0.0",
   "private": true,
+  "type": "module",
   "dependencies": {
-    "@react-three/drei": "^9.88.11",
-    "@react-three/fiber": "^8.15.10",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/react": "^18.2.37",
-    "leva": "^0.9.35",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "^5.0.1",
-    "react-three-texture": "*",
-    "three": "^0.158.0",
-    "typescript": "^4.8.2",
-    "web-vitals": "^2.1.4",
-    "wouter": "^2.8.0-alpha.2"
+    "@react-three/drei": "^9.121.5",
+    "@react-three/fiber": "^8.17.14",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-three-texture": "file:..",
+    "three": "^0.174.0",
+    "@testing-library/jest-dom": "^7.0.0",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^19.2.17",
+    "leva": "^0.10.1",
+    "typescript": "^7.0.2",
+    "web-vitals": "^6.0.0",
+    "wouter": "^3.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@types/three": "^0.174.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "npm-run-all build:texture build:demo",
+    "dev": "npm run build --prefix .. && vite",
+    "build": "npm run build --prefix .. && tsc && vite build",
+    "preview": "vite preview",
     "build:texture": "yarn add react-three-texture@latest",
     "build:demo": "INLINE_RUNTIME_CHUNK=false react-scripts build"
   },
@@ -42,9 +52,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/three": "^0.158.2",
-    "npm-run-all": "^4.1.5"
   }
 }

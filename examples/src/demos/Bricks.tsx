@@ -1,8 +1,7 @@
 import { useControls } from "leva";
 import { FC } from "react";
-import { Layer, MapType, TextureSet } from "react-three-texture";
+import { Layer, MapType, TextureSet, Bricks } from "react-three-texture";
 import DemoProps from "../types/Demo";
-import Bricks from "../temp/components/presets/Bricks";
 
 const Presets: FC<DemoProps> = ({ globalProps, ...props }) => {
   const { mesh: Mesh } = globalProps;
