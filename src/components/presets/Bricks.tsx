@@ -30,7 +30,7 @@ export const Bricks = (props: BricksProps) => {
   const verticals = new Array(Math.ceil(1.0 / height))
     .fill(null)
     .map((_, y) => new Array(Math.ceil(1.0 / width)).fill(null).map((_, x) => (x + sx()) * width + ((y * offsetX) % 1)));
-  const verticalsS = verticals.map((vert) => vert.map((v) => ss()));
+  const verticalsS = verticals.map((vert) => vert.map((_) => ss()));
   const bricks: ({ x1: number; y1: number; x2: number; y2: number; s1: number; s2: number; color: string } | null)[] = [];
 
   horizontals.forEach((h1, i) =>
