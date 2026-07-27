@@ -31,9 +31,7 @@
   "scripts": {
     "dev": "npm run build --prefix .. && vite",
     "build": "tsc && vite build",
-    "preview": "vite preview",
-    "build:texture": "yarn add react-three-texture@latest",
-    "build:demo": "INLINE_RUNTIME_CHUNK=false react-scripts build"
+    "preview": "vite preview"
   },
   "eslintConfig": {
     "extends": [
