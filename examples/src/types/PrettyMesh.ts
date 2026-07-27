@@ -1,14 +1,9 @@
-import { BoxGeometryProps, MeshProps } from "@react-three/fiber";
+import type { ThreeElements } from "@react-three/fiber";
 import { ReactNode } from "react";
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      roundedBoxGeometry: BoxGeometryProps;
-    }
-  }
-}
+// Access JSX element prop types directly:
+type MeshProps = ThreeElements["mesh"];
 
-export default interface PrettyMeshProps extends MeshProps, Record<string, any> {
+export interface PrettyMeshProps extends MeshProps, Record<string, any> {
   children?: ReactNode;
 }

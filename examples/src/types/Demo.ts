@@ -1,5 +1,5 @@
 import { FC } from "react";
-import PrettyMeshProps from "./PrettyMesh";
+import { PrettyMeshProps } from "./PrettyMesh";
 
 export default interface DemoProps extends Record<string, any> {
   globalProps: GlobalControlProps;

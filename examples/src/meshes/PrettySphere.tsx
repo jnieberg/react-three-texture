@@ -1,7 +1,7 @@
 import { extend } from "@react-three/fiber";
 import { DoubleSide } from "three";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
-import PrettyMeshProps from "../types/PrettyMesh";
+import { PrettyMeshProps } from "../types/PrettyMesh";
 
 extend({ RoundedBoxGeometry });
 

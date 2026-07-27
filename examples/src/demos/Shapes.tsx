@@ -1,10 +1,10 @@
 import { useControls } from "leva";
 import { FC } from "react";
-import { Vec2 } from "three";
+import { Vector2 } from "three";
 import { Layer, MapType, TextureSet } from "react-three-texture";
 import DemoProps from "../types/Demo";
 
-const ShapeTexture = ({ map, p1, p2, p3, p4 }: { map?: MapType; p1: Vec2; p2: Vec2; p3: Vec2; p4: Vec2 }) => {
+const ShapeTexture = ({ map, p1, p2, p3, p4 }: { map?: MapType; p1: Vector2; p2: Vector2; p3: Vector2; p4: Vector2 }) => {
   const props = { color: "black", outline: map ? false : { color: "#88ff00", size: 10, detail: 20 } };
 
   return (

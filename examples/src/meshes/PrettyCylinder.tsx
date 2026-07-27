@@ -1,5 +1,5 @@
 import { DoubleSide } from "three";
-import PrettyMeshProps from "../types/PrettyMesh";
+import { PrettyMeshProps } from "../types/PrettyMesh";
 
 const PrettyCylinder = ({ children, ...props }: PrettyMeshProps) => {
   return (

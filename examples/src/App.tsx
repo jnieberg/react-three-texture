@@ -1,9 +1,12 @@
 import "./App.css";
-import { Canvas, invalidate, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, extend, invalidate, useFrame, useThree } from "@react-three/fiber";
 import { ACESFilmicToneMapping, SpotLight, SRGBColorSpace, Vector3, VSMShadowMap } from "three";
 import { Suspense, useEffect, useRef } from "react";
 import { Environment, OrbitControls, Plane } from "@react-three/drei";
 import { Navigation, Pages } from "./ui/Navigation";
+import { RoundedBoxGeometry } from "three-stdlib";
+
+extend({ RoundedBoxGeometry });
 
 const SceneSetup = () => {
   const { gl } = useThree();
@@ -20,7 +23,7 @@ const SceneSetup = () => {
 
   return (
     <>
-      <fog attach="fog" color={backColor} near={25} far={50} />
+      <fog attach="fog" args={[backColor, 25, 50]} />
       <color attach="background" args={[backColor]} />
       <Plane position={[0, -0.01, 0]} rotation={[-Math.PI * 0.5, 0, 0]} scale={[100, 100, 100]} receiveShadow>
         <meshStandardMaterial attach="material" color={floorColor} />
@@ -84,7 +87,6 @@ const App = () => (
         antialias: true,
         alpha: true,
         stencil: false,
-        pixelRatio: window.devicePixelRatio,
         outputColorSpace: SRGBColorSpace,
         powerPreference: "high-performance",
         toneMapping: ACESFilmicToneMapping,

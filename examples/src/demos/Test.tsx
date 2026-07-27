@@ -49,10 +49,10 @@ const Test: FC<DemoProps> = () => {
       <Layer circle={[0.5, 0.5, 0.4]} color="black" shapeThickness={16} />
       <ExtraLayer />
     </>,
-    64
+    64,
   );
 
-  const envTexture = useTextureSet(<Layer src="https://images.unsplash.com/photo-1570284613060-766c33850e00" />, 2048, true);
+  const envTexture = useTextureSet(<Layer src="https://images.unsplash.com/photo-1570284613060-766c33850e00" />, 2048);
 
   const children = (
     <>

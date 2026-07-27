@@ -1,5 +1,5 @@
 import { DoubleSide } from "three";
-import PrettyMeshProps from "../types/PrettyMesh";
+import { PrettyMeshProps } from "../types/PrettyMesh";
 
 const PrettyPlane = ({ children, ...props }: PrettyMeshProps) => (
   <mesh castShadow receiveShadow {...props} position={[props.x || 0, -0.5, 0]} rotation={[-Math.PI * 0.5, 0, 0]}>
