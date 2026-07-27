@@ -54,7 +54,7 @@
     "react-dom": "^19.2.8",
     "three": "^0.185.1",
     "tsup": "^8.5.1",
-    "typescript": "^7.0.2"
+    "typescript": "^6.0.3"
   },
   "peerDependencies": {
     "@react-three/fiber": ">=9.6.1",
