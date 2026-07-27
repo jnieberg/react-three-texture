@@ -1,7 +1,6 @@
 [build]
   base = "examples"
-  command = "npm run build"
-  publish = "examples/dist"
+  command = "cd .. && npm install && npm run build && cd examples && npm run build"
 
 [build.environment]
   NODE_VERSION = "24"
