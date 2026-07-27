@@ -1,3 +1,15 @@
+[build]
+  # 1. Installs root & examples dependencies, 2. Builds root package, 3. Builds examples app
+  command = "npm run build && npm run build --prefix examples"
+  
+  # Directory where Vite outputs the production build for the demo site
+  publish = "examples/dist"
+
+[build.environment]
+  # Ensures Netlify uses a modern Node.js version
+  NODE_VERSION = "24"
+
+# Optional: Redirect all routes to index.html if your demo uses client-side routing (React Router, etc.)
 [[redirects]]
   from = "/*"
   to = "/index.html"

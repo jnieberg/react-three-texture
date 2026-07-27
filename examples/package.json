@@ -4,12 +4,12 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@react-three/drei": "^9.121.5",
-    "@react-three/fiber": "^8.17.14",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-three-texture": "file:..",
-    "three": "^0.174.0",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-three-texture": "../",
+    "three": "^0.185.1",
     "@testing-library/jest-dom": "^7.0.0",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
@@ -20,13 +20,13 @@
     "wouter": "^3.10.0"
   },
   "devDependencies": {
-    "@types/node": "^22.13.0",
-    "@types/react": "^18.3.18",
-    "@types/react-dom": "^18.3.5",
-    "@types/three": "^0.174.0",
-    "@vitejs/plugin-react": "^4.3.4",
-    "typescript": "^5.7.3",
-    "vite": "^6.1.0"
+    "@types/node": "^26.1.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.185.1",
+    "@vitejs/plugin-react": "^6.0.4",
+    "typescript": "^7.0.2",
+    "vite": "^8.1.5"
   },
   "scripts": {
     "dev": "npm run build --prefix .. && vite",

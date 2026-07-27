@@ -3,7 +3,7 @@ import { mixColors } from "../helpers/mixColors";
 import newCanvasHelper from "../helpers/newCanvasHelper";
 import { rgbToHex } from "../helpers/rgbToHex";
 import { LayerProps } from "../types";
-import * as ColorString from "color-string";
+import colorString from "color-string";
 
 export const effectNoise = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, props: LayerProps) => {
   const noise = props.noise;
@@ -29,8 +29,9 @@ export const effectNoise = (ctx: CanvasRenderingContext2D | OffscreenCanvasRende
         ctxNoise.canvas.height = h;
 
         const randomNoise = (): CanvasRenderingContext2D => {
-          const fromColor = ColorString.get.rgb(noise.from || "white");
-          const toColor = ColorString.get.rgb(noise.to || "black");
+          const defaultColour = [255, 255, 255, 1];
+          const fromColor = colorString.get.rgb(noise.from || "white") || defaultColour;
+          const toColor = colorString.get.rgb(noise.to || "black") || defaultColour;
           const iData = ctxNoise.createImageData(w, h);
           const buffer32 = new Uint32Array(iData.data.buffer);
           const len = buffer32.length;
@@ -70,7 +71,7 @@ export const effectNoise = (ctx: CanvasRenderingContext2D | OffscreenCanvasRende
         }
         ctx.drawImage(ctxNoise.canvas, 0, 0, w, h, 0, 0, ctx.canvas.width, ctx.canvas.height);
       },
-      false
+      false,
     );
   }
 };
