@@ -19,11 +19,7 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "paths": {
-      "*": ["./*"],
-      "react-three-texture": ["../dist/index.d.ts"]
-    }
+    "noFallthroughCasesInSwitch": true
   },
   /* Include both examples/src AND the root src folder */
   "include": ["src"]
