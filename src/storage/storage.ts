@@ -1,5 +1,3 @@
-import { CanvasTexture } from "three";
-
 type KeyProps<T> = Record<string, T>;
 
 type Key = "IMG" | "LAY" | "TEX" | "FON";
@@ -7,10 +5,10 @@ type Key = "IMG" | "LAY" | "TEX" | "FON";
 type StoredObject<T> = T extends "IMG"
   ? HTMLImageElement
   : T extends "LAY"
-  ? HTMLCanvasElement
-  : T extends "FON"
-  ? FontFace
-  : CanvasRenderingContext2D;
+    ? HTMLCanvasElement
+    : T extends "FON"
+      ? FontFace
+      : CanvasRenderingContext2D;
 
 type StorageRet<T> = {
   get: () => StoredObject<T>;

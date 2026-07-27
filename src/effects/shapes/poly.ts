@@ -6,7 +6,7 @@ export const shapePoly = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderi
   if (poly) {
     const dims = props.dimensions || ctx.canvas.width;
     const polyArgs = poly
-      .filter((p, i) => i % 2 === 0 && i < poly.length - 1)
+      .filter((_, i) => i % 2 === 0 && i < poly.length - 1)
       .map((p, j) => ({
         x: p * dims,
         y: poly[j * 2 + 1] * dims,

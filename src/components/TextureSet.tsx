@@ -1,7 +1,7 @@
 import * as React from "react";
 import { SRGBColorSpace } from "three";
 import { TextureSetProps } from "../types/TextureSet";
-import { PrimitiveProps } from "@react-three/fiber";
+import type { ThreeElements } from "@react-three/fiber";
 import { useTextureSet } from "./hooks/useTextureSet";
 
 /**
@@ -11,7 +11,7 @@ import { useTextureSet } from "./hooks/useTextureSet";
  * @returns A React component that renders a Three.js primitive with the generated texture set.
  */
 const TextureSet: React.FC<TextureSetProps> = React.forwardRef(({ map, dimensions, children, ...propsMap }, forwardRef) => {
-  const ref = React.useRef<PrimitiveProps>();
+  const ref = React.useRef<ThreeElements["primitive"]>(null);
   const texture = useTextureSet(children, dimensions);
 
   React.useImperativeHandle(forwardRef, () => ref.current);

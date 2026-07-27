@@ -25,5 +25,6 @@
       "react-three-texture": ["../dist/index.d.ts"]
     }
   },
-  "include": ["src"]
+  /* Include both examples/src AND the root src folder */
+  "include": ["src", "../src/**/*"]
 }

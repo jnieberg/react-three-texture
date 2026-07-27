@@ -7,7 +7,7 @@ export const effectGradient = (ctx: CanvasRenderingContext2D | OffscreenCanvasRe
     const { type, from, to, stops } = { ...DEFAULT.gradient[gradientProp.type || DEFAULT.gradient.type], ...gradientProp };
     const dims = props.dimensions || ctx.canvas.width;
     let args: number[] = [...from, ...to];
-    args = args.map((a, i) => args[i] * dims);
+    args = args.map((_, i) => args[i] * dims);
 
     const canvasGradient =
       type === "radial"

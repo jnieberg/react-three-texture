@@ -1,14 +1,13 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import path from "path";
+import { fileURLToPath } from "url";
 
 // https://vite.dev
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      // Points directly to the root source file during dev
-      "react-three-texture": path.resolve(__dirname, "../src/index.ts"),
+      "react-three-texture": fileURLToPath(new URL("../src/index.ts", import.meta.url)),
     },
   },
   server: {
