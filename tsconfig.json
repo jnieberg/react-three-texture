@@ -18,6 +18,10 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Declaration emit */
+    "declaration": true,
+    "declarationDir": "dist"
   }
 }
