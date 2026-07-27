@@ -3,7 +3,7 @@
   command = "cd .. && npm install && npm run build && cd examples && npm run build"
 
 [build.environment]
-  NODE_VERSION = "24"
+  NODE_VERSION = "20"
 
 [[redirects]]
   from = "/*"
