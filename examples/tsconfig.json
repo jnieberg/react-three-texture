@@ -26,5 +26,5 @@
     }
   },
   /* Include both examples/src AND the root src folder */
-  "include": ["src", "../src/**/*"]
+  "include": ["src"]
 }
