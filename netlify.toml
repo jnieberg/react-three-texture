@@ -1,6 +1,6 @@
 [build]
   # 1. Installs root & examples dependencies, 2. Builds root package, 3. Builds examples app
-  command = "npm run build && cd examples && npm install && npm run build"
+  command = "npm run build"
   
   # Directory where Vite outputs the production build for the demo site
   publish = "examples/dist"
