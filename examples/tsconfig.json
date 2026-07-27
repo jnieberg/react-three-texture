@@ -21,6 +21,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
+      "*": ["./*"],
       "react-three-texture": ["../dist/index.d.ts"]
     }
   },
