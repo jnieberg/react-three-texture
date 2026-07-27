@@ -30,7 +30,7 @@
   },
   "scripts": {
     "dev": "npm run build --prefix .. && vite",
-    "build": "npm run build --prefix .. && tsc && vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "build:texture": "yarn add react-three-texture@latest",
     "build:demo": "INLINE_RUNTIME_CHUNK=false react-scripts build"
