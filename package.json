@@ -62,8 +62,8 @@
     "three": ">=0.185.0"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --shims",
-    "dev": "tsup src/index.ts --format cjs,esm --shims --watch",
+    "build": "tsup",
+    "dev": "tsup --watch",
     "prepublishOnly": "npm run build"
   },
   "files": [
